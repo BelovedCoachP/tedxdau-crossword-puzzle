@@ -5,25 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Driving Change: TEDxDAU Crossword Puzzle (Printable)</title>
   <style>
-    /* Basic styles */
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      color: #2b2b2b;
+    /* Reset and base styles */
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
     
-    .container {
-      max-width: 1000px;
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: #2b2b2b;
+      background-color: white;
+    }
+    
+    /* Container for each page */
+    .page {
+      width: 100%;
+      max-width: 8.5in;
+      min-height: 11in;
       margin: 0 auto;
-      padding: 20px;
+      padding: 0.5in;
+      position: relative;
     }
     
     h1 {
       color: #e62b1e;
       text-align: center;
       margin-bottom: 20px;
+      font-size: 24px;
     }
     
     .button-container {
@@ -50,7 +60,7 @@
     .grid-container {
       display: flex;
       justify-content: center;
-      margin-bottom: 40px;
+      margin: 30px 0;
     }
     
     .crossword-grid {
@@ -84,6 +94,7 @@
     .clues-container {
       column-count: 2;
       column-gap: 30px;
+      margin-top: 20px;
     }
     
     .clue-section h2 {
@@ -91,163 +102,194 @@
       border-bottom: 2px solid #e62b1e;
       padding-bottom: 5px;
       margin-top: 0;
+      margin-bottom: 15px;
+      break-after: avoid;
       column-span: all;
     }
     
     .clue-list {
       padding-left: 25px;
+      margin-bottom: 20px;
     }
     
     .clue-list li {
       margin-bottom: 8px;
       break-inside: avoid;
+      font-size: 12px;
     }
     
     /* Print specific styles */
     @media print {
-      .button-container {
-        display: none;
+      .button-container, .no-print {
+        display: none !important;
       }
       
+      /* Force page break between pages */
       .page {
         page-break-after: always;
+        page-break-inside: avoid;
       }
       
-      .grid-container {
-        margin-top: 50px;
-      }
-      
-      .crossword-grid td {
-        width: 30px;
-        height: 30px;
+      /* Keep answers hidden on print unless specifically shown */
+      #answers-page {
+        display: none !important;
       }
       
       body {
-        padding: 0;
         margin: 0;
+        padding: 0;
+        background-color: white;
+      }
+      
+      /* Adjustments for grid size on paper */
+      .crossword-grid td {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+      }
+      
+      /* Ensure clues fit on one page */
+      .clues-container {
+        font-size: 10px;
+      }
+      
+      .clue-list li {
+        font-size: 10px;
+        line-height: 1.4;
+        margin-bottom: 6px;
+      }
+      
+      h1 {
+        font-size: 20px;
+        margin-bottom: 15px;
+      }
+      
+      /* Preserve background colors */
+      .crossword-grid td.black {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        background-color: #000 !important;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="button-container">
-      <button onclick="window.print()">Print Puzzle</button>
-      <button onclick="toggleAnswers()">Toggle Answers</button>
-    </div>
+  <div class="button-container no-print">
+    <button onclick="window.print()">Print Puzzle</button>
+    <button onclick="toggleAnswers()">Toggle Answers</button>
+  </div>
+  
+  <!-- PUZZLE PAGE -->
+  <div id="puzzle-page" class="page">
+    <h1>Driving Change: TEDxDAU Crossword Puzzle</h1>
     
-    <!-- PUZZLE PAGE -->
-    <div id="puzzle-page" class="page">
-      <h1>Driving Change: TEDxDAU Crossword Puzzle</h1>
-      
-      <div class="grid-container">
-        <table id="crossword-grid" class="crossword-grid">
-          <!-- Grid will be filled by JavaScript -->
-        </table>
-      </div>
+    <div class="grid-container">
+      <table id="crossword-grid" class="crossword-grid">
+        <!-- Grid will be filled by JavaScript -->
+      </table>
     </div>
+  </div>
+  
+  <!-- CLUES PAGE -->
+  <div id="clues-page" class="page">
+    <h1>Driving Change: TEDxDAU Crossword Clues</h1>
     
-    <!-- CLUES PAGE -->
-    <div id="clues-page" class="page">
-      <h1>Driving Change: TEDxDAU Crossword Clues</h1>
-      
-      <div class="clues-container">
-        <div class="clue-section">
-          <h2>Across</h2>
-          <ol class="clue-list">
-            <li>🧩 A holistic way to connect data, humans, and mission goals</li>
-            <li>🔩 Detailed reasoning that separates a bolt twist from disaster</li>
-            <li>🤖 AI squadmate designed to co-op through acquisition quests</li>
-            <li>👀 Leadership that dares to ask hard questions and stick around for the answers</li>
-            <li>🌀 Marketplace where merit trumps paperwork</li>
-            <li>🧱 The government's unintentional barrier to Gen Z potential</li>
-            <li>🕶️ Government change-maker who channels a spy's mindset</li>
-            <li>🦈 Stealthy nickname for a periscope project born at sea</li>
-            <li>💡 The ability to read the room—and the person behind the problem</li>
-            <li>🎯 More than products—it's about sustained impact over time</li>
-            <li>🕰️ The catch-22 of needing experience to get experience</li>
-            <li>🎭 Three roles in the acquisition circus that must perform in harmony</li>
-            <li>🧑‍💻 A critical shortage in tech-savvy defenders</li>
-            <li>🎪 The figure who keeps lions, vendors, and contracting officers in sync</li>
-            <li>🌐 Systems where small inputs can lead to big shifts</li>
-          </ol>
-        </div>
-        
-        <div class="clue-section">
-          <h2>Down</h2>
-          <ol class="clue-list" start="16">
-            <li>👩‍💻 Someone who built a PC before they could drive</li>
-            <li>🛠️ What a struggling submarine and a struggling program need most</li>
-            <li>🔄 Letting go of limiting beliefs to accelerate solutions</li>
-            <li>🌬️ Naval metaphor for acquisition speed amid resistance</li>
-            <li>⬆️ What you do when "Game Over" becomes a call to grow</li>
-            <li>🗣️ The four words every leader should ask before giving a directive</li>
-            <li>❓The kind of question that sparks innovation by breaking norms</li>
-            <li>🤝 A relationship where humans and machines elevate each other</li>
-            <li>⏩ The shift from checklists to capability</li>
-            <li>🖥️ A mindset upgrade for people stuck managing with Windows 95</li>
-            <li>🧠 Mental loadout packed with resilience, curiosity, and relentlessness</li>
-            <li>🔄 A model that explains why change often feels like fire before rebirth</li>
-            <li>🚨 Alert system that lets you "pull the cord" before things go sideways</li>
-            <li>📬 Innovation pipeline sparked by a single letter</li>
-            <li>🚀 Manifesto that prioritizes bold moves over red tape</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-    
-    <!-- ANSWER KEY PAGE (hidden by default) -->
-    <div id="answers-page" class="page" style="display: none;">
-      <h1>Driving Change: TEDxDAU Crossword - Answer Key</h1>
-      
-      <div class="grid-container">
-        <table id="answer-grid" class="crossword-grid">
-          <!-- Answer grid will be filled by JavaScript -->
-        </table>
+    <div class="clues-container">
+      <div class="clue-section">
+        <h2>Across</h2>
+        <ol class="clue-list">
+          <li>🧩 A holistic way to connect data, humans, and mission goals</li>
+          <li>🔩 Detailed reasoning that separates a bolt twist from disaster</li>
+          <li>🤖 AI squadmate designed to co-op through acquisition quests</li>
+          <li>👀 Leadership that dares to ask hard questions and stick around for the answers</li>
+          <li>🌀 Marketplace where merit trumps paperwork</li>
+          <li>🧱 The government's unintentional barrier to Gen Z potential</li>
+          <li>🕶️ Government change-maker who channels a spy's mindset</li>
+          <li>🦈 Stealthy nickname for a periscope project born at sea</li>
+          <li>💡 The ability to read the room—and the person behind the problem</li>
+          <li>🎯 More than products—it's about sustained impact over time</li>
+          <li>🕰️ The catch-22 of needing experience to get experience</li>
+          <li>🎭 Three roles in the acquisition circus that must perform in harmony</li>
+          <li>🧑‍💻 A critical shortage in tech-savvy defenders</li>
+          <li>🎪 The figure who keeps lions, vendors, and contracting officers in sync</li>
+          <li>🌐 Systems where small inputs can lead to big shifts</li>
+        </ol>
       </div>
       
-      <div class="clues-container">
-        <div class="clue-section">
-          <h2>Across Answers</h2>
-          <ol class="clue-list">
-            <li>🧩 <strong>SYSTEMS THINKING</strong> - A holistic way to connect data, humans, and mission goals</li>
-            <li>🔩 <strong>NUCLEAR ANSWER</strong> - Detailed reasoning that separates a bolt twist from disaster</li>
-            <li>🤖 <strong>ACE TRAINER</strong> - AI squadmate designed to co-op through acquisition quests</li>
-            <li>👀 <strong>INTRUSIVE LEADERSHIP</strong> - Leadership that dares to ask hard questions and stick around for the answers</li>
-            <li>🌀 <strong>TRADEWINDS MARKETPLACE</strong> - Marketplace where merit trumps paperwork</li>
-            <li>🧱 <strong>PIPELINE TO BRICK WALL</strong> - The government's unintentional barrier to Gen Z potential</li>
-            <li>🕶️ <strong>ACQUISITION SUPER AGENT</strong> - Government change-maker who channels a spy's mindset</li>
-            <li>🦈 <strong>BLUESHARK PROJECT</strong> - Stealthy nickname for a periscope project born at sea</li>
-            <li>💡 <strong>EMOTIONAL INTELLIGENCE</strong> - The ability to read the room—and the person behind the problem</li>
-            <li>🎯 <strong>DELIVER PROGRAMS</strong> - More than products—it's about sustained impact over time</li>
-            <li>🕰️ <strong>EXPERIENCE PARADOX</strong> - The catch-22 of needing experience to get experience</li>
-            <li>🎭 <strong>THREE RING MODEL</strong> - Three roles in the acquisition circus that must perform in harmony</li>
-            <li>🧑‍💻 <strong>CYBER WORKFORCE GAP</strong> - A critical shortage in tech-savvy defenders</li>
-            <li>🎪 <strong>RING MASTER</strong> - The figure who keeps lions, vendors, and contracting officers in sync</li>
-            <li>🌐 <strong>COMPLEX SYSTEMS</strong> - Systems where small inputs can lead to big shifts</li>
-          </ol>
-        </div>
-        
-        <div class="clue-section">
-          <h2>Down Answers</h2>
-          <ol class="clue-list" start="16">
-            <li>👩‍💻 <strong>DIGITAL NATIVE</strong> - Someone who built a PC before they could drive</li>
-            <li>🛠️ <strong>PROGRAM RESILIENCE</strong> - What a struggling submarine and a struggling program need most</li>
-            <li>🔄 <strong>UNLEARNING RULES</strong> - Letting go of limiting beliefs to accelerate solutions</li>
-            <li>🌬️ <strong>FURIOUS FIFTIES</strong> - Naval metaphor for acquisition speed amid resistance</li>
-            <li>⬆️ <strong>LEVEL UP</strong> - What you do when "Game Over" becomes a call to grow</li>
-            <li>🗣️ <strong>ARE YOU OKAY</strong> - The four words every leader should ask before giving a directive</li>
-            <li>❓ <strong>DUMB QUESTIONS</strong> - The kind of question that sparks innovation by breaking norms</li>
-            <li>🤝 <strong>AI PARTNERSHIP</strong> - A relationship where humans and machines elevate each other</li>
-            <li>⏩ <strong>SPEED OVER PROCESS</strong> - The shift from checklists to capability</li>
-            <li>🖥️ <strong>LEADERSHIP OPERATING SYSTEM</strong> - A mindset upgrade for people stuck managing with Windows 95</li>
-            <li>🧠 <strong>GAMER MINDSET</strong> - Mental loadout packed with resilience, curiosity, and relentlessness</li>
-            <li>🔄 <strong>ADAPTIVE CYCLE</strong> - A model that explains why change often feels like fire before rebirth</li>
-            <li>🚨 <strong>ANDON SYSTEM</strong> - Alert system that lets you "pull the cord" before things go sideways</li>
-            <li>📬 <strong>TECHSOLUTIONS</strong> - Innovation pipeline sparked by a single letter</li>
-            <li>🚀 <strong>ACQUISITION SPEED MANIFESTO</strong> - Manifesto that prioritizes bold moves over red tape</li>
-          </ol>
-        </div>
+      <div class="clue-section">
+        <h2>Down</h2>
+        <ol class="clue-list" start="16">
+          <li>👩‍💻 Someone who built a PC before they could drive</li>
+          <li>🛠️ What a struggling submarine and a struggling program need most</li>
+          <li>🔄 Letting go of limiting beliefs to accelerate solutions</li>
+          <li>🌬️ Naval metaphor for acquisition speed amid resistance</li>
+          <li>⬆️ What you do when "Game Over" becomes a call to grow</li>
+          <li>🗣️ The four words every leader should ask before giving a directive</li>
+          <li>❓The kind of question that sparks innovation by breaking norms</li>
+          <li>🤝 A relationship where humans and machines elevate each other</li>
+          <li>⏩ The shift from checklists to capability</li>
+          <li>🖥️ A mindset upgrade for people stuck managing with Windows 95</li>
+          <li>🧠 Mental loadout packed with resilience, curiosity, and relentlessness</li>
+          <li>🔄 A model that explains why change often feels like fire before rebirth</li>
+          <li>🚨 Alert system that lets you "pull the cord" before things go sideways</li>
+          <li>📬 Innovation pipeline sparked by a single letter</li>
+          <li>🚀 Manifesto that prioritizes bold moves over red tape</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ANSWER KEY PAGE (hidden by default) -->
+  <div id="answers-page" class="page" style="display: none;">
+    <h1>Driving Change: TEDxDAU Crossword - Answer Key</h1>
+    
+    <div class="grid-container">
+      <table id="answer-grid" class="crossword-grid">
+        <!-- Answer grid will be filled by JavaScript -->
+      </table>
+    </div>
+    
+    <div class="clues-container">
+      <div class="clue-section">
+        <h2>Across Answers</h2>
+        <ol class="clue-list">
+          <li>🧩 <strong>SYSTEMS THINKING</strong></li>
+          <li>🔩 <strong>NUCLEAR ANSWER</strong></li>
+          <li>🤖 <strong>ACE TRAINER</strong></li>
+          <li>👀 <strong>INTRUSIVE LEADERSHIP</strong></li>
+          <li>🌀 <strong>TRADEWINDS MARKETPLACE</strong></li>
+          <li>🧱 <strong>PIPELINE TO BRICK WALL</strong></li>
+          <li>🕶️ <strong>ACQUISITION SUPER AGENT</strong></li>
+          <li>🦈 <strong>BLUESHARK PROJECT</strong></li>
+          <li>💡 <strong>EMOTIONAL INTELLIGENCE</strong></li>
+          <li>🎯 <strong>DELIVER PROGRAMS</strong></li>
+          <li>🕰️ <strong>EXPERIENCE PARADOX</strong></li>
+          <li>🎭 <strong>THREE RING MODEL</strong></li>
+          <li>🧑‍💻 <strong>CYBER WORKFORCE GAP</strong></li>
+          <li>🎪 <strong>RING MASTER</strong></li>
+          <li>🌐 <strong>COMPLEX SYSTEMS</strong></li>
+        </ol>
+      </div>
+      
+      <div class="clue-section">
+        <h2>Down Answers</h2>
+        <ol class="clue-list" start="16">
+          <li>👩‍💻 <strong>DIGITAL NATIVE</strong></li>
+          <li>🛠️ <strong>PROGRAM RESILIENCE</strong></li>
+          <li>🔄 <strong>UNLEARNING RULES</strong></li>
+          <li>🌬️ <strong>FURIOUS FIFTIES</strong></li>
+          <li>⬆️ <strong>LEVEL UP</strong></li>
+          <li>🗣️ <strong>ARE YOU OKAY</strong></li>
+          <li>❓ <strong>DUMB QUESTIONS</strong></li>
+          <li>🤝 <strong>AI PARTNERSHIP</strong></li>
+          <li>⏩ <strong>SPEED OVER PROCESS</strong></li>
+          <li>🖥️ <strong>LEADERSHIP OPERATING SYSTEM</strong></li>
+          <li>🧠 <strong>GAMER MINDSET</strong></li>
+          <li>🔄 <strong>ADAPTIVE CYCLE</strong></li>
+          <li>🚨 <strong>ANDON SYSTEM</strong></li>
+          <li>📬 <strong>TECHSOLUTIONS</strong></li>
+          <li>🚀 <strong>ACQUISITION SPEED MANIFESTO</strong></li>
+        </ol>
       </div>
     </div>
   </div>
@@ -291,38 +333,10 @@
       [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 29, 0, 0, 0, 0],
     ];
     
-    // Define answers for the puzzle
-    const answers = {
-      1: {word: "SYSTEMSTHINKING", orientation: "across"},
-      2: {word: "DIGITALNATIVE", orientation: "down"},
-      3: {word: "PROGRAMRESILIENCE", orientation: "down"},
-      4: {word: "NUCLEARANSWER", orientation: "across"},
-      5: {word: "UNLEARNINGRULES", orientation: "down"},
-      6: {word: "ACETRAINER", orientation: "across"},
-      7: {word: "INTRUSIVELEADERSHIP", orientation: "across"},
-      8: {word: "FURIOUSFIFTIES", orientation: "down"},
-      9: {word: "LEVELUP", orientation: "down"},
-      10: {word: "TRADEWINDSMARKETPLACE", orientation: "across"},
-      11: {word: "AREYOUOKAY", orientation: "down"},
-      12: {word: "DUMBQUESTIONS", orientation: "down"},
-      13: {word: "PIPELINETOBRICKWALL", orientation: "across"},
-      14: {word: "AIPARTNERSHIP", orientation: "down"},
-      15: {word: "ACQUISITIONSUPERAGENT", orientation: "across"},
-      16: {word: "SPEEDOVERPROCESS", orientation: "down"},
-      17: {word: "BLUESHARKPROJECT", orientation: "across"},
-      18: {word: "LEADERSHIPOPERATINGSYSTEM", orientation: "down"},
-      19: {word: "EMOTIONALINTELLIGENCE", orientation: "across"},
-      20: {word: "GAMERMINDSET", orientation: "down"},
-      21: {word: "DELIVERPROGRAMS", orientation: "across"},
-      22: {word: "ADAPTIVECYCLE", orientation: "down"},
-      23: {word: "ANDONSYSTEM", orientation: "down"},
-      24: {word: "EXPERIENCEPARADOX", orientation: "across"},
-      25: {word: "THREERINGMODEL", orientation: "across"},
-      26: {word: "TECHSOLUTIONS", orientation: "down"},
-      27: {word: "CYBERWORKFORCEGAP", orientation: "across"},
-      28: {word: "RINGMASTER", orientation: "across"},
-      29: {word: "ACQUISITIONSPEEDMANIFESTO", orientation: "down"},
-      30: {word: "COMPLEXSYSTEMS", orientation: "across"},
+    // Define answers mapping
+    const answerMap = {
+      1: "S", 2: "Y", 3: "S", 4: "T", 5: "E", 6: "M", 7: "S", 8: "T", 9: "H", 10: "I", 11: "N", 12: "K", 13: "I", 14: "N", 15: "G",
+      // This would be expanded to include all letters in their correct positions
     };
     
     // Initialize grids on page load
@@ -346,6 +360,7 @@
           if (cellValue === 0) {
             cell.className = 'black';
           } else {
+            // Add number if cell is numbered
             if (cellValue > 1) {
               const numberSpan = document.createElement('span');
               numberSpan.className = 'number';
@@ -353,10 +368,11 @@
               cell.appendChild(numberSpan);
             }
             
+            // Add letter for answer grid
             if (showAnswers) {
-              // In a real implementation, this would display the correct letter
-              // This is a simplified version using placeholder letters
-              cell.textContent = getLetterForCell(r, c);
+              // For a real implementation, this would show the correct letter
+              // For this demo, we'll just use a placeholder
+              cell.textContent = placeholderLetter(r, c);
             }
           }
           
@@ -367,10 +383,8 @@
       }
     }
     
-    // Function to get letter for a cell (placeholder)
-    function getLetterForCell(row, col) {
-      // In a full implementation, this would map coordinates to the correct letter
-      // For this example, we're just using a placeholder
+    // Function to get a placeholder letter
+    function placeholderLetter(row, col) {
       const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
       return letters[(row + col) % 26];
     }
