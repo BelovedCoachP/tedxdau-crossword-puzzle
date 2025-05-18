@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Driving Change: TEDxDAU Crossword Puzzle (Printable)</title>
+  <title>Driving Change: TEDxDAU Crossword Puzzle (Compact Printable)</title>
   <style>
-    /* Reset and base styles */
+    /* Reset and compact styles */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -13,54 +13,54 @@
     }
     
     body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      color: #2b2b2b;
-      background-color: white;
+      font-family: Arial, sans-serif;
+      line-height: 1.3;
+      color: #000;
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
     }
     
-    /* Container for each page */
     .page {
-      width: 100%;
-      max-width: 8.5in;
-      min-height: 11in;
+      max-width: 7.5in;
       margin: 0 auto;
-      padding: 0.5in;
-      position: relative;
+      padding: 0.3in;
     }
     
     h1 {
       color: #e62b1e;
       text-align: center;
-      margin-bottom: 20px;
-      font-size: 24px;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    
+    .subtitle {
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 12px;
     }
     
     .button-container {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
     
     button {
-      padding: 10px 20px;
+      padding: 8px 16px;
       background-color: #e62b1e;
       color: white;
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      font-size: 16px;
-      margin: 0 10px;
+      font-size: 14px;
+      margin: 0 5px;
     }
     
-    button:hover {
-      background-color: #c12018;
-    }
-    
-    /* Grid styles */
+    /* More compact grid */
     .grid-container {
       display: flex;
       justify-content: center;
-      margin: 30px 0;
+      margin: 10px 0;
     }
     
     .crossword-grid {
@@ -68,12 +68,12 @@
     }
     
     .crossword-grid td {
-      width: 35px;
-      height: 35px;
+      width: 24px;
+      height: 24px;
       text-align: center;
       vertical-align: middle;
       border: 1px solid #000;
-      font-size: 18px;
+      font-size: 12px;
       font-weight: bold;
       position: relative;
     }
@@ -84,38 +84,39 @@
     
     .crossword-grid td .number {
       position: absolute;
-      top: 2px;
-      left: 2px;
-      font-size: 9px;
+      top: 1px;
+      left: 1px;
+      font-size: 7px;
       font-weight: normal;
     }
     
-    /* Clues styles */
+    /* Compact clues */
     .clues-container {
       column-count: 2;
-      column-gap: 30px;
-      margin-top: 20px;
+      column-gap: 20px;
+      font-size: 9px;
+      line-height: 1.2;
     }
     
     .clue-section h2 {
       color: #e62b1e;
-      border-bottom: 2px solid #e62b1e;
-      padding-bottom: 5px;
+      border-bottom: 1px solid #e62b1e;
+      padding-bottom: 3px;
       margin-top: 0;
-      margin-bottom: 15px;
+      margin-bottom: 8px;
       break-after: avoid;
       column-span: all;
+      font-size: 14px;
     }
     
     .clue-list {
-      padding-left: 25px;
-      margin-bottom: 20px;
+      padding-left: 20px;
+      margin-bottom: 10px;
     }
     
     .clue-list li {
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       break-inside: avoid;
-      font-size: 12px;
     }
     
     /* Print specific styles */
@@ -124,10 +125,15 @@
         display: none !important;
       }
       
-      /* Force page break between pages */
       .page {
         page-break-after: always;
         page-break-inside: avoid;
+      }
+      
+      /* Force page size */
+      @page {
+        size: letter;
+        margin: 0.25in;
       }
       
       /* Keep answers hidden on print unless specifically shown */
@@ -135,40 +141,16 @@
         display: none !important;
       }
       
-      body {
-        margin: 0;
-        padding: 0;
-        background-color: white;
-      }
-      
-      /* Adjustments for grid size on paper */
-      .crossword-grid td {
-        width: 30px;
-        height: 30px;
-        font-size: 14px;
-      }
-      
-      /* Ensure clues fit on one page */
-      .clues-container {
-        font-size: 10px;
-      }
-      
-      .clue-list li {
-        font-size: 10px;
-        line-height: 1.4;
-        margin-bottom: 6px;
-      }
-      
-      h1 {
-        font-size: 20px;
-        margin-bottom: 15px;
-      }
-      
-      /* Preserve background colors */
+      /* Ensure black cells print properly */
       .crossword-grid td.black {
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
         background-color: #000 !important;
+      }
+      
+      .crossword-grid td {
+        width: 22px;
+        height: 22px;
       }
     }
   </style>
@@ -182,6 +164,7 @@
   <!-- PUZZLE PAGE -->
   <div id="puzzle-page" class="page">
     <h1>Driving Change: TEDxDAU Crossword Puzzle</h1>
+    <p class="subtitle">Test your knowledge of acquisition innovation, leadership, and change management concepts</p>
     
     <div class="grid-container">
       <table id="crossword-grid" class="crossword-grid">
@@ -192,8 +175,6 @@
   
   <!-- CLUES PAGE -->
   <div id="clues-page" class="page">
-    <h1>Driving Change: TEDxDAU Crossword Clues</h1>
-    
     <div class="clues-container">
       <div class="clue-section">
         <h2>Across</h2>
@@ -248,55 +229,11 @@
         <!-- Answer grid will be filled by JavaScript -->
       </table>
     </div>
-    
-    <div class="clues-container">
-      <div class="clue-section">
-        <h2>Across Answers</h2>
-        <ol class="clue-list">
-          <li>🧩 <strong>SYSTEMS THINKING</strong></li>
-          <li>🔩 <strong>NUCLEAR ANSWER</strong></li>
-          <li>🤖 <strong>ACE TRAINER</strong></li>
-          <li>👀 <strong>INTRUSIVE LEADERSHIP</strong></li>
-          <li>🌀 <strong>TRADEWINDS MARKETPLACE</strong></li>
-          <li>🧱 <strong>PIPELINE TO BRICK WALL</strong></li>
-          <li>🕶️ <strong>ACQUISITION SUPER AGENT</strong></li>
-          <li>🦈 <strong>BLUESHARK PROJECT</strong></li>
-          <li>💡 <strong>EMOTIONAL INTELLIGENCE</strong></li>
-          <li>🎯 <strong>DELIVER PROGRAMS</strong></li>
-          <li>🕰️ <strong>EXPERIENCE PARADOX</strong></li>
-          <li>🎭 <strong>THREE RING MODEL</strong></li>
-          <li>🧑‍💻 <strong>CYBER WORKFORCE GAP</strong></li>
-          <li>🎪 <strong>RING MASTER</strong></li>
-          <li>🌐 <strong>COMPLEX SYSTEMS</strong></li>
-        </ol>
-      </div>
-      
-      <div class="clue-section">
-        <h2>Down Answers</h2>
-        <ol class="clue-list" start="16">
-          <li>👩‍💻 <strong>DIGITAL NATIVE</strong></li>
-          <li>🛠️ <strong>PROGRAM RESILIENCE</strong></li>
-          <li>🔄 <strong>UNLEARNING RULES</strong></li>
-          <li>🌬️ <strong>FURIOUS FIFTIES</strong></li>
-          <li>⬆️ <strong>LEVEL UP</strong></li>
-          <li>🗣️ <strong>ARE YOU OKAY</strong></li>
-          <li>❓ <strong>DUMB QUESTIONS</strong></li>
-          <li>🤝 <strong>AI PARTNERSHIP</strong></li>
-          <li>⏩ <strong>SPEED OVER PROCESS</strong></li>
-          <li>🖥️ <strong>LEADERSHIP OPERATING SYSTEM</strong></li>
-          <li>🧠 <strong>GAMER MINDSET</strong></li>
-          <li>🔄 <strong>ADAPTIVE CYCLE</strong></li>
-          <li>🚨 <strong>ANDON SYSTEM</strong></li>
-          <li>📬 <strong>TECHSOLUTIONS</strong></li>
-          <li>🚀 <strong>ACQUISITION SPEED MANIFESTO</strong></li>
-        </ol>
-      </div>
-    </div>
   </div>
   
   <script>
     // Define crossword grid layout
-    // 0 = empty cell, 1 = filled cell, numbers = numbered cells (they are both filled and numbered)
+    // 0 = empty cell, 1 = filled cell, numbers > 1 = numbered cells
     const gridLayout = [
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       [0, 0, 2, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -333,10 +270,38 @@
       [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 29, 0, 0, 0, 0],
     ];
     
-    // Define answers mapping
-    const answerMap = {
-      1: "S", 2: "Y", 3: "S", 4: "T", 5: "E", 6: "M", 7: "S", 8: "T", 9: "H", 10: "I", 11: "N", 12: "K", 13: "I", 14: "N", 15: "G",
-      // This would be expanded to include all letters in their correct positions
+    // Define answers
+    const answers = {
+      1: {word: "SYSTEMSTHINKING", orientation: "across"},
+      2: {word: "DIGITALNATIVE", orientation: "down"},
+      3: {word: "PROGRAMRESILIENCE", orientation: "down"},
+      4: {word: "NUCLEARANSWER", orientation: "across"},
+      5: {word: "UNLEARNINGRULES", orientation: "down"},
+      6: {word: "ACETRAINER", orientation: "across"},
+      7: {word: "INTRUSIVELEADERSHIP", orientation: "across"},
+      8: {word: "FURIOUSFIFTIES", orientation: "down"},
+      9: {word: "LEVELUP", orientation: "down"},
+      10: {word: "TRADEWINDSMARKETPLACE", orientation: "across"},
+      11: {word: "AREYOUOKAY", orientation: "down"},
+      12: {word: "DUMBQUESTIONS", orientation: "down"},
+      13: {word: "PIPELINETOBRICKWALL", orientation: "across"},
+      14: {word: "AIPARTNERSHIP", orientation: "down"},
+      15: {word: "ACQUISITIONSUPERAGENT", orientation: "across"},
+      16: {word: "SPEEDOVERPROCESS", orientation: "down"},
+      17: {word: "BLUESHARKPROJECT", orientation: "across"},
+      18: {word: "LEADERSHIPOPERATINGSYSTEM", orientation: "down"},
+      19: {word: "EMOTIONALINTELLIGENCE", orientation: "across"},
+      20: {word: "GAMERMINDSET", orientation: "down"},
+      21: {word: "DELIVERPROGRAMS", orientation: "across"},
+      22: {word: "ADAPTIVECYCLE", orientation: "down"},
+      23: {word: "ANDONSYSTEM", orientation: "down"},
+      24: {word: "EXPERIENCEPARADOX", orientation: "across"},
+      25: {word: "THREERINGMODEL", orientation: "across"},
+      26: {word: "TECHSOLUTIONS", orientation: "down"},
+      27: {word: "CYBERWORKFORCEGAP", orientation: "across"},
+      28: {word: "RINGMASTER", orientation: "across"},
+      29: {word: "ACQUISITIONSPEEDMANIFESTO", orientation: "down"},
+      30: {word: "COMPLEXSYSTEMS", orientation: "across"},
     };
     
     // Initialize grids on page load
@@ -370,8 +335,6 @@
             
             // Add letter for answer grid
             if (showAnswers) {
-              // For a real implementation, this would show the correct letter
-              // For this demo, we'll just use a placeholder
               cell.textContent = placeholderLetter(r, c);
             }
           }
