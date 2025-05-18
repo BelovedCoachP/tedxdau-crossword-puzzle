@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TEDxDAU Crossword Puzzle</title>
+  <title>Driving Change: TEDxDAU Crossword Puzzle (Printable)</title>
   <style>
-    /* Reset */
+    /* Reset styles */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -14,36 +14,48 @@
     
     body {
       font-family: Arial, sans-serif;
-      line-height: 1.2;
-      padding: 10px;
-      max-width: 8.5in;
-      margin: 0 auto;
+      line-height: 1.3;
+      color: #000;
     }
     
-    .screen-only {
-      margin-bottom: 20px;
+    /* Page setup for printing */
+    .page {
+      width: 100%;
+      max-width: 8.5in;
+      min-height: 10.5in;
+      margin: 0 auto;
+      padding: 0.25in;
+      position: relative;
+      page-break-after: always;
     }
     
     h1 {
       color: #e62b1e;
       text-align: center;
+      margin-bottom: 10px;
       font-size: 18px;
-      margin-bottom: 5px;
     }
     
     .subtitle {
       text-align: center;
+      margin-bottom: 15px;
       font-size: 12px;
-      margin-bottom: 10px;
+    }
+    
+    .print-buttons {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
     }
     
     button {
-      padding: 5px 10px;
+      padding: 8px 15px;
       background-color: #e62b1e;
       color: white;
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      font-size: 14px;
       margin: 0 5px;
     }
     
@@ -51,534 +63,554 @@
     .grid-container {
       display: flex;
       justify-content: center;
-      margin: 10px 0 20px;
+      margin: 20px 0;
     }
     
-    table.crossword {
+    .crossword-grid {
       border-collapse: collapse;
       table-layout: fixed;
     }
     
-    table.crossword td {
-      width: 22px;
-      height: 22px;
+    .crossword-grid td {
+      width: 25px;
+      height: 25px;
       border: 1px solid black;
       text-align: center;
       vertical-align: middle;
       position: relative;
-      font-size: 10px;
+      font-size: 12px;
     }
     
-    table.crossword td.black {
+    .crossword-grid td.black {
       background-color: black;
     }
     
-    table.crossword .number {
+    .crossword-grid .number {
       position: absolute;
       top: 1px;
       left: 1px;
-      font-size: 6px;
+      font-size: 7px;
+      color: #666;
     }
     
-    /* Clues section */
-    .clues-section {
+    /* Clues */
+    .clues-container {
       column-count: 2;
       column-gap: 20px;
-      font-size: 8pt;
+      font-size: 9pt;
       line-height: 1.2;
-      margin-top: 10px;
     }
     
     h2 {
       color: #e62b1e;
       font-size: 12px;
       border-bottom: 1px solid #e62b1e;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
       break-after: avoid;
       column-span: all;
     }
     
-    ol {
+    .clue-list {
       margin-left: 20px;
       padding-left: 0;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
     
-    li {
-      margin-bottom: 3px;
+    .clue-list li {
+      margin-bottom: 4px;
       break-inside: avoid;
     }
     
-    /* Print styles */
+    /* Print-specific styles */
     @media print {
-      @page {
-        size: letter;
-        margin: 0.25in;
-      }
-      
-      .screen-only {
+      .no-print {
         display: none !important;
-      }
-      
-      body {
-        padding: 0;
       }
       
       .page {
         page-break-after: always;
         page-break-inside: avoid;
-        max-height: 10.5in;
-        overflow: hidden;
+        margin: 0;
+        padding: 0.25in;
       }
       
-      table.crossword td.black {
+      @page {
+        size: letter;
+        margin: 0.25in;
+      }
+      
+      .crossword-grid td.black {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
         background-color: black !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
       }
       
-      table.crossword {
-        margin: 0 auto;
+      /* Make grid slightly smaller for print */
+      .crossword-grid td {
+        width: 22px;
+        height: 22px;
+      }
+      
+      /* Keep clues more compact */
+      .clues-container {
+        font-size: 8pt;
       }
     }
   </style>
 </head>
 <body>
-  <div class="screen-only">
-    <button onclick="window.print()">Print Puzzle</button>
+  <div class="print-buttons no-print">
+    <button onclick="window.print()">Print Crossword</button>
+    <button onclick="window.location.href='index.html'">Return to Interactive Version</button>
   </div>
 
-  <!-- PAGE ONE: PUZZLE GRID -->
+  <!-- PAGE ONE: PUZZLE -->
   <div class="page">
     <h1>Driving Change: TEDxDAU Crossword Puzzle</h1>
     <p class="subtitle">Test your knowledge of acquisition innovation, leadership, and change management concepts</p>
     
     <div class="grid-container">
-      <table class="crossword">
-        <tbody>
-          <!-- Row 1 -->
-          <tr>
-            <td><span class="number">1</span></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <!-- Row 2 -->
-          <tr>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td><span class="number">2</span></td>
-            <td class="black"></td>
-            <td><span class="number">3</span></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-          </tr>
-          <!-- Row 3 -->
-          <tr>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td><span class="number">4</span></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <!-- Row 4 -->
-          <tr>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td></td>
-            <td><span class="number">5</span></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-          </tr>
-          <!-- Row 5 -->
-          <tr>
-            <td><span class="number">6</span></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-          </tr>
-          <!-- Row 6 -->
-          <tr>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td></td>
-            <td></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-          </tr>
-          <!-- Row 7 -->
-          <tr>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td><span class="number">7</span></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <!-- Row 8 -->
-          <tr>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td><span class="number">8</span></td>
-            <td class="black"></td>
-            <td><span class="number">9</span></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-          </tr>
-          <!-- Row 9 -->
-          <tr>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-          </tr>
-          <!-- Row 10 -->
-          <tr>
-            <td><span class="number">10</span></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <!-- Row 11 -->
-          <tr>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td><span class="number">14</span></td>
-            <td class="black"></td>
-          </tr>
-          <!-- Row 12 -->
-          <tr>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-          </tr>
-          <!-- Row 13 -->
-          <tr>
-            <td><span class="number">13</span></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <!-- Row 14 -->
-          <tr>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-          </tr>
-          <!-- Row 15 -->
-          <tr>
-            <td><span class="number">15</span></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <!-- Row 16 -->
-          <tr>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td><span class="number">16</span></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-          </tr>
-          <!-- Row 17 -->
-          <tr>
-            <td><span class="number">17</span></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <!-- Row 18 -->
-          <tr>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td><span class="number">18</span></td>
-          </tr>
-          <!-- Row 19 -->
-          <tr>
-            <td><span class="number">19</span></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <!-- Row 20 -->
-          <tr>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td><span class="number">20</span></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td class="black"></td>
-            <td></td>
-          </tr>
-          <!-- Row 21 -->
-          <tr>
-            <td><span class="number">21</span></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <!-- First 21 rows shown - the rest would follow the same pattern -->
-        </tbody>
+      <table class="crossword-grid">
+        <tr>
+          <td><span class="number">1</span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+        </tr>
+        <tr>
+          <td><span class="number">2</span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+        </tr>
+        <tr>
+          <td><span class="number">3</span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+        </tr>
+        <tr>
+          <td><span class="number">4</span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td><span class="number">5</span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="black"></td>
+          <td><span class="number">6</span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+        </tr>
+        <tr>
+          <td><span class="number">7</span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="black"></td>
+          <td><span class="number">8</span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td><span class="number">9</span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+        </tr>
+        <tr>
+          <td><span class="number">10</span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="black"></td>
+          <td><span class="number">11</span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+        </tr>
+        <tr>
+          <td><span class="number">12</span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+          <td class="black"></td>
+        </tr>
+        <tr>
+          <td><span class="number">13</span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
       </table>
     </div>
   </div>
 
   <!-- PAGE TWO: CLUES -->
   <div class="page">
-    <div class="clues-section">
+    <h1>Driving Change: TEDxDAU Crossword Clues</h1>
+    
+    <div class="clues-container">
       <h2>Across</h2>
-      <ol>
-        <li>🧩 A holistic way to connect data, humans, and mission goals</li>
-        <li>🔩 Detailed reasoning that separates a bolt twist from disaster</li>
-        <li>🤖 AI squadmate designed to co-op through acquisition quests</li>
-        <li>👀 Leadership that dares to ask hard questions and stick around for the answers</li>
-        <li>🌀 Marketplace where merit trumps paperwork</li>
-        <li>🧱 The government's unintentional barrier to Gen Z potential</li>
+      <ol class="clue-list">
         <li>🕶️ Government change-maker who channels a spy's mindset</li>
-        <li>🦈 Stealthy nickname for a periscope project born at sea</li>
+        <li>📬 Innovation pipeline sparked by a single letter</li>
+        <li>👀 Leadership that dares to ask hard questions and stick around for the answers</li>
         <li>💡 The ability to read the room—and the person behind the problem</li>
-        <li>🎯 More than products—it's about sustained impact over time</li>
-        <li>🕰️ The catch-22 of needing experience to get experience</li>
-        <li>🎭 Three roles in the acquisition circus that must perform in harmony</li>
-        <li>🧑‍💻 A critical shortage in tech-savvy defenders</li>
         <li>🎪 The figure who keeps lions, vendors, and contracting officers in sync</li>
-        <li>🌐 Systems where small inputs can lead to big shifts</li>
+        <li>⏩ The shift from checklists to capability</li>
+        <li>🧠 Mental loadout packed with resilience, curiosity, and relentlessness</li>
+        <li>⬆️ What you do when "Game Over" becomes a call to grow</li>
+        <li>🌀 Marketplace where merit trumps paperwork</li>
+        <li>🔄 Letting go of limiting beliefs to accelerate solutions</li>
+        <li>🔄 A model that explains why change often feels like fire before rebirth</li>
+        <li>🎯 More than products—it's about sustained impact over time</li>
+        <li>👩‍💻 Someone who built a PC before they could drive</li>
       </ol>
       
-      <h2>Down</h2>
-      <ol start="16">
-        <li>👩‍💻 Someone who built a PC before they could drive</li>
-        <li>🛠️ What a struggling submarine and a struggling program need most</li>
-        <li>🔄 Letting go of limiting beliefs to accelerate solutions</li>
-        <li>🌬️ Naval metaphor for acquisition speed amid resistance</li>
-        <li>⬆️ What you do when "Game Over" becomes a call to grow</li>
-        <li>🗣️ The four words every leader should ask before giving a directive</li>
-        <li>❓The kind of question that sparks innovation by breaking norms</li>
+      <h2>More Across</h2>
+      <ol class="clue-list" start="14">
+        <li>🧱 The government's unintentional barrier to Gen Z potential</li>
         <li>🤝 A relationship where humans and machines elevate each other</li>
-        <li>⏩ The shift from checklists to capability</li>
-        <li>🖥️ A mindset upgrade for people stuck managing with Windows 95</li>
-        <li>🧠 Mental loadout packed with resilience, curiosity, and relentlessness</li>
-        <li>🔄 A model that explains why change often feels like fire before rebirth</li>
         <li>🚨 Alert system that lets you "pull the cord" before things go sideways</li>
-        <li>📬 Innovation pipeline sparked by a single letter</li>
-        <li>🚀 Manifesto that prioritizes bold moves over red tape</li>
+        <li>🎙️ App that turns whispers into workflow</li>
+        <li>🛡️ Essential condition that turns feedback into fuel</li>
+        <li>🔬 Real-world testing ground where policies fail faster than tech</li>
+        <li>🧠 A thinking style that maps the mission, not just the machine</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Answer Key -->
+  <div class="page no-print">
+    <h1>Driving Change: TEDxDAU Crossword Puzzle - Answer Key</h1>
+    
+    <div class="clues-container">
+      <h2>Across</h2>
+      <ol class="clue-list">
+        <li>🕶️ <strong>ACQUISITION SUPER AGENT</strong> - Government change-maker who channels a spy's mindset</li>
+        <li>📬 <strong>TECHSOLUTIONS</strong> - Innovation pipeline sparked by a single letter</li>
+        <li>👀 <strong>INTRUSIVE LEADERSHIP</strong> - Leadership that dares to ask hard questions and stick around for the answers</li>
+        <li>💡 <strong>EMOTIONAL INTELLIGENCE</strong> - The ability to read the room—and the person behind the problem</li>
+        <li>🎪 <strong>RING MASTER</strong> - The figure who keeps lions, vendors, and contracting officers in sync</li>
+        <li>⏩ <strong>SPEED OVER PROCESS</strong> - The shift from checklists to capability</li>
+        <li>🧠 <strong>GAMER MINDSET</strong> - Mental loadout packed with resilience, curiosity, and relentlessness</li>
+        <li>⬆️ <strong>LEVEL UP</strong> - What you do when "Game Over" becomes a call to grow</li>
+        <li>🌀 <strong>TRADEWINDS MARKETPLACE</strong> - Marketplace where merit trumps paperwork</li>
+        <li>🔄 <strong>UNLEARNING RULES</strong> - Letting go of limiting beliefs to accelerate solutions</li>
+        <li>🔄 <strong>ADAPTIVE CYCLE</strong> - A model that explains why change often feels like fire before rebirth</li>
+        <li>🎯 <strong>DELIVER PROGRAMS</strong> - More than products—it's about sustained impact over time</li>
+        <li>👩‍💻 <strong>DIGITAL NATIVE</strong> - Someone who built a PC before they could drive</li>
+        <li>🧱 <strong>PIPELINE TO BRICK WALL</strong> - The government's unintentional barrier to Gen Z potential</li>
+        <li>🤝 <strong>AI PARTNERSHIP</strong> - A relationship where humans and machines elevate each other</li>
+        <li>🚨 <strong>ANDON SYSTEM</strong> - Alert system that lets you "pull the cord" before things go sideways</li>
+        <li>🎙️ <strong>VOICE OF THE FORCE</strong> - App that turns whispers into workflow</li>
+        <li>🛡️ <strong>PSYCHOLOGICAL SAFETY</strong> - Essential condition that turns feedback into fuel</li>
+        <li>🔬 <strong>DYNAMIC EXPERIMENTATION</strong> - Real-world testing ground where policies fail faster than tech</li>
+        <li>🧠 <strong>SYSTEMS THINKING</strong> - A thinking style that maps the mission, not just the machine</li>
       </ol>
     </div>
   </div>
