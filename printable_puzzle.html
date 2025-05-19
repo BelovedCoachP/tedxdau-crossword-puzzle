@@ -35,17 +35,6 @@
             font-size: 10px;
             color: #000;
         }
-        input {
-            width: 100%;
-            height: 100%;
-            border: none;
-            text-align: center;
-            font-size: 18px;
-            text-transform: uppercase;
-            background: transparent;
-            outline: none;
-            color: #000;
-        }
         @media print {
             body { margin: 10mm; }
         }
@@ -54,9 +43,10 @@
 <body>
     <div class="crossword-container" id="crossword"></div>
     <script>
-        // Puzzle data (copied from index)
+        // Puzzle data with clue numbers for printing
         const puzzleData = {
-            width: 21, height: 21,
+            width: 21,
+            height: 21,
             answers: [
                 { answer: "AIRFORCE", direction: "across", row: 1, col: 1 },
                 { answer: "EMOTIONAL", direction: "across", row: 3, col: 4 },
@@ -90,7 +80,20 @@
                 { answer: "WINDS", direction: "down", row: 17, col: 19 },
                 { answer: "LEAD", direction: "down", row: 17, col: 17 }
             ],
-            clues: { across: [], down: [] }
+            clues: {
+                across: [
+                    { number: 1 },{ number: 2 },{ number: 3 },{ number: 4 },
+                    { number: 5 },{ number: 6 },{ number: 7 },{ number: 8 },
+                    { number: 9 },{ number: 10 },{ number: 11 },{ number: 12 },
+                    { number: 13 },{ number: 14 },{ number: 15 },{ number: 16 }
+                ],
+                down: [
+                    { number: 1 },{ number: 2 },{ number: 3 },{ number: 4 },
+                    { number: 5 },{ number: 6 },{ number: 7 },{ number: 8 },
+                    { number: 9 },{ number: 10 },{ number: 11 },{ number: 12 },
+                    { number: 13 },{ number: 14 },{ number: 15 }
+                ]
+            }
         };
 
         function createPrintableGrid() {
@@ -98,7 +101,6 @@
             const grid = Array(puzzleData.height).fill().map(() => Array(puzzleData.width).fill(false));
             const numbers = Array(puzzleData.height).fill().map(() => Array(puzzleData.width).fill(0));
 
-            // Mark cells and number them
             let a = 0, d = 0;
             puzzleData.answers.forEach(ans => {
                 const r0 = ans.row - 1, c0 = ans.col - 1;
@@ -107,14 +109,18 @@
                     const c = ans.direction === 'across' ? c0 + i : c0;
                     grid[r][c] = true;
                     if (i === 0) {
-                        numbers[r][c] = ans.direction === 'across'
-                            ? ++a && puzzleData.clues?.across?.[a-1]?.number || 0
-                            : ++d && puzzleData.clues?.down?.[d-1]?.number || 0;
+                        if (ans.direction === 'across') {
+                            numbers[r][c] = puzzleData.clues.across[a].number;
+                            a++;
+                        } else {
+                            numbers[r][c] = puzzleData.clues.down[d].number;
+                            d++;
+                        }
                     }
                 }
             });
 
-            // Render table
+            // Render cells
             grid.forEach((row, r) => {
                 row.forEach((filled, c) => {
                     const cell = document.createElement('div');
