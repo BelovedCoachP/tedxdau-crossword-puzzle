@@ -1,631 +1,128 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Driving Change: TEDxDAU 2025 Crossword Puzzle</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #000000;
-            color: #ffffff;
-        }
-        
-        h1 {
-            text-align: center;
-            color: #ffffff;
-            margin-bottom: 30px;
-            display: none; /* Hide the text heading since we're using the image */
-        }
-        
-        .header-image {
-            width: 100%;
-            max-width: 1000px;
-            margin: 0 auto 30px;
-            display: block;
-        }
-        
-        .crossword-container {
-            display: grid;
-            grid-template-columns: repeat(21, 30px);
-            grid-gap: 0;
-            margin: 0 auto 40px;
-            width: fit-content;
-            border: 2px solid #555;
-            background-color: #000;
-        }
-        
-        .crossword-cell {
-            width: 30px;
-            height: 30px;
-            border: 1px solid #555;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            background-color: white;
-        }
-        
-        .black-cell {
-            background-color: #111;
-            border: 1px solid #333;
-        }
-        
-        .cell-number {
-            position: absolute;
-            top: 1px;
-            left: 2px;
-            font-size: 10px;
-            z-index: 10;
-            color: #000;
-        }
-        
-        input {
-            width: 100%;
-            height: 100%;
-            border: none;
-            text-align: center;
-            font-size: 18px;
-            text-transform: uppercase;
-            background: transparent;
-            outline: none;
-            color: #000;
-        }
-        
-        .clue-lists {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin-top: 40px;
-        }
-        
-        .clue-list {
-            width: 48%;
-            margin-bottom: 20px;
-        }
-        
-        .clue-list h2 {
-            color: #cccccc;
-            border-bottom: 2px solid #555;
-            padding-bottom: 5px;
-            margin-bottom: 15px;
-        }
-        
-        .clue-list ol {
-            padding-left: 25px;
-        }
-        
-        .clue-list li {
-            margin-bottom: 8px;
-            line-height: 1.4;
-            color: #dddddd;
-        }
-        
-        .buttons {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-            gap: 20px;
-        }
-        
-        button {
-            padding: 10px 20px;
-            background-color: #e62b1e; /* TEDx red color */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        
-        button:hover {
-            background-color: #c62118; /* Darker TEDx red on hover */
-        }
-        
-        .completion-message {
-            display: none;
-            text-align: center;
-            padding: 15px;
-            background-color: #143628;
-            color: #a0ffb0;
-            border-radius: 5px;
-            margin: 20px 0;
-            font-weight: bold;
-            border: 1px solid #2abb43;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driving Change: TEDxDAU 2025 Crossword Puzzle</title>
+  <style>
+    /* Omitted for brevity: Copy your full CSS here from original file */
+  </style>
 </head>
 <body>
-    <h1>Driving Change: TEDxDAU 2025 Crossword Puzzle</h1>
-    
-    <img src="https://raw.githubusercontent.com/BelovedCoachP/tedxdau-crossword-puzzle/refs/heads/main/DrivingChange_1920x1080_external.png" alt="Driving Change Logo" class="header-image">
-    
-    <div class="buttons">
-        <button id="check-button">Check Answers</button>
-        <button id="reveal-button">Reveal Solution</button>
-        <button id="reset-button">Reset Puzzle</button>
-    </div>
-    
-    <div id="completion-message" class="completion-message">
-        Congratulations! You've completed the puzzle!
-    </div>
-    
-    <div class="crossword-container" id="crossword">
-        <!-- The crossword grid will be dynamically generated here -->
-    </div>
-    
-    <div class="clue-lists">
-        <div class="clue-list">
-            <h2>Across</h2>
-            <ol id="across-clues">
-                <!-- Across clues will be dynamically added here -->
-            </ol>
-        </div>
-        <div class="clue-list">
-            <h2>Down</h2>
-            <ol id="down-clues">
-                <!-- Down clues will be dynamically added here -->
-            </ol>
-        </div>
-    </div>
-    
-    <script>
-        // Crossword puzzle data
-        const puzzleData = {
-            // Define the grid size
-            width: 21,
-            height: 21,
-            
-            // Define the answers and their positions
-            answers: [
-                // Across answers
-                { answer: "AIRFORCE", direction: "across", row: 1, col: 1 }, // 1A - Tidwell
-                { answer: "EMOTIONAL", direction: "across", row: 3, col: 4 }, // 3A - Canady
-                { answer: "SYSTEMS", direction: "across", row: 5, col: 1 }, // 5A - Moore
-                { answer: "HEELS", direction: "across", row: 5, col: 15 }, // 6A - Evangelista
-                { answer: "RINGMASTER", direction: "across", row: 7, col: 9 }, // 9A - Carroll
-                { answer: "ADAPTIVE", direction: "across", row: 9, col: 1 }, // 11A - Hilger
-                { answer: "FURIOUS", direction: "across", row: 9, col: 13 }, // 12A - Evangelista
-                { answer: "ANONYMOUS", direction: "across", row: 11, col: 8 }, // 14A - Tidwell
-                { answer: "GAMING", direction: "across", row: 13, col: 1 }, // 16A - Durham
-                { answer: "SAFETY", direction: "across", row: 13, col: 12 }, // 17A - Blesse
-                { answer: "LEVELUP", direction: "across", row: 15, col: 1 }, // 18A - Durham
-                { answer: "INTRUSIVE", direction: "across", row: 15, col: 12 }, // 19A - Canady
-                { answer: "CDAO", direction: "across", row: 17, col: 8 }, // 20A - Palmieri
-                { answer: "PERISCOPE", direction: "across", row: 17, col: 12 }, // 21A - Blesse
-                { answer: "DIGITAL", direction: "across", row: 19, col: 13 }, // 24A - Jones
-                { answer: "CREW", direction: "across", row: 21, col: 3 }, // 27A - Hilger
-                
-                // Down answers
-                { answer: "ACE", direction: "down", row: 1, col: 1 }, // 1D - Durham
-                { answer: "RESILIENCE", direction: "down", row: 1, col: 3 }, // 2D - Carroll
-                { answer: "EXPERIMENT", direction: "down", row: 1, col: 7 }, // 4D - Palmieri
-                { answer: "BLESSE", direction: "down", row: 3, col: 9 }, // 7D - Blesse
-                { answer: "TASKS", direction: "down", row: 5, col: 4 }, // 8D - Moore
-                { answer: "CURIOSITY", direction: "down", row: 5, col: 15 }, // 10D - Jones 
-                { answer: "CAR", direction: "down", row: 7, col: 14 }, // 13D - Palmieri
-                { answer: "VOICEAPP", direction: "down", row: 9, col: 5 }, // 15D - Tidwell
-                { answer: "PROGRAMS", direction: "down", row: 11, col: 9 }, // 22D - Hilger
-                { answer: "ESPORTS", direction: "down", row: 13, col: 3 }, // 23D - Carroll
-                { answer: "HUMAN", direction: "down", row: 13, col: 17 }, // 25D - Moore
-                { answer: "PC", direction: "down", row: 15, col: 7 }, // 26D - Jones
-                { answer: "RULES", direction: "down", row: 17, col: 14 }, // 28D - Evangelista
-                { answer: "WINDS", direction: "down", row: 17, col: 19 }, // 29D - Carroll
-                { answer: "LEAD", direction: "down", row: 17, col: 17 } // 30D - Canady
-            ],
-            
-            // Define the clues
-            clues: {
-                across: [
-                    { number: 1, clue: "Military branch where Tidwell serves", speaker: "TIDWELL" },
-                    { number: 3, clue: "The ability to read the room—and the person behind the problem", speaker: "CANADY" },
-                    { number: 5, clue: "Moore's approach for seeing wholes, not parts", speaker: "MOORE" },
-                    { number: 6, clue: "Evangelista says these must fly off for change to begin (footwear)", speaker: "EVANGELISTA" },
-                    { number: 9, clue: "The figure who keeps lions, vendors, and contracting officers in sync", speaker: "CARROLL" },
-                    { number: 11, clue: "This natural cycle defines organizational growth and rebirth", speaker: "HILGER" },
-                    { number: 12, clue: "Naval metaphor for acquisition speed amid resistance", speaker: "EVANGELISTA" },
-                    { number: 14, clue: "Voice-of-the-force app guarantees this submission status", speaker: "TIDWELL" },
-                    { number: 16, clue: "Durham's favorite genre of virtual competition", speaker: "DURHAM" },
-                    { number: 17, clue: "Blesse says this inspires agents to succeed like 007", speaker: "BLESSE" },
-                    { number: 18, clue: "What you do when 'Game Over' becomes a call to grow", speaker: "DURHAM" },
-                    { number: 19, clue: "Canady says this type of leadership earns trust", speaker: "CANADY" },
-                    { number: 20, clue: "Palmieri's group within OSD focused on digital/AI", speaker: "PALMIERI" },
-                    { number: 21, clue: "Blesse's innovation story started with a letter about this naval device", speaker: "BLESSE" },
-                    { number: 24, clue: "Jones's generation is often described as this", speaker: "JONES" },
-                    { number: 27, clue: "Hilger's submarine story highlights leadership's impact on this", speaker: "HILGER" }
-                ],
-                down: [
-                    { number: 1, clue: "Durham's AI teammate: Acquisition's Collaborative Engine", speaker: "DURHAM" },
-                    { number: 2, clue: "Carroll's key to program survival amid challenges", speaker: "CARROLL" },
-                    { number: 4, clue: "Palmieri's approach that pairs tech with real-world ops", speaker: "PALMIERI" },
-                    { number: 7, clue: "This 'Bond' speaker equated leadership with 007 flair", speaker: "BLESSE" },
-                    { number: 8, clue: "Moore's '3Ts' include trust, tolerance, and this third word", speaker: "MOORE" },
-                    { number: 10, clue: "Jones says this quality makes digital natives fearless questioners", speaker: "JONES" },
-                    { number: 13, clue: "Palmieri compares DoD transformation to building this while designing the road", speaker: "PALMIERI" },
-                    { number: 15, clue: "Tidwell's app that empowers innovation from the ground up", speaker: "TIDWELL" },
-                    { number: 22, clue: "Hilger's programs show we deliver more than just products—we deliver ____", speaker: "HILGER" },
-                    { number: 23, clue: "Carroll's competitive battlefield for acquisition talent", speaker: "CARROLL" },
-                    { number: 25, clue: "The only type of mindset that can wield AI effectively, per Moore", speaker: "MOORE" },
-                    { number: 26, clue: "Jones built one of these with her uncle in high school", speaker: "JONES" },
-                    { number: 28, clue: "What Evangelista says we must 'unlearn' to move forward", speaker: "EVANGELISTA" },
-                    { number: 29, clue: "Carroll compares acquisition's speed to these legendary ocean patterns", speaker: "CARROLL" },
-                    { number: 30, clue: "Canady challenges leaders to go beyond just 'managing' to truly ____", speaker: "CANADY" }
-                ]
-            }
-        };
-        
-        // Correct answers for checking
-        const correctAnswers = {};
-        
-        // Create the crossword grid
-        function createCrosswordGrid() {
-            const crosswordDiv = document.getElementById('crossword');
-            const width = puzzleData.width;
-            const height = puzzleData.height;
-            
-            // Clear any existing content
-            crosswordDiv.innerHTML = '';
-            
-            // Create 2D array to track which cells have content
-            const grid = Array(height).fill().map(() => Array(width).fill(false));
-            const numberGrid = Array(height).fill().map(() => Array(width).fill(0));
-            
-            // Fill in the grid with the answers
-            let clueNumber = 1;
-            
-            // Validate answers before processing
-            const validAnswers = puzzleData.answers.filter(answer => {
-                const { row, col, direction, answer: word } = answer;
-                if (row < 1 || row > height || col < 1 || col > width) {
-                    console.error(`Answer out of bounds: ${word} at position row=${row}, col=${col}`);
-                    return false;
-                }
-                // Check if word fits within grid
-                if (direction === 'across' && col + word.length - 1 > width) {
-                    console.error(`Across word too long: ${word} at position row=${row}, col=${col}`);
-                    return false;
-                }
-                if (direction === 'down' && row + word.length - 1 > height) {
-                    console.error(`Down word too long: ${word} at position row=${row}, col=${col}`);
-                    return false;
-                }
-                return true;
-            });
+  <h1>Driving Change: TEDxDAU 2025 Crossword Puzzle</h1>
+  <img src="https://raw.githubusercontent.com/BelovedCoachP/tedxdau-crossword-puzzle/refs/heads/main/DrivingChange_1920x1080_external.png" alt="Driving Change Logo" class="header-image">
 
-            // First pass: determine which cells get numbers
-            validAnswers.forEach(answer => {
-                const { row, col, direction, answer: word } = answer;
-                
-                // Check if this is the start of a new clue number
-                if ((direction === 'across' && (col === 1 || (col > 1 && !grid[row-1][col-2]))) || 
-                    (direction === 'down' && (row === 1 || (row > 1 && !grid[row-2][col-1])))) {
-                    if (numberGrid[row-1][col-1] === 0) {
-                        numberGrid[row-1][col-1] = clueNumber++;
-                    }
-                }
-                
-                // Mark cells as filled
-                for (let i = 0; i < word.length; i++) {
-                    if (direction === 'across') {
-                        grid[row-1][col-1+i] = true;
-                    } else {
-                        grid[row-1+i][col-1] = true;
-                    }
-                }
-            });
-            
-            // Store the correct answers for checking
-            validAnswers.forEach(answer => {
-                const { row, col, direction, answer: word } = answer;
-                const answerKey = `${direction}-${numberGrid[row-1][col-1]}`;
-                correctAnswers[answerKey] = word;
-            });
-            
-            // Create the grid cells
-            for (let i = 0; i < height; i++) {
-                for (let j = 0; j < width; j++) {
-                    const cell = document.createElement('div');
-                    cell.className = grid[i][j] ? 'crossword-cell' : 'crossword-cell black-cell';
-                    
-                    if (grid[i][j]) {
-                        const input = document.createElement('input');
-                        input.maxLength = 1;
-                        input.dataset.row = i + 1;
-                        input.dataset.col = j + 1;
-                        input.addEventListener('keydown', handleKeyDown);
-                        input.addEventListener('input', handleInput);
-                        cell.appendChild(input);
-                        
-                        // Add cell number if needed
-                        if (numberGrid[i][j] > 0) {
-                            const numberSpan = document.createElement('span');
-                            numberSpan.className = 'cell-number';
-                            numberSpan.textContent = numberGrid[i][j];
-                            cell.appendChild(numberSpan);
-                        }
-                    }
-                    
-                    crosswordDiv.appendChild(cell);
-                }
-            }
-            
-            // Populate the clue lists
-            populateClueList('across-clues', puzzleData.clues.across);
-            populateClueList('down-clues', puzzleData.clues.down);
-        }
-        
-        // Populate a clue list with the clues
-        function populateClueList(listId, clues) {
-            const list = document.getElementById(listId);
-            list.innerHTML = ''; // Clear existing clues
-            
-            clues.forEach(clue => {
-                const item = document.createElement('li');
-                item.value = clue.number;
-                item.textContent = clue.clue;
-                
-                // No speaker tags
-                
-                list.appendChild(item);
-            });
-        }
-        
-        // Handle keyboard navigation in the grid
-        function handleKeyDown(event) {
-            const currentCell = event.target;
-            const row = parseInt(currentCell.dataset.row);
-            const col = parseInt(currentCell.dataset.col);
-            
-            if (event.key === 'ArrowRight') {
-                moveFocus(row, col + 1);
-                event.preventDefault();
-            } else if (event.key === 'ArrowLeft') {
-                moveFocus(row, col - 1);
-                event.preventDefault();
-            } else if (event.key === 'ArrowUp') {
-                moveFocus(row - 1, col);
-                event.preventDefault();
-            } else if (event.key === 'ArrowDown') {
-                moveFocus(row + 1, col);
-                event.preventDefault();
-            } else if (event.key === 'Backspace' && currentCell.value === '') {
-                // If the current cell is empty and backspace is pressed, move focus to the previous cell
-                moveFocus(row, col - 1);
-                event.preventDefault();
-            }
-        }
-        
-        // Handle input in a cell
-        function handleInput(event) {
-            const currentCell = event.target;
-            const row = parseInt(currentCell.dataset.row);
-            const col = parseInt(currentCell.dataset.col);
-            
-            // Move to the next cell when a letter is entered
-            if (currentCell.value !== '') {
-                currentCell.value = currentCell.value.toUpperCase();
-                // Try to move right first (for across clues), if not possible, try down (for down clues)
-                if (!moveFocus(row, col + 1)) {
-                    moveFocus(row + 1, col);
-                }
-            }
-            
-            // Check if puzzle is complete
-            checkCompletion();
-        }
-        
-        // Move focus to a cell if it exists and is not a black cell
-        function moveFocus(row, col) {
-            const nextCell = document.querySelector(`input[data-row="${row}"][data-col="${col}"]`);
-            if (nextCell) {
-                nextCell.focus();
-                return true;
-            }
+  <div class="buttons">
+    <button id="check-button">Check Answers</button>
+    <button id="reveal-button">Reveal Solution</button>
+    <button id="reset-button">Reset Puzzle</button>
+  </div>
+
+  <div id="completion-message" class="completion-message">
+    Congratulations! You've completed the puzzle!
+  </div>
+
+  <div class="crossword-container" id="crossword"></div>
+
+  <div class="clue-lists">
+    <div class="clue-list">
+      <h2>Across</h2>
+      <ol id="across-clues"></ol>
+    </div>
+    <div class="clue-list">
+      <h2>Down</h2>
+      <ol id="down-clues"></ol>
+    </div>
+  </div>
+
+  <script>
+    // Omitted: Include full puzzleData, other JS logic...
+    
+// PATCHED VERSION OF createCrosswordGrid()
+function createCrosswordGrid() {
+    const crosswordDiv = document.getElementById('crossword');
+    const width = puzzleData.width;
+    const height = puzzleData.height;
+
+    crosswordDiv.innerHTML = '';
+
+    const grid = Array(height).fill().map(() => Array(width).fill(false));
+    const numberGrid = Array(height).fill().map(() => Array(width).fill(0));
+
+    let clueNumber = 1;
+
+    const validAnswers = puzzleData.answers.filter(answer => {
+        const { row, col, direction, answer: word } = answer;
+        if (row < 1 || row > height || col < 1 || col > width) {
+            console.error(`Answer out of bounds: ${word} at position row=${row}, col=${col}`);
             return false;
         }
-        
-        // Check if the puzzle is completed correctly
-        function checkCompletion() {
-            const allCells = document.querySelectorAll('.crossword-cell input');
-            const isEmpty = Array.from(allCells).some(cell => cell.value === '');
-            
-            if (!isEmpty) {
-                // Check if all answers are correct
-                const isCorrect = checkAllAnswers();
-                
-                if (isCorrect) {
-                    document.getElementById('completion-message').style.display = 'block';
-                }
-            }
-        }
-        
-        // Check button functionality
-        function checkAnswers() {
-            const acrossAnswers = checkAnswersByDirection('across');
-            const downAnswers = checkAnswersByDirection('down');
-            
-            // Highlight correct/incorrect answers
-            const allCells = document.querySelectorAll('.crossword-cell input');
-            allCells.forEach(cell => {
-                cell.style.backgroundColor = '';
-                cell.style.color = '';
-            });
-            
-            acrossAnswers.forEach(answer => {
-                const { row, col, isCorrect, word } = answer;
-                for (let i = 0; i < word.length; i++) {
-                    const cell = document.querySelector(`input[data-row="${row}"][data-col="${col + i}"]`);
-                    if (cell && !isCorrect) {
-                        cell.style.backgroundColor = '#ffdddd';
-                    } else if (cell && isCorrect) {
-                        cell.style.backgroundColor = '#ddffdd';
-                    }
-                }
-            });
-            
-            downAnswers.forEach(answer => {
-                const { row, col, isCorrect, word } = answer;
-                for (let i = 0; i < word.length; i++) {
-                    const cell = document.querySelector(`input[data-row="${row + i}"][data-col="${col}"]`);
-                    if (cell && !isCorrect && cell.style.backgroundColor !== '#ffdddd') {
-                        cell.style.backgroundColor = '#ffdddd';
-                    } else if (cell && isCorrect && cell.style.backgroundColor !== '#ddffdd') {
-                        cell.style.backgroundColor = '#ddffdd';
-                    }
-                }
-            });
-            
-            // Check if the puzzle is completed correctly
-            if (acrossAnswers.every(a => a.isCorrect) && downAnswers.every(a => a.isCorrect)) {
-                document.getElementById('completion-message').style.display = 'block';
-                return true;
-            }
+        if (direction === 'across' && col + word.length - 1 > width) {
+            console.error(`Across word too long: ${word} at position row=${row}, col=${col}`);
             return false;
         }
-        
-        // Check if all answers are correct
-        function checkAllAnswers() {
-            for (const [key, correctAnswer] of Object.entries(correctAnswers)) {
-                const [direction, numberStr] = key.split('-');
-                const number = parseInt(numberStr);
-                
-                // Find the answer in validAnswers instead of puzzleData.answers
-                const validAnswers = puzzleData.answers.filter(answer => {
-                    const { row, col, direction: dir, answer: word } = answer;
-                    return row >= 1 && row <= puzzleData.height && 
-                           col >= 1 && col <= puzzleData.width &&
-                           (dir === 'across' ? col + word.length - 1 <= puzzleData.width : row + word.length - 1 <= puzzleData.height);
-                });
-                
-                const answer = validAnswers.find(a => 
-                    a.direction === direction && 
-                    puzzleData.clues[direction + 's'].some(c => c.number === number)
-                );
-                
-                if (answer) {
-                    const { row, col } = answer;
-                    let userAnswer = '';
-                    
-                    for (let i = 0; i < correctAnswer.length; i++) {
-                        const cellRow = direction === 'across' ? row : row + i;
-                        const cellCol = direction === 'across' ? col + i : col;
-                        const cell = document.querySelector(`input[data-row="${cellRow}"][data-col="${cellCol}"]`);
-                        if (cell) {
-                            userAnswer += cell.value;
-                        }
-                    }
-                    
-                    if (userAnswer !== correctAnswer) {
-                        return false;
-                    }
+        if (direction === 'down' && row + word.length - 1 > height) {
+            console.error(`Down word too long: ${word} at position row=${row}, col=${col}`);
+            return false;
+        }
+        return true;
+    });
+
+    // PATCH: Always assign clue number if start cell has 0
+    validAnswers.forEach(answer => {
+        const { row, col, direction, answer: word } = answer;
+
+        if (numberGrid[row - 1][col - 1] === 0) {
+            numberGrid[row - 1][col - 1] = clueNumber++;
+        }
+
+        for (let i = 0; i < word.length; i++) {
+            if (direction === 'across') {
+                grid[row - 1][col - 1 + i] = true;
+            } else {
+                grid[row - 1 + i][col - 1] = true;
+            }
+        }
+    });
+
+    validAnswers.forEach(answer => {
+        const { row, col, direction, answer: word } = answer;
+        const answerKey = `${direction}-${numberGrid[row - 1][col - 1]}`;
+        correctAnswers[answerKey] = word;
+    });
+
+    for (let i = 0; i < height; i++) {
+        for (let j = 0; j < width; j++) {
+            const cell = document.createElement('div');
+            cell.className = grid[i][j] ? 'crossword-cell' : 'crossword-cell black-cell';
+
+            if (grid[i][j]) {
+                const input = document.createElement('input');
+                input.maxLength = 1;
+                input.dataset.row = i + 1;
+                input.dataset.col = j + 1;
+                input.addEventListener('keydown', handleKeyDown);
+                input.addEventListener('input', handleInput);
+                cell.appendChild(input);
+
+                if (numberGrid[i][j] > 0) {
+                    const numberSpan = document.createElement('span');
+                    numberSpan.className = 'cell-number';
+                    numberSpan.textContent = numberGrid[i][j];
+                    cell.appendChild(numberSpan);
                 }
             }
-            
-            return true;
+
+            crosswordDiv.appendChild(cell);
         }
-        
-        // Check answers by direction
-        function checkAnswersByDirection(direction) {
-            const answers = [];
-            
-            // Find valid answers
-            const validAnswers = puzzleData.answers.filter(answer => {
-                const { row, col, direction: dir, answer: word } = answer;
-                return row >= 1 && row <= puzzleData.height && 
-                       col >= 1 && col <= puzzleData.width &&
-                       (dir === 'across' ? col + word.length - 1 <= puzzleData.width : row + word.length - 1 <= puzzleData.height);
-            });
-            
-            puzzleData.clues[direction + 's'].forEach(clue => {
-                const number = clue.number;
-                const answer = validAnswers.find(a => 
-                    a.direction === direction && 
-                    puzzleData.clues[direction + 's'].some(c => c.number === number)
-                );
-                
-                if (answer) {
-                    const { row, col } = answer;
-                    const correctAnswer = correctAnswers[`${direction}-${number}`];
-                    if (!correctAnswer) return; // Skip if no correct answer is found
-                    
-                    let userAnswer = '';
-                    
-                    for (let i = 0; i < correctAnswer.length; i++) {
-                        const cellRow = direction === 'across' ? row : row + i;
-                        const cellCol = direction === 'across' ? col + i : col;
-                        const cell = document.querySelector(`input[data-row="${cellRow}"][data-col="${cellCol}"]`);
-                        if (cell) {
-                            userAnswer += cell.value;
-                        } else {
-                            console.warn(`Cell not found at row=${cellRow}, col=${cellCol}`);
-                        }
-                    }
-                    
-                    answers.push({
-                        row: row,
-                        col: col,
-                        word: correctAnswer,
-                        isCorrect: userAnswer === correctAnswer
-                    });
-                }
-            });
-            
-            return answers;
-        }
-        
-        // Reveal the solution
-        function revealSolution() {
-            // Find valid answers
-            const validAnswers = puzzleData.answers.filter(answer => {
-                const { row, col, direction, answer: word } = answer;
-                return row >= 1 && row <= puzzleData.height && 
-                       col >= 1 && col <= puzzleData.width &&
-                       (direction === 'across' ? col + word.length - 1 <= puzzleData.width : row + word.length - 1 <= puzzleData.height);
-            });
-            
-            validAnswers.forEach(answer => {
-                const { row, col, direction, answer: word } = answer;
-                
-                for (let i = 0; i < word.length; i++) {
-                    const cellRow = direction === 'across' ? row : row + i;
-                    const cellCol = direction === 'across' ? col + i : col;
-                    const cell = document.querySelector(`input[data-row="${cellRow}"][data-col="${cellCol}"]`);
-                    
-                    if (cell) {
-                        cell.value = word[i];
-                        cell.style.backgroundColor = '#ddffdd';
-                    }
-                }
-            });
-            
-            document.getElementById('completion-message').style.display = 'block';
-        }
-        
-        // Reset the puzzle
-        function resetPuzzle() {
-            const allCells = document.querySelectorAll('.crossword-cell input');
-            allCells.forEach(cell => {
-                cell.value = '';
-                cell.style.backgroundColor = '';
-                cell.style.color = '';
-            });
-            
-            document.getElementById('completion-message').style.display = 'none';
-        }
-        
-        // Initialize the puzzle
-        document.addEventListener('DOMContentLoaded', () => {
-            createCrosswordGrid();
-            
-            // Add event listeners for the buttons
-            document.getElementById('check-button').addEventListener('click', checkAnswers);
-            document.getElementById('reveal-button').addEventListener('click', revealSolution);
-            document.getElementById('reset-button').addEventListener('click', resetPuzzle);
-        });
-    </script>
+    }
+
+    populateClueList('across-clues', puzzleData.clues.across);
+    populateClueList('down-clues', puzzleData.clues.down);
+}
+
+    // Omitted: Include rest of script: checkAnswers, handleInput, etc.
+  </script>
 </body>
 </html>
