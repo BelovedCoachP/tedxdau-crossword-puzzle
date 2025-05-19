@@ -2,17 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Driving Change: TEDxDAU Crossword Puzzle</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
-    h1, h2 { text-align: center; }
-    nav ul { list-style: none; padding: 0; text-align: center; }
-    nav li { display: inline-block; margin: 0 10px; }
-    nav a { text-decoration: none; color: #0066cc; }
-    section { max-width: 800px; margin: 20px auto; }
-    ul, ol { margin-left: 20px; }
-  </style>
-</head>
 <body>
   <h1>Driving Change: TEDxDAU Crossword Puzzle</h1>
 
