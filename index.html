@@ -151,12 +151,12 @@
 
     <!-- Printable download links -->
     <span style="margin-left:1em;"></span>
-    <a href="https://github.com/BelovedCoachP/tedxdau-crossword-puzzle/blob/main/printable_clues.html" target="_blank">
-      <button>Printable Clues</button>
-    </a>
-    <a href="https://github.com/BelovedCoachP/tedxdau-crossword-puzzle/blob/main/printable_puzzle.html" target="_blank">
-      <button>Printable Puzzle</button>
-    </a>
+   <a href="https://raw.githubusercontent.com/BelovedCoachP/tedxdau-crossword-puzzle/main/printable_clues.html" target="_blank">
+    <button>Printable Clues</button>
+  </a>
+  <a href="https://raw.githubusercontent.com/BelovedCoachP/tedxdau-crossword-puzzle/main/printable_puzzle.html" target="_blank">
+    <button>Printable Puzzle</button>
+  </a>
 </div>
 
     
@@ -642,6 +642,18 @@ populateClueList('down-clues',   puzzleData.clues.down);
             document.getElementById('reveal-button').addEventListener('click', revealSolution);
             document.getElementById('reset-button').addEventListener('click', resetPuzzle);
         });
+        window.addEventListener('DOMContentLoaded', () => {
+  const revealBtn = document.getElementById('reveal-button');
+  const unlockDate = new Date(2025, 5, 4, 15, 0, 0);
+  if (new Date() < unlockDate) {
+    revealBtn.disabled = true;
+    revealBtn.title = 'Solutions available after June 4, 2025 at 3:00 PM';
+  } else {
+    revealBtn.disabled = false;
+  }
+  // Now that we're ready, build the grid:
+  createCrosswordGrid();
+});
     </script>
 </body>
 </html>
