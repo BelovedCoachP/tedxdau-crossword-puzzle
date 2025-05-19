@@ -4,33 +4,40 @@
   <meta charset="UTF-8">
   <title>Printable Crossword Grid</title>
   <style>
+    @page {
+      size: letter portrait;
+      margin: 0.5in;
+    }
     body {
       font-family: Arial, sans-serif;
-      padding: 30px;
       background: #fff;
-      max-width: 800px;
+      margin: 0;
+      padding: 0;
+      max-width: 100%;
+    }
+    .container {
+      width: 100%;
+      max-width: 8.5in;
       margin: 0 auto;
+      padding: 0.5in 0;
     }
     h1 {
       text-align: center;
-      margin-bottom: 30px;
-      font-size: 28px;
+      margin: 0 0 20px 0;
+      font-size: 24px;
       font-weight: bold;
-    }
-    .puzzle-container {
-      width: 100%;
-      max-width: 650px;
-      margin: 0 auto;
     }
     table {
       border-collapse: collapse;
       width: 100%;
+      max-width: 7in;
+      margin: 0 auto;
       table-layout: fixed;
     }
     td {
-      width: 40px;
-      height: 40px;
-      border: 2px solid #000;
+      width: 0.4in;
+      height: 0.4in;
+      border: 1.5px solid #000;
       position: relative;
       text-align: center;
       vertical-align: middle;
@@ -38,42 +45,44 @@
     }
     .black-cell {
       background-color: #000 !important;
-      border: 2px solid #000;
+      border: 1.5px solid #000;
     }
     .cell-number {
       position: absolute;
       top: 2px;
       left: 3px;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: bold;
     }
+    
+    /* Critical print styles */
     @media print {
-      body {
-        padding: 0;
-        margin: 0;
-      }
-      .puzzle-container {
+      .container {
         width: 100%;
-        max-width: none;
+        padding: 0;
+      }
+      body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
       }
       table {
         page-break-inside: avoid;
       }
-      td {
-        border: 1.5px solid #000;
-      }
       .black-cell {
         background-color: #000 !important;
-        -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
+      }
+      td {
+        background-color: white !important;
       }
     }
   </style>
 </head>
 <body>
-  <h1>Driving Change: TEDxDAU Crossword Puzzle</h1>
-  
-  <div class="puzzle-container">
+  <div class="container">
+    <h1>Driving Change: TEDxDAU Crossword Puzzle</h1>
+    
     <table>
       <tr>
         <td><div class="cell-number">1</div></td>
@@ -434,5 +443,23 @@
       </tr>
     </table>
   </div>
+
+  <script>
+    // This script ensures black cells print properly
+    window.onload = function() {
+      var blackCells = document.getElementsByClassName('black-cell');
+      for (var i = 0; i < blackCells.length; i++) {
+        blackCells[i].style.backgroundColor = '#000';
+      }
+    };
+
+    // Force all black cells to render as black in print preview
+    window.onbeforeprint = function() {
+      var style = document.createElement('style');
+      style.type = 'text/css';
+      style.innerHTML = '.black-cell { background-color: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }';
+      document.getElementsByTagName('head')[0].appendChild(style);
+    };
+  </script>
 </body>
 </html>
