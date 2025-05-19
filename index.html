@@ -274,6 +274,16 @@
             const grid = Array(height).fill().map(() => Array(width).fill(false));
             const numberGrid = Array(height).fill().map(() => Array(width).fill(0));
             
+            // Mark filled cells in the grid
+                puzzleData.answers.forEach(ans => {
+              const startR = ans.row - 1, startC = ans.col - 1;
+              for (let i = 0; i < ans.answer.length; i++) {
+                const r = ans.direction === 'down'   ? startR + i : startR;
+                const c = ans.direction === 'across' ? startC + i : startC;
+                grid[r][c] = true;
+                  }
+                });
+          
             // Fill in the grid with the answers
             let clueNumber = 1;
             
