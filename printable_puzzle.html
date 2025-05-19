@@ -1,145 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Crossword Puzzle</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #ffffff;
-            color: #000000;
-        }
-        .crossword-container {
-            display: grid;
-            grid-template-columns: repeat(21, 30px);
-            grid-gap: 0;
-            margin: 0 auto;
-            border: 2px solid #000;
-            background-color: #fff;
-        }
-        .crossword-cell {
-            width: 30px;
-            height: 30px;
-            border: 1px solid #000;
-            position: relative;
-            background-color: #fff;
-        }
-        .black-cell {
-            background-color: #000;
-        }
-        .cell-number {
-            position: absolute;
-            top: 1px;
-            left: 2px;
-            font-size: 10px;
-            color: #000;
-        }
-        @media print {
-            body { margin: 10mm; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Printable Crossword (Static)</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    table { border-collapse: collapse; margin: 0 auto; }
+    td { width: 30px; height: 30px; border: 1px solid #000; position: relative; }
+    .black-cell { background: #000; }
+    .cell-number { position: absolute; top: 2px; left: 2px; font-size: 10px; }
+  </style>
 </head>
 <body>
-    <div class="crossword-container" id="crossword"></div>
-    <script>
-        // Puzzle data with clue numbers for printing
-        const puzzleData = {
-            width: 21,
-            height: 21,
-            answers: [
-                { answer: "AIRFORCE", direction: "across", row: 1, col: 1 },
-                { answer: "EMOTIONAL", direction: "across", row: 3, col: 4 },
-                { answer: "SYSTEMS", direction: "across", row: 5, col: 1 },
-                { answer: "HEELS", direction: "across", row: 5, col: 15 },
-                { answer: "RINGMASTER", direction: "across", row: 7, col: 9 },
-                { answer: "ADAPTIVE", direction: "across", row: 9, col: 1 },
-                { answer: "FURIOUS", direction: "across", row: 9, col: 13 },
-                { answer: "ANONYMOUS", direction: "across", row: 11, col: 8 },
-                { answer: "GAMING", direction: "across", row: 13, col: 1 },
-                { answer: "SAFETY", direction: "across", row: 13, col: 12 },
-                { answer: "LEVELUP", direction: "across", row: 15, col: 1 },
-                { answer: "INTRUSIVE", direction: "across", row: 15, col: 12 },
-                { answer: "CDAO", direction: "across", row: 17, col: 8 },
-                { answer: "PERISCOPE", direction: "across", row: 17, col: 12 },
-                { answer: "DIGITAL", direction: "across", row: 19, col: 13 },
-                { answer: "CREW", direction: "across", row: 21, col: 3 },
-                { answer: "ACE", direction: "down", row: 1, col: 1 },
-                { answer: "RESILIENCE", direction: "down", row: 1, col: 3 },
-                { answer: "EXPERIMENT", direction: "down", row: 1, col: 7 },
-                { answer: "BLESSE", direction: "down", row: 3, col: 9 },
-                { answer: "TASKS", direction: "down", row: 5, col: 4 },
-                { answer: "CURIOSITY", direction: "down", row: 5, col: 15 },
-                { answer: "CAR", direction: "down", row: 7, col: 14 },
-                { answer: "VOICEAPP", direction: "down", row: 9, col: 5 },
-                { answer: "PROGRAMS", direction: "down", row: 11, col: 9 },
-                { answer: "ESPORTS", direction: "down", row: 13, col: 3 },
-                { answer: "HUMAN", direction: "down", row: 13, col: 17 },
-                { answer: "PC", direction: "down", row: 15, col: 7 },
-                { answer: "RULES", direction: "down", row: 17, col: 14 },
-                { answer: "WINDS", direction: "down", row: 17, col: 19 },
-                { answer: "LEAD", direction: "down", row: 17, col: 17 }
-            ],
-            clues: {
-                across: [
-                    { number: 1 },{ number: 2 },{ number: 3 },{ number: 4 },
-                    { number: 5 },{ number: 6 },{ number: 7 },{ number: 8 },
-                    { number: 9 },{ number: 10 },{ number: 11 },{ number: 12 },
-                    { number: 13 },{ number: 14 },{ number: 15 },{ number: 16 }
-                ],
-                down: [
-                    { number: 1 },{ number: 2 },{ number: 3 },{ number: 4 },
-                    { number: 5 },{ number: 6 },{ number: 7 },{ number: 8 },
-                    { number: 9 },{ number: 10 },{ number: 11 },{ number: 12 },
-                    { number: 13 },{ number: 14 },{ number: 15 }
-                ]
-            }
-        };
-
-        function createPrintableGrid() {
-            const container = document.getElementById('crossword');
-            const grid = Array(puzzleData.height).fill().map(() => Array(puzzleData.width).fill(false));
-            const numbers = Array(puzzleData.height).fill().map(() => Array(puzzleData.width).fill(0));
-
-            let a = 0, d = 0;
-            puzzleData.answers.forEach(ans => {
-                const r0 = ans.row - 1, c0 = ans.col - 1;
-                for (let i = 0; i < ans.answer.length; i++) {
-                    const r = ans.direction === 'down' ? r0 + i : r0;
-                    const c = ans.direction === 'across' ? c0 + i : c0;
-                    grid[r][c] = true;
-                    if (i === 0) {
-                        if (ans.direction === 'across') {
-                            numbers[r][c] = puzzleData.clues.across[a].number;
-                            a++;
-                        } else {
-                            numbers[r][c] = puzzleData.clues.down[d].number;
-                            d++;
-                        }
-                    }
-                }
-            });
-
-            // Render cells
-            grid.forEach((row, r) => {
-                row.forEach((filled, c) => {
-                    const cell = document.createElement('div');
-                    cell.className = filled ? 'crossword-cell' : 'crossword-cell black-cell';
-                    if (filled) {
-                        const num = numbers[r][c];
-                        if (num) {
-                            const span = document.createElement('span');
-                            span.className = 'cell-number';
-                            span.textContent = num;
-                            cell.appendChild(span);
-                        }
-                    }
-                    container.appendChild(cell);
-                });
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', createPrintableGrid);
-    </script>
+  <h1 style="text-align:center;">Driving Change: TEDxDAU Crossword Puzzle</h1>
+  <table>
+    <tr><td class="crossword-cell"><div class="cell-number">1</div></td><td class="crossword-cell"></td><td class="crossword-cell"><div class="cell-number">2</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"><div class="cell-number">3</div></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="crossword-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="crossword-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"><div class="cell-number">2</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"><div class="cell-number">4</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="crossword-cell"><div class="cell-number">3</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"><div class="cell-number">5</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"><div class="cell-number">6</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="crossword-cell"><div class="cell-number">5</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"><div class="cell-number">7</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="crossword-cell"><div class="cell-number">6</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"><div class="cell-number">8</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"><div class="cell-number">7</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"><div class="cell-number">8</div></td><td class="crossword-cell"><div class="cell-number">9</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="crossword-cell"><div class="cell-number">9</div></td><td class="crossword-cell"></td><td class="crossword-cell"><div class="cell-number">10</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"><div class="cell-number">10</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"><div class="cell-number">11</div></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="crossword-cell"><div class="cell-number">11</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"><div class="cell-number">12</div></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"><div class="cell-number">12</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td></tr><tr><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"><div class="cell-number">13</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"><div class="cell-number">14</div></td><td class="crossword-cell"></td><td class="crossword-cell"><div class="cell-number">13</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"><div class="cell-number">15</div></td><td class="crossword-cell"></td><td class="crossword-cell"><div class="cell-number">14</div></td><td class="crossword-cell"></td><td class="black-cell"></td></tr><tr><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"><div class="cell-number">15</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr><tr><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"><div class="cell-number">16</div></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="black-cell"></td><td class="crossword-cell"></td><td class="black-cell"></td><td class="black-cell"></td></tr>
+  </table>
 </body>
 </html>
