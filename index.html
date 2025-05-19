@@ -634,26 +634,26 @@ populateClueList('down-clues',   puzzleData.clues.down);
         }
         
         // Initialize the puzzle
-        document.addEventListener('DOMContentLoaded', () => {
-            createCrosswordGrid();
-            
-            // Add event listeners for the buttons
-            document.getElementById('check-button').addEventListener('click', checkAnswers);
-            document.getElementById('reveal-button').addEventListener('click', revealSolution);
-            document.getElementById('reset-button').addEventListener('click', resetPuzzle);
-        });
-        window.addEventListener('DOMContentLoaded', () => {
-  const revealBtn = document.getElementById('reveal-button');
-  const unlockDate = new Date(2025, 5, 4, 15, 0, 0);
-  if (new Date() < unlockDate) {
-    revealBtn.disabled = true;
-    revealBtn.title = 'Solutions available after June 4, 2025 at 3:00 PM';
-  } else {
-    revealBtn.disabled = false;
-  }
-  // Now that we're ready, build the grid:
-  createCrosswordGrid();
-});
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1) Build the grid
+        createCrosswordGrid();
+
+        // 2) Date-lock the Reveal button
+        const revealBtn = document.getElementById('reveal-button');
+        const unlockDate = new Date(2025, 5, 4, 15, 0, 0); // June is month 5
+        if (new Date() < unlockDate) {
+            revealBtn.disabled = true;
+            revealBtn.title = 'Solutions available after June 4, 2025 at 3:00 PM';
+        } else {
+            revealBtn.disabled = false;
+        }
+
+        // 3) Wire up buttons (use revealBtn variable)
+        document.getElementById('check-button').addEventListener('click', checkAnswers);
+        revealBtn.addEventListener('click', revealSolution);
+        document.getElementById('reset-button').addEventListener('click', resetPuzzle);
+    });
     </script>
 </body>
 </html>
