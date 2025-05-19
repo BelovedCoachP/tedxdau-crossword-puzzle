@@ -228,7 +228,15 @@
             </ol>
         </div>
     </div>
-    
+    <!-- Modal for reveal solution message -->
+<div id="reveal-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h3>Solution Not Available Yet</h3>
+        <p>The solution will be revealed after <span class="reveal-date">June 4, 2025 at 3:00 PM</span>.</p>
+        <p>Check back after this date to view the complete solution!</p>
+    </div>
+</div>
     <script>
         // Crossword puzzle data
         const puzzleData = {
@@ -680,33 +688,54 @@ populateClueList('down-clues',   puzzleData.clues.down);
         }
         
         // Initialize the puzzle
-    document.addEventListener('DOMContentLoaded', () => {
-        // 1) Build the grid
-        createCrosswordGrid();
+   document.addEventListener('DOMContentLoaded', () => {
+    // 1) Build the grid
+    createCrosswordGrid();
 
-        // 2) Date-lock the Reveal button
-const revealBtn = document.getElementById('reveal-button');
-const unlockDate = new Date(2025, 5, 4, 15, 0, 0); // June is month 5
-const modal = document.getElementById('reveal-modal');
-
-// Set up modal close functionality
-const closeBtn = document.querySelector('.close-button');
-if (closeBtn) {
-    closeBtn.onclick = function() {
-        modal.style.display = 'none';
-    };
-}
-
-// Close modal when clicking outside of it
-window.onclick = function(event) {
-    if (event.target === modal) {
-        modal.style.display = 'none';
-    }
-};
-
-// 3) Wire up buttons (use revealBtn variable)
-document.getElementById('check-button').addEventListener('click', checkAnswers);
-document.getElementById('reset-button').addEventListener('click', resetPuzzle);
+    // 2) Date-lock the Reveal button
+    const revealBtn = document.getElementById('reveal-button');
+    const unlockDate = new Date(2025, 5, 4, 15, 0, 0); // June is month 5
+    
+    // Make sure modal exists before trying to use it
+    setTimeout(() => {
+        const modal = document.getElementById('reveal-modal');
+        if (!modal) {
+            console.error("Modal element not found!");
+            return;
+        }
+        
+        // Set up modal close functionality
+        const closeBtn = document.querySelector('.close-button');
+        if (closeBtn) {
+            closeBtn.onclick = function() {
+                modal.style.display = 'none';
+            };
+        }
+        
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+        
+        // Set up reveal button functionality
+        if (new Date() < unlockDate) {
+            // Show modal instead of disabling button
+            revealBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                modal.style.display = 'block';
+            });
+        } else {
+            // After unlock date, reveal solution works normally
+            revealBtn.addEventListener('click', revealSolution);
+        }
+    }, 100);
+    
+    // 3) Wire up other buttons
+    document.getElementById('check-button').addEventListener('click', checkAnswers);
+    document.getElementById('reset-button').addEventListener('click', resetPuzzle);
+});
 
 if (new Date() < unlockDate) {
     // Show modal instead of disabling button
@@ -719,14 +748,6 @@ if (new Date() < unlockDate) {
     revealBtn.addEventListener('click', revealSolution);
 }
         </script>
-    <!-- Modal for reveal solution message -->
-<div id="reveal-modal" class="modal">
-    <div class="modal-content">
-        <span class="close-button">&times;</span>
-        <h3>Solution Not Available Yet</h3>
-        <p>The solution will be revealed after <span class="reveal-date">June 4, 2025 at 3:00 PM</span>.</p>
-        <p>Check back after this date to view the complete solution!</p>
-    </div>
-</div>
+
 </body>
 </html>
