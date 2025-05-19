@@ -89,9 +89,20 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initially hide the answer grid
   answerGrid.parentElement.style.display = 'none';
   
+  // Create the reveal modal if it doesn't exist
+  createRevealModal();
+  
   // Event listeners for buttons
   if (showAnswersBtn) {
-    showAnswersBtn.addEventListener('click', toggleAnswers);
+    // Check if reveals are allowed before showing answers
+    showAnswersBtn.addEventListener('click', function() {
+      const unlockDate = new Date(2025, 5, 4, 15, 0, 0); // June 4, 2025 at 3:00 PM
+      if (new Date() < unlockDate) {
+        showRevealModal();
+      } else {
+        toggleAnswers();
+      }
+    });
   }
   
   if (checkAnswersBtn) {
@@ -100,6 +111,110 @@ document.addEventListener('DOMContentLoaded', function() {
   
   if (resetBtn) {
     resetBtn.addEventListener('click', resetPuzzle);
+  }
+  
+  // Create the reveal solution modal
+  function createRevealModal() {
+    // Only create if it doesn't already exist
+    if (!document.getElementById('reveal-modal')) {
+      // Create modal elements
+      const modal = document.createElement('div');
+      modal.id = 'reveal-modal';
+      modal.className = 'modal';
+      
+      const modalContent = document.createElement('div');
+      modalContent.className = 'modal-content';
+      
+      const closeButton = document.createElement('span');
+      closeButton.className = 'close-button';
+      closeButton.innerHTML = '&times;';
+      closeButton.onclick = function() {
+        modal.style.display = 'none';
+      };
+      
+      const title = document.createElement('h3');
+      title.textContent = 'Solution Not Available Yet';
+      
+      const message = document.createElement('p');
+      message.innerHTML = 'The solution will be revealed after <span class="reveal-date">June 4, 2025 at 3:00 PM</span>.';
+      
+      const additionalInfo = document.createElement('p');
+      additionalInfo.textContent = 'Check back after this date to view the complete solution!';
+      
+      // Assemble the modal
+      modalContent.appendChild(closeButton);
+      modalContent.appendChild(title);
+      modalContent.appendChild(message);
+      modalContent.appendChild(additionalInfo);
+      modal.appendChild(modalContent);
+      
+      // Add modal styles
+      const styleElement = document.createElement('style');
+      styleElement.textContent = `
+        .modal {
+          display: none;
+          position: fixed;
+          z-index: 1000;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0,0,0,0.7);
+        }
+        
+        .modal-content {
+          background-color: #333;
+          margin: 15% auto;
+          padding: 20px;
+          border: 1px solid #555;
+          border-radius: 5px;
+          width: 80%;
+          max-width: 500px;
+          color: white;
+          text-align: center;
+          position: relative;
+        }
+        
+        .close-button {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+          cursor: pointer;
+          position: absolute;
+          top: 5px;
+          right: 15px;
+        }
+        
+        .close-button:hover {
+          color: white;
+        }
+        
+        .reveal-date {
+          font-weight: bold;
+          color: #e62b1e;
+        }
+      `;
+      
+      // Add modal and styles to the document
+      document.head.appendChild(styleElement);
+      document.body.appendChild(modal);
+      
+      // Close the modal when clicking outside of it
+      window.onclick = function(event) {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      };
+    }
+  }
+  
+  // Show the reveal modal
+  function showRevealModal() {
+    const modal = document.getElementById('reveal-modal');
+    if (modal) {
+      modal.style.display = 'block';
+    }
   }
   
   // Function to generate the letter map
