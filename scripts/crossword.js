@@ -1,247 +1,144 @@
-/* CSS for the TEDxDAU Crossword Puzzle */
+// Crossword puzzle data
+const puzzleData = {
+    // Define the grid size
+    width: 21,
+    height: 21,
+    
+    // Define the answers and their positions
+    answers: [
+        // Across answers
+        { answer: "AIRFORCE", direction: "across", row: 1, col: 1 },   // 1A
+        { answer: "EMOTIONAL", direction: "across", row: 3, col: 4 },   // 3A
+        { answer: "SYSTEMS", direction: "across", row: 5, col: 1 },     // 5A
+        { answer: "HEELS", direction: "across", row: 5, col: 15 },      // 6A
+        { answer: "RINGMASTER", direction: "across", row: 7, col: 9 },  // 9A
+        { answer: "ADAPTIVE", direction: "across", row: 9, col: 1 },    // 11A
+        { answer: "FURIOUS", direction: "across", row: 9, col: 13 },    // 12A
+        { answer: "ANONYMOUS", direction: "across", row: 11, col: 8 },  // 14A
+        { answer: "GAMING", direction: "across", row: 13, col: 1 },     // 16A
+        { answer: "SAFETY", direction: "across", row: 13, col: 12 },    // 17A
+        { answer: "LEVELUP", direction: "across", row: 15, col: 1 },    // 18A
+        { answer: "INTRUSIVE", direction: "across", row: 15, col: 12 }, // 19A
+        { answer: "CDAO", direction: "across", row: 17, col: 8 },       // 20A
+        { answer: "PERISCOPE", direction: "across", row: 17, col: 12 }, // 21A
+        { answer: "DIGITAL", direction: "across", row: 19, col: 13 },   // 24A
+        { answer: "CREW", direction: "across", row: 21, col: 3 }        // 27A
+        
+        // Down answers
+    ],
+    clues: {
+        across: [/* ... across clues array ... */],
+        down: [/* ... down clues array ... */]
+    }
+};
 
-:root {
-  --tedx-red: #e62b1e;
-  --tedx-dark: #2b2b2b;
-  --tedx-light: #f5f5f5;
-  --tedx-accent: #ff5a5f;
-  --tedx-gray: #666666;
-  --tedx-border: #dddddd;
-}
+// Correct answers mapping for checking
+const correctAnswers = {};
 
-body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  line-height: 1.6;
-  color: var(--tedx-dark);
-  background-color: var(--tedx-light);
-  margin: 0;
-  padding: 20px;
-}
+// Map of puzzle positions to clue numbers
+const numberPositions = {
+  "1-1-across": 1,
+  "3-4-across": 3,
+  "5-1-across": 5,
+  "5-15-across": 6,
+  "7-9-across": 9,
+  "9-1-across": 11,
+  "9-13-across": 12,
+  "11-8-across": 14,
+  "13-1-across": 16,
+  "13-12-across": 17,
+  "15-1-across": 18,
+  "15-12-across": 19,
+  "17-8-across": 20,
+  "17-12-across": 21,
+  "19-13-across": 24,
+  "21-3-across": 27,
 
-.header {
-  text-align: center;
-  margin-bottom: 30px;
-}
+  "1-1-down": 1,
+  "1-3-down": 2,
+  "1-7-down": 4,
+  "3-9-down": 7,
+  "5-4-down": 8,
+  "5-15-down": 10,
+  "7-14-down": 13,
+  "9-5-down": 15,
+  "11-9-down": 22,
+  "13-3-down": 23,
+  "13-17-down": 25,
+  "15-7-down": 26,
+  "17-14-down": 28,
+  "17-19-down": 29,
+  "17-17-down": 30
+};
 
-.header h1 {
-  color: var(--tedx-red);
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.header p {
-  color: var(--tedx-gray);
-  font-size: 1.2rem;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.controls {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 30px;
-}
-
-.btn {
-  padding: 10px 20px;
-  background-color: var(--tedx-red);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s;
-}
-
-.btn:hover {
-  background-color: #c12018;
-}
-
-.btn.secondary {
-  background-color: var(--tedx-gray);
-}
-
-.btn.secondary:hover {
-  background-color: #4d4d4d;
-}
-
-.crossword-container {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-@media (min-width: 900px) {
-  .crossword-container {
-    flex-direction: row;
+// Populate the number grid and correctAnswers mapping
+puzzleData.answers.forEach(ans => {
+  const key = `${ans.row}-${ans.col}-${ans.direction}`;
+  if (numberPositions[key]) {
+    correctAnswers[`${ans.direction}-${numberPositions[key]}`] = ans.answer;
   }
+});
+
+// Create the crossword grid
+function createCrosswordGrid() {
+  // Implementation to build grid cells, assign inputs, and numbers
 }
 
-.grid-container {
-  flex: 3;
-  overflow-x: auto;
+// Populate clue lists
+function populateClueList(listId, clues) {
+  // Populate HTML lists for clues
 }
 
-.clues-container {
-  flex: 2;
+// Handle keyboard navigation and input
+function handleKeyDown(event) {
+  // Arrow key navigation and Backspace handling
 }
 
-.grid {
-  border-collapse: collapse;
-  margin: 0 auto;
+function handleInput(event) {
+  // Auto-advance and check completion
 }
 
-.grid td {
-  width: 35px;
-  height: 35px;
-  text-align: center;
-  vertical-align: middle;
-  border: 1px solid var(--tedx-border);
-  position: relative;
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-transform: uppercase;
+// Focus movement
+function moveFocus(row, col) {
+  // Move focus between cells
 }
 
-.grid td.black {
-  background-color: var(--tedx-dark);
+// Check completion status
+function checkCompletion() {
+  // Check all cells for completeness and correctness
 }
 
-.grid td .number {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  font-size: 9px;
-  color: var(--tedx-gray);
+// Check answers when 'Check' is clicked
+function checkAnswers() {
+  // Highlight correct/incorrect answers
 }
 
-.grid td[contenteditable="true"] {
-  cursor: text;
+// Check answers by direction for more granular checking
+function checkAnswersByDirection(direction) {
+  // Check individual across or down answers
 }
 
-.grid td[contenteditable="true"]:focus {
-  background-color: #fffae5;
-  outline: 2px solid var(--tedx-accent);
+// Reveal full solution
+function revealSolution() {
+  // Fill all cells with correct answers
 }
 
-.clue-section {
-  margin-bottom: 20px;
+// Reset puzzle state
+function resetPuzzle() {
+  // Clear all inputs and reset highlights
 }
 
-.clue-section h3 {
-  color: var(--tedx-red);
-  border-bottom: 2px solid var(--tedx-red);
-  padding-bottom: 5px;
-  margin-top: 0;
-}
+// Initialize puzzle on page load
+document.addEventListener('DOMContentLoaded', () => {
+  createCrosswordGrid();
+  populateClueList('across-clues', puzzleData.clues.across);
+  populateClueList('down-clues', puzzleData.clues.down);
 
-.clue-list {
-  list-style-position: inside;
-  padding-left: 10px;
-}
+  document.getElementById('check-button').addEventListener('click', checkAnswers);
+  document.getElementById('reset-button').addEventListener('click', resetPuzzle);
 
-.clue-list li {
-  margin-bottom: 10px;
-  line-height: 1.4;
-}
+  // Setup reveal-button with date lock and modal logic
+});
 
-.clue-list li .emoji {
-  margin-right: 5px;
-}
-
-.footer {
-  text-align: center;
-  margin-top: 40px;
-  padding-top: 20px;
-  border-top: 1px solid var(--tedx-border);
-  color: var(--tedx-gray);
-}
-
-/* Modal styles for reveal solution popup */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.7);
-}
-
-.modal-content {
-  background-color: var(--tedx-dark);
-  color: var(--tedx-light);
-  margin: 15% auto;
-  padding: 25px;
-  border: 1px solid var(--tedx-gray);
-  border-radius: 8px;
-  width: 80%;
-  max-width: 500px;
-  text-align: center;
-  position: relative;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  animation: modalFadeIn 0.3s ease-in-out;
-}
-
-@keyframes modalFadeIn {
-  from {opacity: 0; transform: translateY(-20px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-
-.close-button {
-  color: var(--tedx-gray);
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  transition: color 0.2s;
-}
-
-.close-button:hover {
-  color: var(--tedx-light);
-}
-
-.modal-content h3 {
-  margin-top: 0;
-  color: var(--tedx-light);
-  font-size: 1.4rem;
-}
-
-.reveal-date {
-  font-weight: bold;
-  color: var(--tedx-red);
-}
-
-/* Print-specific styles */
-@media print {
-  .controls, .footer, .btn, .modal {
-    display: none !important;
-  }
-  
-  body {
-    padding: 0;
-    font-size: 12pt;
-  }
-  
-  .header h1 {
-    font-size: 24pt;
-  }
-  
-  .grid td {
-    width: 30px;
-    height: 30px;
-    font-size: 16pt;
-  }
-  
-  .page-break {
-    page-break-before: always;
-  }
-}
+// Debug info
+console.log('Crossword script loaded');
