@@ -373,13 +373,28 @@
             // First pass: determine which cells get numbers
            // —– REPLACE THIS SECTION —–
 // 2) Assign clue numbers exactly as they appear in your clues arrays
-let aIndex = 0, dIndex = 0;
 puzzleData.answers.forEach(ans => {
   const r = ans.row - 1, c = ans.col - 1;
+  
+  // Find the corresponding clue to get the correct number
   if (ans.direction === 'across') {
-    numberGrid[r][c] = puzzleData.clues.across[aIndex++].number;
+    const matchingClue = puzzleData.clues.across.find(clue => {
+      return clue.clue.includes(ans.answer) || 
+             (clue.speaker && clue.speaker === ans.answer) ||
+             ans.answer.includes(clue.speaker);
+    });
+    if (matchingClue) {
+      numberGrid[r][c] = matchingClue.number;
+    }
   } else {
-    numberGrid[r][c] = puzzleData.clues.down[dIndex++].number;
+    const matchingClue = puzzleData.clues.down.find(clue => {
+      return clue.clue.includes(ans.answer) || 
+             (clue.speaker && clue.speaker === ans.answer) ||
+             ans.answer.includes(clue.speaker);
+    });
+    if (matchingClue) {
+      numberGrid[r][c] = matchingClue.number;
+    }
   }
 });
 
@@ -737,17 +752,6 @@ populateClueList('down-clues',   puzzleData.clues.down);
     document.getElementById('reset-button').addEventListener('click', resetPuzzle);
 });
 
-if (new Date() < unlockDate) {
-    // Show modal instead of disabling button
-    revealBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        modal.style.display = 'block';
-    });
-} else {
-    // After unlock date, reveal solution works normally
-    revealBtn.addEventListener('click', revealSolution);
-}
-        </script>
-
+  </script>
 </body>
 </html>
