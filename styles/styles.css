@@ -190,3 +190,33 @@ button:hover {
     font-weight: bold;
     color: #e62b1e;
 }
+/* ——— Static Puzzle Table Styling ——— */
+table {
+  border-collapse: collapse;
+  margin: 20px auto;
+  background: #222;           /* dark “canvas” behind the white cells */
+}
+
+table td, table th {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #555;     /* grid lines */
+  background: #fff;            /* cell fill */
+  position: relative;
+  padding: 0;
+}
+
+table td span, table th span {
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  font-size: 10px;
+  color: #444;                /* clue numbers */
+}
+
+/* Optional: give the entire puzzle a max-width so it doesn’t run off the page */
+#puzzle {
+  max-width: 800px;           /* tweak as needed */
+  overflow-x: auto;
+  margin: 0 auto;
+}
