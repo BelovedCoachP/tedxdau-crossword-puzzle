@@ -190,6 +190,85 @@ button:hover {
     font-weight: bold;
     color: #e62b1e;
 }
+
+.crosswordarea  {
+background-color:	#D0D8E0;
+border-color:	#808080;
+border-style:	solid;
+border-width:	2px;
+padding:	.5em;
+}
+
+.letter  {
+background-color:	#ffffff;
+border-bottom-width:	1px;
+border-color:	#606060;
+border-left-width:	1px;
+border-right-width:	1px;
+border-style:	solid;
+border-top-width:	0px;
+font-family:	Arial, Sans-Serif;
+font-size:	.13in;
+font-weight:	bold;
+height:	.15in;
+text-align:	center;
+width:	.25in;
+}
+
+.number  {
+background-color:	#ffffff;
+border-bottom-width:	0px;
+border-color:	#606060;
+border-left-width:	1px;
+border-right-width:	1px;
+border-style:	solid;
+border-top-width:	1px;
+font-family:	Times New Roman, Serif;
+font-size:	.09in;
+height:	.1in;
+padding-left:	.2em;
+width:	.25in;
+}
+
+.tagline  {
+border-top-color:	#c0c0c0;
+border-top-style:	solid;
+border-top-width:	1px;
+font-family:	Franklin Gothic Medium, Arial, Sans-Serif;
+font-size:	x-small;
+padding-top:	4pt;
+}
+
+a, a:visited  {
+color:	#2080d0;
+text-decoration:	none;
+}
+
+a:hover  {
+color:	ff8000;
+text-decoration:	underline;
+}
+
+body  {
+background-color:	white;
+cursor:	default;
+}
+
+body, button, input, p, td  {
+font-family:	Verdana, Arial, Sans-Serif;
+font-size:	small;
+}
+
+h1, h2, h3  {
+color:	#5F78A2;
+font-family:	Franklin Gothic Medium, Arial, Sans-Serif;
+font-weight:	normal;
+}
+
+p  {
+margin-top:	1em;
+}
+
 /* ——— Static Puzzle Table Styling ——— */
 table {
   border-collapse: collapse;
