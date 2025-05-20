@@ -762,7 +762,26 @@ function populateClueList(listId, clues) {
     document.getElementById('check-button').addEventListener('click', checkAnswers);
     document.getElementById('reset-button').addEventListener('click', resetPuzzle);
 });
+// Add this debug code at the end of your script
+console.log("Script loaded");
 
+// Run a simple check when the page loads
+window.addEventListener('load', function() {
+  console.log("Window loaded");
+  
+  // Check if the crossword container exists
+  const crosswordDiv = document.getElementById('crossword');
+  console.log("Crossword container:", crosswordDiv);
+  
+  // Check if it has any children
+  if (crosswordDiv) {
+    console.log("Crossword children count:", crosswordDiv.children.length);
+  }
+  
+  // Check if the modal exists
+  const modal = document.getElementById('reveal-modal');
+  console.log("Modal exists:", !!modal);
+});
   </script>
 </body>
 </html>
