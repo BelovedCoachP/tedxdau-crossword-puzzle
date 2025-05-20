@@ -6,7 +6,22 @@ body {
     background-color: #000000;
     color: #ffffff;
 }
-
+table { 
+  border-collapse: collapse; 
+  margin: 20px auto; 
+  background: #222;
+}
+table td, table th {
+  width: 30px; height: 30px;
+  border: 1px solid #555;
+  background: #fff;
+  position: relative;
+  color: #000;
+}
+.puzzle td span { /* if numbers are in spans */
+  position: absolute; top: 2px; left: 4px;
+  font-size: 10px; color: #444;
+}
 h1 {
     text-align: center;
     color: #ffffff;
