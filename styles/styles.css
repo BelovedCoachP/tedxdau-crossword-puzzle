@@ -1,301 +1,118 @@
 body {
-    font-family: Arial, sans-serif;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #000000;
-    color: #ffffff;
-}
-table { 
-  border-collapse: collapse; 
-  margin: 20px auto; 
-  background: #222;
-}
-table td, table th {
-  width: 30px; height: 30px;
-  border: 1px solid #555;
-  background: #fff;
-  position: relative;
-  color: #000;
-}
-.puzzle td span { /* if numbers are in spans */
-  position: absolute; top: 2px; left: 4px;
-  font-size: 10px; color: #444;
-}
-h1 {
-    text-align: center;
-    color: #ffffff;
-    margin-bottom: 30px;
-    display: none; /* Hide the text heading since we're using the image */
+  background-color: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  max-width: 1000px;
+  margin-inline: auto;
 }
 
 .header-image {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto 30px;
-    display: block;
-}
-
-.crossword-container {
-    display: grid;
-    grid-template-columns: repeat(21, 30px);
-    grid-gap: 0;
-    margin: 0 auto 40px;
-    width: fit-content;
-    border: 2px solid #555;
-    background-color: #000;
-}
-
-.crossword-cell {
-    width: 30px;
-    height: 30px;
-    border: 1px solid #555;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    background-color: white;
-}
-
-.black-cell {
-    background-color: #111;
-    border: 1px solid #333;
-}
-
-.cell-number {
-    position: absolute;
-    top: 1px;
-    left: 2px;
-    font-size: 10px;
-    z-index: 10;
-    color: #000;
-}
-
-input {
-    width: 100%;
-    height: 100%;
-    border: none;
-    text-align: center;
-    font-size: 18px;
-    text-transform: uppercase;
-    background: transparent;
-    outline: none;
-    color: #000;
-}
-
-.clue-lists {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-top: 40px;
-}
-
-.clue-list {
-    width: 48%;
-    margin-bottom: 20px;
-}
-
-.clue-list h2 {
-    color: #cccccc;
-    border-bottom: 2px solid #555;
-    padding-bottom: 5px;
-    margin-bottom: 15px;
-}
-
-.clue-list ol {
-    padding-left: 25px;
-}
-
-.clue-list li {
-    margin-bottom: 8px;
-    line-height: 1.4;
-    color: #dddddd;
-}
-
-.buttons {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-    gap: 20px;
+  width: 100%;
+  max-width: 1000px;
+  display: block;
+  margin-bottom: 30px;
 }
 
 button {
-    padding: 10px 20px;
-    background-color: #e62b1e; /* TEDx red color */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color 0.3s;
+  background-color: #e62b1e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #c62118; /* Darker TEDx red on hover */
+  background-color: #c62118;
 }
 
-.completion-message {
-    display: none;
-    text-align: center;
-    padding: 15px;
-    background-color: #143628;
-    color: #a0ffb0;
-    border-radius: 5px;
-    margin: 20px 0;
-    font-weight: bold;
-    border: 1px solid #2abb43;
+#crossword-container {
+  display: grid;
+  grid-template-columns: repeat(21, 30px);
+  grid-auto-rows: 30px;
+  gap: 0;
+  justify-content: center;
+  margin-bottom: 40px;
 }
 
-/* Modal styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.7);
-}
-
-.modal-content {
-    background-color: #333;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #555;
-    border-radius: 5px;
-    width: 80%;
-    max-width: 500px;
-    color: white;
-    text-align: center;
-    position: relative;
-}
-
-.close-button {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    position: absolute;
-    top: 5px;
-    right: 15px;
-}
-
-.close-button:hover {
-    color: white;
-}
-
-.reveal-date {
-    font-weight: bold;
-    color: #e62b1e;
-}
-
-.crosswordarea  {
-background-color:	#D0D8E0;
-border-color:	#808080;
-border-style:	solid;
-border-width:	2px;
-padding:	.5em;
-}
-
-.letter  {
-background-color:	#ffffff;
-border-bottom-width:	1px;
-border-color:	#606060;
-border-left-width:	1px;
-border-right-width:	1px;
-border-style:	solid;
-border-top-width:	0px;
-font-family:	Arial, Sans-Serif;
-font-size:	.13in;
-font-weight:	bold;
-height:	.15in;
-text-align:	center;
-width:	.25in;
-}
-
-.number  {
-background-color:	#ffffff;
-border-bottom-width:	0px;
-border-color:	#606060;
-border-left-width:	1px;
-border-right-width:	1px;
-border-style:	solid;
-border-top-width:	1px;
-font-family:	Times New Roman, Serif;
-font-size:	.09in;
-height:	.1in;
-padding-left:	.2em;
-width:	.25in;
-}
-
-.tagline  {
-border-top-color:	#c0c0c0;
-border-top-style:	solid;
-border-top-width:	1px;
-font-family:	Franklin Gothic Medium, Arial, Sans-Serif;
-font-size:	x-small;
-padding-top:	4pt;
-}
-
-a, a:visited  {
-color:	#2080d0;
-text-decoration:	none;
-}
-
-a:hover  {
-color:	ff8000;
-text-decoration:	underline;
-}
-
-body  {
-background-color:	white;
-cursor:	default;
-}
-
-body, button, input, p, td  {
-font-family:	Verdana, Arial, Sans-Serif;
-font-size:	small;
-}
-
-h1, h2, h3  {
-color:	#5F78A2;
-font-family:	Franklin Gothic Medium, Arial, Sans-Serif;
-font-weight:	normal;
-}
-
-p  {
-margin-top:	1em;
-}
-
-/* ——— Static Puzzle Table Styling ——— */
-table {
-  border-collapse: collapse;
-  margin: 20px auto;
-  background: #222;           /* dark “canvas” behind the white cells */
-}
-
-table td, table th {
-  width: 30px;
-  height: 30px;
-  border: 1px solid #555;     /* grid lines */
-  background: #fff;            /* cell fill */
+.cell {
+  border: 1px solid #555;
+  background-color: white;
   position: relative;
-  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-table td span, table th span {
+.cell input {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 18px;
+  border: none;
+  background: transparent;
+  color: #000;
+  text-transform: uppercase;
+}
+
+.cell-number {
   position: absolute;
-  top: 2px;
-  left: 4px;
+  top: 1px;
+  left: 2px;
   font-size: 10px;
-  color: #444;                /* clue numbers */
+  color: #000;
 }
 
-/* Optional: give the entire puzzle a max-width so it doesn’t run off the page */
-#puzzle {
-  max-width: 800px;           /* tweak as needed */
-  overflow-x: auto;
-  margin: 0 auto;
+.black-cell {
+  background-color: #111;
+  border: 1px solid #333;
+}
+
+.clue-lists {
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.clue-list {
+  flex: 1;
+}
+
+.clue-list h2 {
+  color: #ccc;
+  border-bottom: 2px solid #444;
+  padding-bottom: 5px;
+}
+
+.clue-list ol {
+  padding-left: 20px;
+}
+
+.clue-list li {
+  margin-bottom: 10px;
+  line-height: 1.5;
+  color: #ddd;
+}
+
+.hidden {
+  display: none;
+}
+
+#completion-message {
+  background-color: #143628;
+  color: #a0ffb0;
+  border: 1px solid #2abb43;
+  padding: 15px;
+  text-align: center;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-top: 20px;
 }
