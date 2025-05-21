@@ -1,63 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Driving Change TEDxDAU 2025 Crossword</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-        }
-        
-        .header-container {
-            text-align: center;
-            padding: 5px 0;
-            background-color: #f5f5f5;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .header-image {
-            max-width: 100%;
-            height: auto;
-            max-height: 80px; /* Much smaller header */
-        }
-        
-        .iframe-container {
-            position: relative;
-            width: 100%;
-            height: calc(100vh - 100px); /* Reduced to account for smaller header */
-            overflow: hidden;
-        }
-        
-        iframe {
-            position: absolute;
-            top: -80px; /* Adjusts to hide header */
-            left: 0;
-            width: 100%;
-            height: calc(100% + 140px); /* Adjusts to hide header and footer */
-            border: none;
-        }
-        
-        h1 {
-            margin: 0;
-            font-size: 24px;
-            color: #333;
-            display: none; /* Hide the text header since we're using image */
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Driving Change: TEDxDAU 2025 Crossword</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="crossword.js"></script>
 </head>
 <body>
-    <!-- Header with image -->
-    <div class="header-container">
-        <img src="https://raw.githubusercontent.com/BelovedCoachP/tedxdau-crossword-puzzle/refs/heads/main/DrivingChange_1920x1080_external.png" alt="Driving Change Logo" class="header-image">
+  <header>
+    <img
+      src="https://raw.githubusercontent.com/BelovedCoachP/tedxdau-crossword-puzzle/main/DrivingChange_1920x1080_external.png"
+      alt="Driving Change TEDxDAU 2025"
+      class="header-image"
+    />
+  </header>
+  <main>
+    <section id="buttons">
+      <button onclick="checkAnswers()">Check Answers</button>
+      <button onclick="revealAnswers()">Reveal Solution</button>
+      <button onclick="resetPuzzle()">Reset Puzzle</button>
+      <a href="printable-crossword.html" target="_blank">
+        <button>Printable Version</button>
+      </a>
+    </section>
+
+    <section id="crossword-container"></section>
+
+    <section class="clue-lists">
+      <div class="clue-list">
+        <h2>Across</h2>
+        <ol id="across-clues"></ol>
+      </div>
+      <div class="clue-list">
+        <h2>Down</h2>
+        <ol id="down-clues"></ol>
+      </div>
+    </section>
+
+    <div id="completion-message" class="hidden">
+      🎉 Congratulations! You've completed the crossword.
     </div>
-    
-    <div class="iframe-container">
-        <iframe src="https://share.eclipsecrossword.com/play/5138c8dd/driving-change-tedxdau-2025" frameborder="0" scrolling="no"></iframe>
-    </div>
+  </main>
 </body>
 </html>
