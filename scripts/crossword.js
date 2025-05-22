@@ -302,7 +302,7 @@ for (let i = 0; i < safety.length; i++) {
 const clueMap = {
   // Down clues
   1: "Moore's '3Ts' include trust, tolerance, and this third word", // TASKS
-  2: "Evangelista said sailors catch this and 'go fast' and "", // FURIOUS  
+  2: "Evangelista said sailors catch this and 'go fast' and ", // FURIOUS  
   3: "Hilger's submarine story highlights leadership's impact on this", // CREW
   5: "Canady says this type of leadership earns trust", // INTRUSIVE
   6: "Palmieri's group within OSD focused on digital/AI", // CDAO
