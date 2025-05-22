@@ -288,10 +288,12 @@ for (let i = 0; i < anonymous.length; i++) {
 // SAFETY (Vertical, starting Row 10 [index 9], Column N [index 13])
 // Connects with CAR's 'A' at [10][13] and DIGITAL's 'T' at [13][13]
 const safety = "SAFETY"; // Word: S A F E T Y
-clueNumbers[9][13] = 32; // Clue 32 starts at Row 10 (index 9), Column N (index 13)
+
+// Mission Update: SAFETY is now Clue Master 16!
+clueNumbers[9][13] = 16; // Assign clue number 16 to SAFETY's starting cell
+
 for (let i = 0; i < safety.length; i++) {
   if (9 + i < puzzleGrid.length) { // Starts at row index 9
-    // This will correctly place 'S' at [9][13], 'A' at [10][13], ..., 'T' at [13][13], etc.
     puzzleGrid[9 + i][13] = safety[i]; // Place vertically in Column N (index 13)
   }
 }
@@ -308,6 +310,7 @@ const clueMap = {
   8: "Voice-of-the-force app guarantees this submission status", // ANONYMOUS
   12: "The figure who keeps lions, vendors, and contracting officers in sync", // RINGMASTER
   15: "The ability to read the room—and the person behind the problem", // EMOTIONAL
+  16: "Blesse says this inspires agents to succeed like 007", //SAFETY
   18: "Hilger's programs show we deliver more than just products—we deliver ____", // PROGRAMS
   23: "Canady challenges leaders to go beyond just 'managing' to truly ____", // LEAD
   24: "What you do when 'Game Over' becomes a call to grow", // LEVELUP
@@ -365,6 +368,7 @@ const downClues = [
   "8. Voice-of-the-force app guarantees this submission status", // ANONYMOUS
   "12. The figure who keeps lions, vendors, and contracting officers in sync", // RINGMASTER
   "15. The ability to read the room—and the person behind the problem", // EMOTIONAL
+  "16. Blesse says this inspires agents to succeed like 007", // SAFETY
   "18. Hilger's programs show we deliver more than just products—we deliver ____", // PROGRAMS
   "23. Canady challenges leaders to go beyond just 'managing' to truly ____", // LEAD
   "24. What you do when 'Game Over' becomes a call to grow", // LEVELUP
