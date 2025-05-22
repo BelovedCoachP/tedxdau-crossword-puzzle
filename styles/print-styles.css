@@ -1,0 +1,141 @@
+/* styles/print-styles.css */
+
+/* Basic page setup for printing */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    color: #000000;
+    background-color: #ffffff;
+    margin: 0; /* Remove body margin, printer margins will handle it */
+}
+
+.printable-page-content { /* A wrapper for each page's content */
+    padding: 20mm; /* Standard printer margins, adjust as needed */
+    width: auto;
+}
+
+.no-print {
+    display: none !important; /* Class to hide elements during printing */
+}
+
+.on-screen-print-button-container { /* Container for the on-screen print button */
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 1px dashed #ccc;
+    margin-bottom: 20px;
+}
+
+.printable-section-title { /* Title for each page (Clues/Grid) */
+    text-align: center;
+    font-size: 18pt;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+#printable-grid-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Add some space above the grid if it's on its own page */
+    margin-bottom: 25px;
+}
+
+.printable-grid {
+    border-collapse: collapse;
+    border: 2px solid #000000;
+}
+
+.printable-grid td {
+    width: 28px;  /* Adjust for your 30-column grid to fit well */
+    height: 28px;
+    border: 1px solid #333333;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+    background-color: #ffffff;
+}
+
+.printable-grid td.black-cell {
+    background-color: #000000 !important;
+    border: 1px solid #000000;
+}
+
+.printable-grid .cell-number-print {
+    position: absolute;
+    top: 1px;
+    left: 2px;
+    font-size: 7pt;
+    font-weight: bold;
+    color: #000000;
+}
+
+.printable-clue-lists-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+.printable-clue-list {
+    flex: 1;
+    min-width: 250px;
+}
+
+.printable-clue-list h2 {
+    font-size: 14pt;
+    color: #000000;
+    border-bottom: 1px solid #555555;
+    padding-bottom: 5px;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.printable-clue-list ol {
+    padding-left: 0;
+    list-style-type: none;
+    margin-top: 0;
+}
+
+.printable-clue-list li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+    font-size: 10pt;
+    color: #000000;
+}
+
+/* Print-specific media query */
+@media print {
+    body {
+        margin: 0; /* Reset body margin for print, rely on @page or .printable-page-content padding */
+        font-size: 11pt;
+    }
+
+    .on-screen-print-button-container { /* Hide the on-screen button container when printing */
+        display: none !important;
+    }
+
+    .printable-section-title {
+        font-size: 16pt;
+        margin-top: 0; /* Remove top margin for titles on new pages */
+    }
+    
+    /* Page break logic: Ensure the grid starts on a new page */
+    #grid-page-content {
+        page-break-before: always; /* This forces the grid page to start on a new page */
+    }
+
+    /* Try to keep these sections from breaking across pages if possible */
+    .printable-clue-list, .printable-clue-list li, .printable-grid tr {
+        page-break-inside: avoid;
+    }
+    
+    #clues-page-content, #grid-page-content {
+        padding: 0; /* Remove padding from these wrappers if printer margins are set by @page */
+    }
+
+    /* Optional: Define printer margins directly (might override body margin in some browsers) */
+    @page {
+        margin: 20mm;
+    }
+}
