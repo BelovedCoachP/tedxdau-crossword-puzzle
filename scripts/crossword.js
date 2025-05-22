@@ -26,6 +26,11 @@ for (let i = 0; i < airforce.length; i++) {
   puzzleGrid[2][8 + i] = airforce[i];
 }
 
+// Fix FURIOUS to intersect properly with AIRFORCE at the R
+// FURIOUS should be positioned so its R aligns with AIRFORCE's R (position 2 in AIRFORCE)
+// AIRFORCE starts at column 8, so R is at column 10
+// FURIOUS R should be at the same position
+
 // 9.P PERISCOPE (Row 5, Column C-K)
 const periscope = "PERISCOPE";
 clueNumbers[4][2] = 9; // Row 5, Column C
@@ -40,11 +45,13 @@ for (let i = 0; i < systems.length; i++) {
   puzzleGrid[6][7 + i] = systems[i];
 }
 
-// 11.A ACE (Row 8, Column B-D)
+// 11.A ACE (Row 8, Column B-D) - should connect to last E of BLESSE
+// BLESSE ends at row 6 (starts at row 1, length 6), last E is at row 6
+// ACE should be at row 6 (index 6) to connect with BLESSE's last E
 const ace = "ACE";
-clueNumbers[7][1] = 11; // Row 8, Column B
+clueNumbers[6][1] = 11; // Row 7, Column B - but connect at row 6 with BLESSE
 for (let i = 0; i < ace.length; i++) {
-  puzzleGrid[7][1 + i] = ace[i];
+  puzzleGrid[6][1 + i] = ace[i]; // Row 6 to connect with BLESSE
 }
 
 // 13.C CURIOSITY (Row 8, Column P-X)
@@ -138,12 +145,15 @@ for (let i = 0; i < tasks.length; i++) {
   }
 }
 
-// 2.F FURIOUS (Column N, starting Row 2)
+// 2.F FURIOUS (Column N, starting Row 2) 
+// Need to adjust so the R in FURIOUS intersects with R in AIRFORCE
+// AIRFORCE R is at row 2, column 10 (A-I-R-F-O-R-C-E, R is 3rd position, so column 8+2=10)
+// FURIOUS (F-U-R-I-O-U-S) R is 3rd position, so if FURIOUS starts at row 0, R would be at row 2
 const furious = "FURIOUS";
-clueNumbers[1][13] = 2; // Row 2, Column N
+clueNumbers[0][10] = 2; // Adjust start position - Row 1, Column K (index 10) so R aligns
 for (let i = 0; i < furious.length; i++) {
-  if (1 + i < puzzleGrid.length) {
-    puzzleGrid[1 + i][13] = furious[i];
+  if (0 + i < puzzleGrid.length) {
+    puzzleGrid[0 + i][10] = furious[i]; // Column K is index 10
   }
 }
 
@@ -174,12 +184,15 @@ for (let i = 0; i < cdao.length; i++) {
   }
 }
 
-// 7.B BLESSE (Column B, starting Row 3)
+// 7.B BLESSE (Column B, starting Row 3) - should connect at E of PERISCOPE
+// PERISCOPE is at row 5 (index 4), E is at position 1, so column 3 (index 2+1=3)
+// BLESSE should be in column 3 and its E should align with PERISCOPE's E
+// BLESSE (B-L-E-S-S-E) E is at position 3, so if E is at row 5, B starts at row 2
 const blesse = "BLESSE";
-clueNumbers[2][1] = 7; // Row 3, Column B
+clueNumbers[1][3] = 7; // Row 2, Column D (index 3)
 for (let i = 0; i < blesse.length; i++) {
-  if (2 + i < puzzleGrid.length) {
-    puzzleGrid[2 + i][1] = blesse[i];
+  if (1 + i < puzzleGrid.length) {
+    puzzleGrid[1 + i][3] = blesse[i]; // Column D is index 3
   }
 }
 
@@ -231,21 +244,25 @@ for (let i = 0; i < levelup.length; i++) {
   }
 }
 
-// 30.C CIRCUS (Column X, starting Row 15)
+// 30.C CIRCUS (Column X, starting Row 15) - should intersect correctly with ADAPTIVE
+// ADAPTIVE is at row 15 (index 14), and CIRCUS should intersect at the I
+// ADAPTIVE (A-D-A-P-T-I-V-E) I is at position 5 (index 4), so column 18+4=22
+// CIRCUS (C-I-R-C-U-S) I is at position 1, so CIRCUS should start at row 14 to have I at row 15
 const circus = "CIRCUS";
-clueNumbers[14][23] = 30; // Row 15, Column X
+clueNumbers[13][22] = 30; // Row 14, Column W (index 22) to intersect I with ADAPTIVE
 for (let i = 0; i < circus.length; i++) {
-  if (14 + i < puzzleGrid.length) {
-    puzzleGrid[14 + i][23] = circus[i];
+  if (13 + i < puzzleGrid.length) {
+    puzzleGrid[13 + i][22] = circus[i]; // Column W is index 22
   }
 }
 
-// Add missing words that I can see in the grid
-// HUMAN (Column H) - need to add number
+// HUMAN (Column H) - connects to HEELS, starts at row where PERISCOPE's H is
 const human = "HUMAN";
+// HUMAN should start at row 5 (index 4) to connect with PERISCOPE's H
+// and end at row 9 (index 8) to connect with HEELS
 for (let i = 0; i < human.length; i++) {
   if (4 + i < puzzleGrid.length) {
-    puzzleGrid[4 + i][7] = human[i];
+    puzzleGrid[4 + i][7] = human[i]; // Column H is index 7
   }
 }
 
