@@ -146,14 +146,14 @@ for (let i = 0; i < tasks.length; i++) {
 }
 
 // 2.F FURIOUS (Column N, starting Row 2) 
-// Need to adjust so the R in FURIOUS intersects with R in AIRFORCE
-// AIRFORCE R is at row 2, column 10 (A-I-R-F-O-R-C-E, R is 3rd position, so column 8+2=10)
-// FURIOUS (F-U-R-I-O-U-S) R is 3rd position, so if FURIOUS starts at row 0, R would be at row 2
+// FURIOUS should be in Column N (index 13) and intersect properly with AIRFORCE
+// AIRFORCE (A-I-R-F-O-R-C-E) has R at position 5 (index 4), so at column 8+4=12
+// But FURIOUS needs to be in Column N (index 13), so we'll adjust AIRFORCE intersection
 const furious = "FURIOUS";
-clueNumbers[0][10] = 2; // Adjust start position - Row 1, Column K (index 10) so R aligns
+clueNumbers[1][13] = 2; // Row 2, Column N (index 13)
 for (let i = 0; i < furious.length; i++) {
-  if (0 + i < puzzleGrid.length) {
-    puzzleGrid[0 + i][10] = furious[i]; // Column K is index 10
+  if (1 + i < puzzleGrid.length) {
+    puzzleGrid[1 + i][13] = furious[i]; // Column N is index 13
   }
 }
 
@@ -256,8 +256,18 @@ for (let i = 0; i < circus.length; i++) {
   }
 }
 
+// 20.C CAR - appears to be a short horizontal word
+// Looking at the Excel, this seems to be around row 11-12
+const car = "CAR";
+clueNumbers[10][12] = 20; // Positioning based on Excel layout
+for (let i = 0; i < car.length; i++) {
+  puzzleGrid[10][12 + i] = car[i];
+}
+
+// Add clue numbers for previously unnumbered words
 // HUMAN (Column H) - connects to HEELS, starts at row where PERISCOPE's H is
 const human = "HUMAN";
+clueNumbers[4][7] = 26; // HUMAN is clue 26 down
 // HUMAN should start at row 5 (index 4) to connect with PERISCOPE's H
 // and end at row 9 (index 8) to connect with HEELS
 for (let i = 0; i < human.length; i++) {
@@ -266,63 +276,73 @@ for (let i = 0; i < human.length; i++) {
   }
 }
 
-// ANONYMOUS (Column I) - need to add number  
+// ANONYMOUS (Column I) - assign clue number
 const anonymous = "ANONYMOUS";
+clueNumbers[2][8] = 16; // Assign number 16 to ANONYMOUS - wait, this conflicts with HUMAN
+// Let me use a different number
+clueNumbers[2][8] = 31; // Use 31 for ANONYMOUS
 for (let i = 0; i < anonymous.length; i++) {
   if (2 + i < puzzleGrid.length) {
     puzzleGrid[2 + i][8] = anonymous[i];
   }
 }
 
-// SAFETY (Column N, lower part) - need to add number
+// SAFETY (Column N, lower part) - assign clue number
 const safety = "SAFETY";
+clueNumbers[13][13] = 32; // Use 32 for SAFETY
 for (let i = 0; i < safety.length; i++) {
   if (13 + i < puzzleGrid.length) {
     puzzleGrid[13 + i][13] = safety[i];
   }
 }
 
-// Clues mapped to numbers from your reference file
+// Clues mapped to numbers from your specification
 const clueMap = {
+  // Down clues
   1: "Moore's '3Ts' include trust, tolerance, and this third word", // TASKS
   2: "Naval metaphor for acquisition speed amid resistance", // FURIOUS  
   3: "Hilger's submarine story highlights leadership's impact on this", // CREW
-  4: "Carroll's key to program survival amid challenges", // RESILIENCE
   5: "Canady says this type of leadership earns trust", // INTRUSIVE
   6: "Palmieri's group within OSD focused on digital/AI", // CDAO
   7: "This 'Bond' speaker equated leadership with 007 flair", // BLESSE
+  8: "Voice-of-the-force app guarantees this submission status", // ANONYMOUS
+  12: "The figure who keeps lions, vendors, and contracting officers in sync", // RINGMASTER
+  15: "The ability to read the room—and the person behind the problem", // EMOTIONAL
+  18: "Hilger's programs show we deliver more than just products—we deliver ____", // PROGRAMS
+  23: "Canady challenges leaders to go beyond just 'managing' to truly ____", // LEAD
+  24: "What you do when 'Game Over' becomes a call to grow", // LEVELUP
+  26: "The only type of mindset that can wield AI effectively, per Moore", // HUMAN
+  30: "Carroll likened acquisition to a three-ring ____", // CIRCUS
+  
+  // Across clues
+  4: "Carroll's key to program survival amid challenges", // RESILIENCE
   8: "Military branch where Tidwell serves", // AIRFORCE
   9: "Blesse's innovation story started with a letter about this naval device", // PERISCOPE
   10: "Moore's approach for seeing wholes, not parts", // SYSTEMS
   11: "Durham's AI teammate: Acquisition's Collaborative Engine", // ACE
-  12: "The figure who keeps lions, vendors, and contracting officers in sync", // RINGMASTER
   13: "Jones says this quality makes digital natives fearless questioners", // CURIOSITY
   14: "What Evangelista says we must 'unlearn' to move forward", // RULES
-  15: "The ability to read the room—and the person behind the problem", // EMOTIONAL
   17: "Durham Coached a Professional _______ Team", // ESPORTS
-  18: "Hilger's programs show we deliver more than just products—we deliver ____", // PROGRAMS
   19: "Durham's favorite genre of virtual competition", // GAMING
   20: "Palmieri compares DoD transformation to building this while designing the road", // CAR
   21: "Tidwell's app that empowers innovation from the ground up", // VOICEAPP
   22: "Jones's generation is often described as this", // DIGITAL
-  23: "Canady challenges leaders to go beyond just 'managing' to truly ____", // LEAD
-  24: "What you do when 'Game Over' becomes a call to grow", // LEVELUP
   25: "Palmieri's approach that pairs tech with real-world ops", // EXPERIMENT
   26: "Evangelista says these must fly off for change to begin (footwear)", // HEELS
   27: "Jones built one of these with her uncle in high school", // PC
   28: "Carroll compares acquisition's speed to these legendary ocean patterns", // WINDS
   29: "This natural cycle defines organizational growth and rebirth", // ADAPTIVE
-  30: "Carroll likened acquisition to a three-ring ____" // CIRCUS
 };
 
 // Organize clues by across and down
 const acrossClues = [];
 const downClues = [];
 
-// Manually organize based on the layout
-// Across clues (horizontal words)
+// Manually organize based on your exact specification
+// Down clues (vertical words)
+const downNumbers = [1, 2, 3, 5, 6, 7, 8, 12, 15, 18, 23, 24, 26, 30];
+// Across clues (horizontal words)  
 const acrossNumbers = [4, 8, 9, 10, 11, 13, 14, 17, 19, 20, 21, 22, 25, 26, 27, 28, 29];
-const downNumbers = [1, 2, 3, 5, 6, 7, 12, 15, 18, 23, 24, 30];
 
 acrossNumbers.forEach(num => {
   if (clueMap[num]) {
