@@ -253,14 +253,13 @@ for (let i = 0; i < circus.length; i++) {
   }
 }
 
-// 20.C CAR - A in CAR should intersect with F in SAFETY
-// SAFETY (S-A-F-E-T-Y) F is at position 3, starts at row 10, so F is at row 12 (index 11)
-// CAR (C-A-R) A is at position 2, so if A intersects at row 12, CAR should be horizontal at row 12
-// CAR A should be at same column as SAFETY F (column 13)
+// 20.C CAR - Row 11 using the "A" of SAFETY
+// SAFETY starts at row 10, A is at position 2, so A is at row 11 
+// CAR should be horizontal at row 11, using SAFETY's A at column 13
 const car = "CAR";
-clueNumbers[11][12] = 20; // CAR at row 12, starts at column 12, so A is at column 13
+clueNumbers[10][12] = 20; // CAR at row 11 (index 10), starts at column 12 so A uses SAFETY's A
 for (let i = 0; i < car.length; i++) {
-  puzzleGrid[11][12 + i] = car[i];
+  puzzleGrid[10][12 + i] = car[i];
 }
 
 // HUMAN (Column H) - H connects to HEELS, N connects to WINDS
