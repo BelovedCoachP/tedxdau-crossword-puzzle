@@ -253,10 +253,11 @@ for (let i = 0; i < circus.length; i++) {
   }
 }
 
-// 20.C CAR - appears to be a short horizontal word
-// Looking at the Excel, this seems to be around row 11-12
+// 20.C CAR - should use the A of SAFETY
+// SAFETY A is at position 2, starts at row 10, so A is at row 11 (index 10), column 13
+// CAR should be horizontal at row 11, with A at column 13
 const car = "CAR";
-clueNumbers[10][12] = 20; // Positioning based on Excel layout
+clueNumbers[10][12] = 20; // CAR starts at column 12 so A aligns with SAFETY A at column 13
 for (let i = 0; i < car.length; i++) {
   puzzleGrid[10][12 + i] = car[i];
 }
@@ -410,15 +411,16 @@ function renderClues() {
     acrossList.innerHTML = "";
     downList.innerHTML = "";
     
+    // Render clues directly without adding extra numbering
     acrossClues.forEach(clue => {
       const li = document.createElement("li");
-      li.innerText = clue;
+      li.innerText = clue; // Already includes proper numbering like "4. Carroll's key..."
       acrossList.appendChild(li);
     });
     
     downClues.forEach(clue => {
       const li = document.createElement("li");
-      li.innerText = clue;
+      li.innerText = clue; // Already includes proper numbering like "1. Moore's '3Ts'..."
       downList.appendChild(li);
     });
   }
