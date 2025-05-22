@@ -203,7 +203,7 @@ const acrossClues = [];
 const downClues = [];
 
 // Corrected clues with proper numbering
-const clueMap = {
+clueMap = {
   1: "Moore's '3Ts' include trust, tolerance, and this third word", // TASKS
   2: "Naval metaphor for acquisition speed amid resistance", // FURIOUS  
   3: "Hilger's submarine story highlights leadership's impact on this", // CREW
