@@ -39,13 +39,13 @@ button:hover {
 
 #crossword-container {
   display: grid;
-  grid-template-columns: repeat(28, 25px); /* Corrected to 28 columns, smaller cells for better fit */
-  grid-auto-rows: 25px; /* Matching row height */
-  gap: 1px; /* Small gap for better visual separation */
+  grid-template-columns: repeat(30, 25px); /* Increase from 28 to 30 columns */
+  grid-auto-rows: 25px;
+  gap: 1px;
   justify-content: center;
   margin-bottom: 40px;
   padding: 10px;
-  background-color: #333; /* Background shows through gaps */
+  background-color: #333;
 }
 
 .cell {
@@ -78,10 +78,10 @@ button:hover {
   position: absolute;
   top: 1px;
   left: 2px;
-  font-size: 8px; /* Smaller number for smaller cells */
+  font-size: 8px;
   color: #000;
   font-weight: bold;
-  z-index: 1; /* Ensure numbers appear above input */
+  z-index: 2; /* Make sure numbers appear above everything */
 }
 
 .black-cell {
