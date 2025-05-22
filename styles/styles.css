@@ -4,14 +4,19 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
-  max-width: 1000px;
+  max-width: 1200px; /* Increased to accommodate wider grid */
   margin-inline: auto;
 }
 
 .header-image {
   width: 100%;
-  max-width: 1000px;
+  max-width: 1200px; /* Increased to match body max-width */
   display: block;
+  margin-bottom: 30px;
+}
+
+#buttons {
+  text-align: center;
   margin-bottom: 30px;
 }
 
@@ -34,11 +39,13 @@ button:hover {
 
 #crossword-container {
   display: grid;
-  grid-template-columns: repeat(21, 30px);
-  grid-auto-rows: 30px;
-  gap: 0;
+  grid-template-columns: repeat(28, 25px); /* Corrected to 28 columns, smaller cells for better fit */
+  grid-auto-rows: 25px; /* Matching row height */
+  gap: 1px; /* Small gap for better visual separation */
   justify-content: center;
   margin-bottom: 40px;
+  padding: 10px;
+  background-color: #333; /* Background shows through gaps */
 }
 
 .cell {
@@ -54,19 +61,27 @@ button:hover {
   width: 100%;
   height: 100%;
   text-align: center;
-  font-size: 18px;
+  font-size: 12px; /* Smaller font for smaller cells */
+  font-weight: bold;
   border: none;
   background: transparent;
   color: #000;
   text-transform: uppercase;
+  outline: none; /* Remove focus outline */
+}
+
+.cell input:focus {
+  background-color: #e6f3ff; /* Light blue highlight when focused */
 }
 
 .cell-number {
   position: absolute;
   top: 1px;
   left: 2px;
-  font-size: 10px;
+  font-size: 8px; /* Smaller number for smaller cells */
   color: #000;
+  font-weight: bold;
+  z-index: 1; /* Ensure numbers appear above input */
 }
 
 .black-cell {
@@ -84,12 +99,14 @@ button:hover {
 
 .clue-list {
   flex: 1;
+  min-width: 300px; /* Ensure readability on smaller screens */
 }
 
 .clue-list h2 {
   color: #ccc;
   border-bottom: 2px solid #444;
   padding-bottom: 5px;
+  margin-top: 0;
 }
 
 .clue-list ol {
@@ -115,4 +132,43 @@ button:hover {
   border-radius: 5px;
   font-weight: bold;
   margin-top: 20px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+  
+  #crossword-container {
+    grid-template-columns: repeat(28, 20px); /* Even smaller cells on mobile */
+    grid-auto-rows: 20px;
+  }
+  
+  .cell input {
+    font-size: 10px;
+  }
+  
+  .cell-number {
+    font-size: 6px;
+  }
+  
+  .clue-lists {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+/* Additional styling for correct/incorrect answers */
+.cell input.correct {
+  background-color: #d4edda !important;
+}
+
+.cell input.incorrect {
+  background-color: #f8d7da !important;
 }
