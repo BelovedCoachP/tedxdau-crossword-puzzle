@@ -231,16 +231,14 @@ for (let i = 0; i < levelup.length; i++) {
   }
 }
 
-// 30.C CIRCUS (Column X, starting Row 15) - should intersect correctly with ADAPTIVE
-// ADAPTIVE is at row 15 (index 14), and CIRCUS should intersect at the I
-// ADAPTIVE (A-D-A-P-T-I-V-E) I is at position 5 (index 4), so column 18+4=22
-// CIRCUS (C-I-R-C-U-S) I is at position 1, so CIRCUS should start at row 14 to have I at row 15
-const circus = "CIRCUS";//CIRCUS
-clueNumbers[13][22] = 30; // Row 14, Column W (index 22) to intersect I with ADAPTIVE
+// 30.C CIRCUS (Vertical, starting Row 14 [index 13], Column X [index 23])
+// Its 'I' (circus[1]) intersects ADAPTIVE's 'I' (adaptive[5]) at grid position [14][23].
+const circus = "CIRCUS"; // C I R C U S
+clueNumbers[13][23] = 30; // Row 14, Column X
 for (let i = 0; i < circus.length; i++) {
-  if (13 + i < puzzleGrid.length) {
-    puzzleGrid[13 + i][22] = circus[i]; // Column W is index 22
-  }
+  if (13 + i < puzzleGrid.length) { // Starts placing 'C' at row index 13
+    puzzleGrid[13 + i][23] = circus[i]; // Places word vertically in Column X (index 23)
+  }
 }
 
 // 20.C CAR - put back to correct position at row 11
