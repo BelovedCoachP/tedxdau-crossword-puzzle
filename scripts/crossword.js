@@ -13,29 +13,29 @@ const puzzleGrid = [
   // Row 6 (index 5)
   [null,null,null,'L',null,'G',null,'H',null,'N',null,null,null,null,null,null,null,null,null,null,null,null,null,null],
   // Row 7 (index 6) - SYSTEMS starts at column H (index 7)
-  [null,'L',null,'E',null,'M',null,'U','S','Y','S','T','E','M','S','null,null,null,'I',null,null,null,null,null],
+  [null,'L',null,'E',null,'M',null,'U','S','Y','S','T','E','M','S',null,null,null,'I',null,null,null,null,null],
   // Row 8 (index 7) - ACE starts at column B (index 1), CURIOSITY starts at column P (index 15)
-  [null,'E','A','S',null,'A',null,'M',null,'O','null,null,null,null,null,'C','U','R','I','O','S','I','T','Y',null],
+  [null,'E','A','S',null,'A',null,'M',null,'O',null,null,null,null,null,'C','U','R','I','O','S','I','T','Y'],
   // Row 9 (index 8)
   [null,'V',null,'S',null,'S',null,'A',null,'U',null,null,null,null,null,null,null,null,'N',null,null,null,null,null],
   // Row 10 (index 9) - RULES starts at column H (index 7), ESPORTS starts at column S (index 18)
   [null,'E',null,'E',null,'T',null,'N','R','U','L','E','S',null,null,null,null,null,'T','E','S','P','O','R','T','S'],
   // Row 11 (index 10) - GAMING starts at column A (index 0)
-  ['G','L','A','M','I','N','G',null,null,'S',null,null,null,null,null,null,null,null,'R','null,null,'R',null,null,null],
+  ['G','L','A','M','I','N','G',null,null,'S',null,null,null,null,null,null,null,null,'R',null,null,'R',null,null,null],
   // Row 12 (index 11)
-  [null,'U',null,null,null,'E',null,null,null,null,null,null,null,null,null,null,null,null,'U','null,null,'O',null,null,null],
+  [null,'U',null,null,null,'E',null,null,null,null,null,null,null,null,null,null,null,null,'U',null,null,'O',null,null,null],
   // Row 13 (index 12) - VOICEAPP starts at column A (index 0)
-  ['V','P','O','I','C','E','A','P','P',null,null,null,null,null,null,null,null,null,'S','null,null,'G',null,null,null],
+  ['V','P','O','I','C','E','A','P','P',null,null,null,null,null,null,null,null,null,'S',null,null,'G',null,null,null],
   // Row 14 (index 13) - DIGITAL starts at column J (index 9)
-  [null,null,null,null,null,'R',null,null,null,'D','I','G','I','T','A','L',null,null,'I','null,null,'R',null,null,null],
+  [null,null,null,null,null,'R',null,null,null,'D','I','G','I','T','A','L',null,null,'I',null,null,'R',null,null,null],
   // Row 15 (index 14) - ADAPTIVE starts at column S (index 18)
   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,'E',null,null,'V','A','D','A','P','T','I','V','E'],
   // Row 16 (index 15) - EXPERIMENT starts at column C (index 2)
-  [null,null,'E','X','P','E','R','I','M','E','N','T',null,null,null,'A',null,null,'E','null,null,'A',null,null,null],
+  [null,null,'E','X','P','E','R','I','M','E','N','T',null,null,null,'A',null,null,'E',null,null,'A',null,null,null],
   // Row 17 (index 16)
-  [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,'D',null,null,null,'null,null,'M',null,null,null],
+  [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,'D',null,null,null,null,null,'M',null,null,null],
   // Row 18 (index 17) - HEELS starts at column H (index 7)
-  [null,null,null,null,null,null,null,'H','E','E','L','S',null,null,null,null,null,null,null,'null,null,'S',null,null,null],
+  [null,null,null,null,null,null,null,'H','E','E','L','S',null,null,null,null,null,null,null,null,null,'S',null,null,null],
   // Row 19 (index 18)
   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
   // Row 20 (index 19)
@@ -285,35 +285,12 @@ function renderClues() {
   }
 }
 
-// Helper functions for working with the grid
-const PuzzleGridUtils = {
-  getDimensions() {
-    return {
-      rows: puzzleGrid.length,
-      cols: Math.max(...puzzleGrid.map(row => row.length))
-    };
-  },
-
-  getCell(row, col) {
-    if (row >= 0 && row < puzzleGrid.length && col >= 0 && col < puzzleGrid[row].length) {
-      return puzzleGrid[row][col];
-    }
-    return null;
-  },
-
-  displayGrid() {
-    console.log('Puzzle Grid:');
-    puzzleGrid.forEach((row, i) => {
-      const displayRow = row.map(cell => cell || '·').join(' ');
-      console.log(`${(i + 1).toString().padStart(2)}: ${displayRow}`);
-    });
-  }
-};
-
 // Initialize crossword when DOM is ready
 function initializeCrossword() {
+  console.log('Initializing crossword...');
   renderCrossword();
   renderClues();
+  console.log('Crossword initialized successfully!');
 }
 
 // Auto-initialize if running in browser
@@ -327,14 +304,15 @@ if (typeof document !== 'undefined') {
 
 // Export for use in other modules
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { puzzleGrid, PuzzleGridUtils, renderCrossword, renderClues, initializeCrossword };
+  module.exports = { puzzleGrid, renderCrossword, renderClues, initializeCrossword };
 }
 
 // For browser usage
 if (typeof window !== 'undefined') {
   window.puzzleGrid = puzzleGrid;
-  window.PuzzleGridUtils = PuzzleGridUtils;
   window.renderCrossword = renderCrossword;
   window.renderClues = renderClues;
   window.initializeCrossword = initializeCrossword;
 }
+
+console.log('Crossword script loaded successfully!');
