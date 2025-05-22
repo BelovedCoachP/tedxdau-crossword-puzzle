@@ -1,5 +1,5 @@
 // Corrected clues with exact numbering from the file
-const clueMap = {
+let clueMap = {
   1: "Moore's '3Ts' include trust, tolerance, and this third word", // TASKS
   2: "Naval metaphor for acquisition speed amid resistance", // FURIOUS  
   3: "Hilger's submarine story highlights leadership's impact on this", // CREW
