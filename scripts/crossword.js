@@ -134,16 +134,14 @@ for (let i = 0; i < adaptive.length; i++) {
   puzzleGrid[14][18 + i] = adaptive[i];
 }
 
-// 30.C CIRCUS (Column X, Row 15) - appears to be vertical
-
-// Now add vertical words with their numbers
-// 1.T TASKS (Column G, starting Row 1)
-const tasks = "TASKS";
-clueNumbers[0][6] = 1; // Row 1, Column G
-for (let i = 0; i < tasks.length; i++) {
-  if (0 + i < puzzleGrid.length) {
-    puzzleGrid[0 + i][6] = tasks[i];
-  }
+// 30.C CIRCUS (Vertical, starting Row 14 [index 13], Column X [index 23])
+// Its 'I' (circus[1]) intersects ADAPTIVE's 'I' (adaptive[5]) at grid position [14][23].
+const circus = "CIRCUS"; // C I R C U S
+clueNumbers[13][23] = 30; // Row 14, Column X
+for (let i = 0; i < circus.length; i++) {
+  if (13 + i < puzzleGrid.length) { // Starts placing 'C' at row index 13
+    puzzleGrid[13 + i][23] = circus[i]; // Places word vertically in Column X (index 23)
+  }
 }
 
 // 2.F FURIOUS (Column N, starting Row 1) - move up one row so R aligns with AIRFORCE R
