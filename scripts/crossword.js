@@ -73,11 +73,12 @@ for (let i = 0; i < esports.length; i++) {
   puzzleGrid[9][18 + i] = esports[i];
 }
 
-// 19.G GAMING (Horizontal, starting Row 11 [index 10], Column A [index 0])
+// 19.G GAMING (Horizontal, starting Row 10 [index 9], Column A [index 0])
+// This is one block left and one row up from its original start at [10][1] (Row 11, Col B)
 const gaming = "GAMING";
-clueNumbers[10][0] = 19; // Row 11, Column A
+clueNumbers[9][0] = 19; // Row 10, Column A
 for (let i = 0; i < gaming.length; i++) {
-  puzzleGrid[10][0 + i] = gaming[i];
+  puzzleGrid[9][0 + i] = gaming[i];
 }
 
 // 21.V VOICEAPP (Horizontal, starting Row 12 [index 11], Column A [index 0])
