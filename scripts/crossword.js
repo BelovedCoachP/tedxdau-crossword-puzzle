@@ -73,21 +73,21 @@ for (let i = 0; i < esports.length; i++) {
   puzzleGrid[9][18 + i] = esports[i];
 }
 
-// 19.G GAMING (Horizontal, starting Row 10 [index 9], Column A [index 0])
-// This is one block left and one row up from its original start at [10][1] (Row 11, Col B)
+// 19.G GAMING (Horizontal, starting Row 11 [index 10], Column A [index 0])
+// Adjusted to maintain G-G intersection with the shifted RINGMASTER.
 const gaming = "GAMING";
-clueNumbers[9][0] = 19; // Row 10, Column A
+clueNumbers[10][0] = 19; // Row 11, Column A
 for (let i = 0; i < gaming.length; i++) {
-  puzzleGrid[9][0 + i] = gaming[i];
+  puzzleGrid[10][0 + i] = gaming[i]; // Last 'G' will be at [10][5]
 }
 
-// 21.V VOICEAPP (Horizontal, starting Row 12 [index 11], Column A [index 0])
-// Its 6th letter 'A' (voiceapp[5]) intersects RINGMASTER's 6th letter 'A' (ringmaster[5]) at [11][5].
-// Note: This moves VOICEAPP from original Row 13 to Row 12 to achieve the A-A intersection.
+// 21.V VOICEAPP (Horizontal, starting Row 13 [index 12], Column A [index 0])
+// Its 6th letter 'A' (voiceapp[5]) intersects RINGMASTER's 6th letter 'A' (ringmaster[5]) at [12][5].
+// Adjusted to follow RINGMASTER's shift.
 const voiceapp = "VOICEAPP"; // V O I C E A P P
-clueNumbers[11][0] = 21; // Row 12, Column A
+clueNumbers[12][0] = 21; // Row 13, Column A
 for (let i = 0; i < voiceapp.length; i++) {
-  puzzleGrid[11][0 + i] = voiceapp[i]; // A will be at puzzleGrid[11][5]
+  puzzleGrid[12][0 + i] = voiceapp[i]; // 'A' will be at puzzleGrid[12][5]
 }
 
 // 22.D DIGITAL (Row 14, Column J-O)
@@ -194,13 +194,14 @@ for (let i = 0; i < blesse.length; i++) {
   }
 }
 
-// 12.R RINGMASTER (Column F, starting Row 7)
-const ringmaster = "RINGMASTER";
-clueNumbers[6][5] = 12; // Row 7, Column F
+// 12.R RINGMASTER (Vertical, starting Row 8 [index 7], Column F [index 5])
+// Its 'R' is now in the same row as ACE.
+const ringmaster = "RINGMASTER"; // R I N G M A S T E R
+clueNumbers[7][5] = 12; // Row 8, Column F
 for (let i = 0; i < ringmaster.length; i++) {
-  if (6 + i < puzzleGrid.length) {
-    puzzleGrid[6 + i][5] = ringmaster[i];
-  }
+  if (7 + i < puzzleGrid.length) { // Start from row index 7
+    puzzleGrid[7 + i][5] = ringmaster[i];
+  }
 }
 
 // 15.E EMOTIONAL (Column K, starting Row 10)
