@@ -136,7 +136,6 @@ for (let i = 0; i < adaptive.length; i++) {
 
 // 30.C CIRCUS (Vertical, starting Row 14 [index 13], Column X [index 23])
 // Its 'I' (circus[1]) intersects ADAPTIVE's 'I' (adaptive[5]) at grid position [14][23].
-const circus = "CIRCUS"; // C I R C U S
 clueNumbers[13][23] = 30; // Row 14, Column X
 for (let i = 0; i < circus.length; i++) {
   if (13 + i < puzzleGrid.length) { // Starts placing 'C' at row index 13
