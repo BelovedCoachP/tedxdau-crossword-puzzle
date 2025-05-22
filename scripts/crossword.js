@@ -334,27 +334,43 @@ const clueMap = {
   29: "This natural cycle defines organizational growth and rebirth", // ADAPTIVE
 };
 
-// Organize clues by across and down
-const acrossClues = [];
-const downClues = [];
+// Organize clues by across and down using your exact specification
+const acrossClues = [
+  "4. Carroll's key to program survival amid challenges", // RESILIENCE
+  "8. Military branch where Tidwell serves", // AIRFORCE  
+  "9. Blesse's innovation story started with a letter about this naval device", // PERISCOPE
+  "10. Moore's approach for seeing wholes, not parts", // SYSTEMS
+  "11. Durham's AI teammate: Acquisition's Collaborative Engine", // ACE
+  "13. Jones says this quality makes digital natives fearless questioners", // CURIOSITY
+  "14. What Evangelista says we must 'unlearn' to move forward", // RULES
+  "17. Durham Coached a Professional _______ Team", // ESPORTS
+  "19. Durham's favorite genre of virtual competition", // GAMING
+  "20. Palmieri compares DoD transformation to building this while designing the road", // CAR
+  "21. Tidwell's app that empowers innovation from the ground up", // VOICEAPP
+  "22. Jones's generation is often described as this", // DIGITAL
+  "25. Palmieri's approach that pairs tech with real-world ops", // EXPERIMENT
+  "26. Evangelista says these must fly off for change to begin (footwear)", // HEELS
+  "27. Jones built one of these with her uncle in high school", // PC
+  "28. Carroll compares acquisition's speed to these legendary ocean patterns", // WINDS
+  "29. This natural cycle defines organizational growth and rebirth" // ADAPTIVE
+];
 
-// Manually organize based on your exact specification
-// Down clues (vertical words)
-const downNumbers = [1, 2, 3, 5, 6, 7, 8, 12, 15, 18, 23, 24, 26, 30];
-// Across clues (horizontal words)  
-const acrossNumbers = [4, 8, 9, 10, 11, 13, 14, 17, 19, 20, 21, 22, 25, 26, 27, 28, 29];
-
-acrossNumbers.forEach(num => {
-  if (clueMap[num]) {
-    acrossClues.push(`${num}. ${clueMap[num]}`);
-  }
-});
-
-downNumbers.forEach(num => {
-  if (clueMap[num]) {
-    downClues.push(`${num}. ${clueMap[num]}`);
-  }
-});
+const downClues = [
+  "1. Moore's '3Ts' include trust, tolerance, and this third word", // TASKS
+  "2. Naval metaphor for acquisition speed amid resistance", // FURIOUS
+  "3. Hilger's submarine story highlights leadership's impact on this", // CREW
+  "5. Canady says this type of leadership earns trust", // INTRUSIVE
+  "6. Palmieri's group within OSD focused on digital/AI", // CDAO
+  "7. This 'Bond' speaker equated leadership with 007 flair", // BLESSE  
+  "8. Voice-of-the-force app guarantees this submission status", // ANONYMOUS
+  "12. The figure who keeps lions, vendors, and contracting officers in sync", // RINGMASTER
+  "15. The ability to read the room—and the person behind the problem", // EMOTIONAL
+  "18. Hilger's programs show we deliver more than just products—we deliver ____", // PROGRAMS
+  "23. Canady challenges leaders to go beyond just 'managing' to truly ____", // LEAD
+  "24. What you do when 'Game Over' becomes a call to grow", // LEVELUP
+  "26. The only type of mindset that can wield AI effectively, per Moore", // HUMAN
+  "30. Carroll likened acquisition to a three-ring ____" // CIRCUS
+];
 
 // Crossword rendering function
 function renderCrossword() {
