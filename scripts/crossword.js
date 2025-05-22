@@ -145,15 +145,13 @@ for (let i = 0; i < tasks.length; i++) {
   }
 }
 
-// 2.F FURIOUS (Column N, starting Row 2) 
-// FURIOUS should be in Column N (index 13) and intersect properly with AIRFORCE
-// AIRFORCE (A-I-R-F-O-R-C-E) has R at position 5 (index 4), so at column 8+4=12
-// But FURIOUS needs to be in Column N (index 13), so we'll adjust AIRFORCE intersection
+// 2.F FURIOUS (Column N, starting Row 1) - move up one row so R aligns with AIRFORCE R
+// FURIOUS should start at row 1 so its R (3rd letter) is at row 3, same as AIRFORCE R
 const furious = "FURIOUS";
-clueNumbers[1][13] = 2; // Row 2, Column N (index 13)
+clueNumbers[0][13] = 2; // Row 1, Column N (index 13) - moved up one row
 for (let i = 0; i < furious.length; i++) {
-  if (1 + i < puzzleGrid.length) {
-    puzzleGrid[1 + i][13] = furious[i]; // Column N is index 13
+  if (0 + i < puzzleGrid.length) {
+    puzzleGrid[0 + i][13] = furious[i]; // Column N is index 13
   }
 }
 
@@ -184,15 +182,14 @@ for (let i = 0; i < cdao.length; i++) {
   }
 }
 
-// 7.B BLESSE (Column B, starting Row 3) - should connect at E of PERISCOPE
-// PERISCOPE is at row 5 (index 4), E is at position 1, so column 3 (index 2+1=3)
-// BLESSE should be in column 3 and its E should align with PERISCOPE's E
-// BLESSE (B-L-E-S-S-E) E is at position 3, so if E is at row 5, B starts at row 2
+// 7.B BLESSE (Column D, starting Row 2) - first E should connect with first E of PERISCOPE
+// PERISCOPE first E is at position 1, so column 2+1=3 (index 3), row 5 (index 4)
+// BLESSE first E is at position 2, so if E connects at row 5, BLESSE starts at row 3
 const blesse = "BLESSE";
-clueNumbers[1][3] = 7; // Row 2, Column D (index 3)
+clueNumbers[2][3] = 7; // Row 3, Column D (index 3)
 for (let i = 0; i < blesse.length; i++) {
-  if (1 + i < puzzleGrid.length) {
-    puzzleGrid[1 + i][3] = blesse[i]; // Column D is index 3
+  if (2 + i < puzzleGrid.length) {
+    puzzleGrid[2 + i][3] = blesse[i]; // Column D is index 3
   }
 }
 
@@ -264,15 +261,15 @@ for (let i = 0; i < car.length; i++) {
   puzzleGrid[10][12 + i] = car[i];
 }
 
-// Add clue numbers for previously unnumbered words
-// HUMAN (Column H) - connects to HEELS, starts at row where PERISCOPE's H is
+// HUMAN (Column H) - H connects to HEELS, N connects to WINDS
+// HEELS starts at row 18 (index 17), H is first letter
+// WINDS starts at row 22 (index 21), N is at position 3, so column 5+2=7 (index 7)
+// HUMAN (H-U-M-A-N) N is at position 5, so if N connects at row 22, H starts at row 18
 const human = "HUMAN";
-clueNumbers[4][7] = 26; // HUMAN is clue 26 down
-// HUMAN should start at row 5 (index 4) to connect with PERISCOPE's H
-// and end at row 9 (index 8) to connect with HEELS
+clueNumbers[17][7] = 26; // HUMAN is clue 26 down, starts at row 18 to connect H with HEELS
 for (let i = 0; i < human.length; i++) {
-  if (4 + i < puzzleGrid.length) {
-    puzzleGrid[4 + i][7] = human[i]; // Column H is index 7
+  if (17 + i < puzzleGrid.length) {
+    puzzleGrid[17 + i][7] = human[i]; // Column H is index 7
   }
 }
 
