@@ -4,54 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Driving Change: TEDxDAU 2025 Crossword</title>
-  <link rel="stylesheet" href="styles/styles.css" />
-  <style>
-    /* Modal Styling */
-    .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1000; /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgba(0,0,0,0.5); /* Black w/ opacity - a dim overlay */
-    }
-
-    .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto; /* 15% from the top and centered */
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%; /* Could be more or less, depending on screen size */
-        max-width: 500px; /* Maximum width */
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-        border-radius: 8px;
-        text-align: center;
-        position: relative; /* For positioning the close button */
-    }
-
-    .close-button {
-        color: #aaa;
-        position: absolute; /* Position relative to modal-content */
-        top: 10px;
-        right: 20px;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close-button:hover,
-    .close-button:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    .reveal-date { /* Style for the date span in the modal */
-        font-weight: bold;
-    }
-  </style>
+    <link rel="stylesheet" href="styles/styles.css" /> 
   <script defer src="scripts/crossword.js"></script>
 </head>
 <body>
@@ -138,4 +91,66 @@
       const inputs = document.querySelectorAll('#crossword-container input');
       inputs.forEach(input => {
         input.value = '';
-        input.style.backgroundColor
+        input.style.backgroundColor = '';
+      });
+      document.getElementById('completion-message').classList.add('hidden');
+    }
+
+    // --- NEW: Timed Modal Reveal Logic ---
+    document.addEventListener('DOMContentLoaded', function() {
+        // Define the target reveal moment in UTC
+        const targetYear = 2025;
+        const targetMonth = 5; // JavaScript months are 0-indexed, so June is 5
+        const targetDay = 4;
+        const targetHourUTC = 19; // 3:00 PM EDT on June 4, 2025 = 19:00 UTC
+        const targetMinuteUTC = 0;
+
+        const revealTimestampUTC = Date.UTC(targetYear, targetMonth, targetDay, targetHourUTC, targetMinuteUTC, 0);
+
+        // Get DOM elements
+        const revealButton = document.getElementById('revealSolutionButton');
+        const revealModal = document.getElementById('reveal-modal');
+        const closeModalButton = document.querySelector('#reveal-modal .close-button'); // Targets the <span>
+
+        if (!revealButton) {
+            console.warn('Timed Reveal: Could not find the "Reveal Solution" button. Ensure it has the ID "revealSolutionButton".');
+            return; 
+        }
+        if (!revealModal) {
+            console.warn('Timed Reveal: Could not find the modal element with ID "reveal-modal".');
+            return; 
+        }
+        if (!closeModalButton) {
+            console.warn('Timed Reveal: Could not find the close button within the modal (using selector: #reveal-modal .close-button).');
+            return; 
+        }
+
+        revealButton.addEventListener('click', function() {
+            const currentTimestampUTC = Date.now();
+
+            if (currentTimestampUTC < revealTimestampUTC) {
+                revealModal.style.display = 'block';
+            } else {
+                // Ensure revealAnswers is a function before calling
+                if (typeof revealAnswers === 'function') {
+                    revealAnswers();
+                } else {
+                    console.error('Timed Reveal: revealAnswers() function is not defined globally.');
+                }
+            }
+        });
+
+        closeModalButton.addEventListener('click', function() {
+            revealModal.style.display = 'none';
+        });
+
+        // Optional: Close modal if user clicks on the dim overlay background
+        window.addEventListener('click', function(event) {
+            if (event.target === revealModal) { // Check if the click is on the modal overlay itself
+                revealModal.style.display = 'none';
+            }
+        });
+    });
+  </script>
+</body>
+</html>
