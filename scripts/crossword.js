@@ -1,167 +1,218 @@
-// Puzzle Grid Data - Exact positions from Excel file
-const puzzleGrid = [
-  // Row 1 (index 0)
-  [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 2 (index 1) - RESILIENCE starts at column P (index 15)
-  [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,'R','E','S','I','L','I','E','N','C','E',null,null,null],
-  // Row 3 (index 2) - AIRFORCE starts at column I (index 8)
-  [null,null,null,null,null,null,null,null,'A','I','R','F','O','R','C','E',null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 4 (index 3)
-  [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 5 (index 4) - PERISCOPE starts at column C (index 2)
-  [null,null,'P','E','R','I','S','C','O','P','E',null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 6 (index 5)
-  [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 7 (index 6) - SYSTEMS starts at column H (index 7)
-  [null,null,null,null,null,null,null,'S','Y','S','T','E','M','S',null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 8 (index 7) - ACE starts at column B (index 1), CURIOSITY starts at column P (index 15)
-  [null,'A','C','E',null,null,null,null,null,null,null,null,null,null,null,'C','U','R','I','O','S','I','T','Y',null,null,null,null],
-  // Row 9 (index 8)
-  [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 10 (index 9) - RULES starts at column H (index 7), ESPORTS starts at column S (index 18)
-  [null,null,null,null,null,null,null,'R','U','L','E','S',null,null,null,null,null,null,'E','S','P','O','R','T','S',null,null,null],
-  // Row 11 (index 10) - GAMING starts at column A (index 0)
-  ['G','A','M','I','N','G',null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 12 (index 11)
-  [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 13 (index 12) - VOICEAPP starts at column A (index 0)
-  ['V','O','I','C','E','A','P','P',null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 14 (index 13) - DIGITAL starts at column J (index 9)
-  [null,null,null,null,null,null,null,null,null,'D','I','G','I','T','A','L',null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 15 (index 14) - ADAPTIVE starts at column S (index 18)
-  [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,'A','D','A','P','T','I','V','E',null,null],
-  // Row 16 (index 15) - EXPERIMENT starts at column C (index 2)
-  [null,null,'E','X','P','E','R','I','M','E','N','T',null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 17 (index 16)
-  [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 18 (index 17) - HEELS starts at column H (index 7)
-  [null,null,null,null,null,null,null,'H','E','E','L','S',null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 19 (index 18)
-  [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 20 (index 19)
-  [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 21 (index 20) - PC starts at column C (index 2)
-  [null,null,'P','C',null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 22 (index 21) - WINDS starts at column F (index 5)
-  [null,null,null,null,null,'W','I','N','D','S',null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-  // Row 23 (index 22)
-  [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]
-];
+// Puzzle Grid Data - Built from Excel screenshot
+// Creating a 25-row by 30-column grid to match Excel
+const puzzleGrid = Array.from({ length: 25 }, () => Array(30).fill(null));
 
-// Add vertical words
-// LEVELUP in column C (index 2) - start at row 15
-let levelupStartRow = 14; // Row 15 is index 14
-for (let i = 0; i < "LEVELUP".length; i++) {
-  if (levelupStartRow + i < puzzleGrid.length) {
-    puzzleGrid[levelupStartRow + i][2] = "LEVELUP"[i];
+// Add horizontal words based on Excel layout
+// Row 2: RESILIENCE (columns P-X, indices 15-23)
+const resilience = "RESILIENCE";
+for (let i = 0; i < resilience.length; i++) {
+  puzzleGrid[1][15 + i] = resilience[i]; // Row 2 is index 1
+}
+
+// Row 3: AIRFORCE (columns I-P, indices 8-15)  
+const airforce = "AIRFORCE";
+for (let i = 0; i < airforce.length; i++) {
+  puzzleGrid[2][8 + i] = airforce[i]; // Row 3 is index 2
+}
+
+// Row 5: PERISCOPE (columns C-K, indices 2-10)
+const periscope = "PERISCOPE";
+for (let i = 0; i < periscope.length; i++) {
+  puzzleGrid[4][2 + i] = periscope[i]; // Row 5 is index 4
+}
+
+// Row 7: SYSTEMS (columns H-N, indices 7-13)
+const systems = "SYSTEMS";
+for (let i = 0; i < systems.length; i++) {
+  puzzleGrid[6][7 + i] = systems[i]; // Row 7 is index 6
+}
+
+// Row 8: ACE (columns B-D, indices 1-3)
+const ace = "ACE";
+for (let i = 0; i < ace.length; i++) {
+  puzzleGrid[7][1 + i] = ace[i]; // Row 8 is index 7
+}
+
+// Row 8: CURIOSITY (columns P-X, indices 15-23)
+const curiosity = "CURIOSITY";
+for (let i = 0; i < curiosity.length; i++) {
+  puzzleGrid[7][15 + i] = curiosity[i]; // Row 8 is index 7
+}
+
+// Row 10: RULES (columns H-L, indices 7-11)
+const rules = "RULES";
+for (let i = 0; i < rules.length; i++) {
+  puzzleGrid[9][7 + i] = rules[i]; // Row 10 is index 9
+}
+
+// Row 10: ESPORTS (columns S-X, indices 18-23)
+const esports = "ESPORTS";
+for (let i = 0; i < esports.length; i++) {
+  puzzleGrid[9][18 + i] = esports[i]; // Row 10 is index 9
+}
+
+// Row 11: GAMING (columns B-G, indices 1-6)
+const gaming = "GAMING";
+for (let i = 0; i < gaming.length; i++) {
+  puzzleGrid[10][1 + i] = gaming[i]; // Row 11 is index 10
+}
+
+// Row 13: VOICEAPP (columns A-H, indices 0-7)
+const voiceapp = "VOICEAPP";
+for (let i = 0; i < voiceapp.length; i++) {
+  puzzleGrid[12][0 + i] = voiceapp[i]; // Row 13 is index 12
+}
+
+// Row 14: DIGITAL (columns J-O, indices 9-14)
+const digital = "DIGITAL";
+for (let i = 0; i < digital.length; i++) {
+  puzzleGrid[13][9 + i] = digital[i]; // Row 14 is index 13
+}
+
+// Row 15: ADAPTIVE (columns S-Y, indices 18-24)
+const adaptive = "ADAPTIVE";
+for (let i = 0; i < adaptive.length; i++) {
+  puzzleGrid[14][18 + i] = adaptive[i]; // Row 15 is index 14
+}
+
+// Row 16: EXPERIMENT (columns C-M, indices 2-12)
+const experiment = "EXPERIMENT";
+for (let i = 0; i < experiment.length; i++) {
+  puzzleGrid[15][2 + i] = experiment[i]; // Row 16 is index 15
+}
+
+// Row 18: HEELS (columns H-L, indices 7-11)
+const heels = "HEELS";
+for (let i = 0; i < heels.length; i++) {
+  puzzleGrid[17][7 + i] = heels[i]; // Row 18 is index 17
+}
+
+// Row 21: PC (columns C-D, indices 2-3)
+const pc = "PC";
+for (let i = 0; i < pc.length; i++) {
+  puzzleGrid[20][2 + i] = pc[i]; // Row 21 is index 20
+}
+
+// Row 22: WINDS (columns F-J, indices 5-9)
+const winds = "WINDS";
+for (let i = 0; i < winds.length; i++) {
+  puzzleGrid[21][5 + i] = winds[i]; // Row 22 is index 21
+}
+
+// Add vertical words based on Excel layout
+// Column C: LEVELUP (starting row 15, index 14)
+const levelup = "LEVELUP";
+for (let i = 0; i < levelup.length; i++) {
+  if (14 + i < puzzleGrid.length) {
+    puzzleGrid[14 + i][2] = levelup[i]; // Column C is index 2
   }
 }
 
-// RINGMASTER in column F (index 5) - start at row 8
-let ringmasterStartRow = 7; // Row 8 is index 7
-for (let i = 0; i < "RINGMASTER".length; i++) {
-  if (ringmasterStartRow + i < puzzleGrid.length) {
-    puzzleGrid[ringmasterStartRow + i][5] = "RINGMASTER"[i];
+// Column F: RINGMASTER (starting row 7, index 6)
+const ringmaster = "RINGMASTER";
+for (let i = 0; i < ringmaster.length; i++) {
+  if (6 + i < puzzleGrid.length) {
+    puzzleGrid[6 + i][5] = ringmaster[i]; // Column F is index 5
   }
 }
 
-// TASKS in column G (index 6) - start at row 1
-let tasksStartRow = 0; // Row 1 is index 0
-for (let i = 0; i < "TASKS".length; i++) {
-  if (tasksStartRow + i < puzzleGrid.length) {
-    puzzleGrid[tasksStartRow + i][6] = "TASKS"[i];
+// Column G: TASKS (starting row 1, index 0)
+const tasks = "TASKS";
+for (let i = 0; i < tasks.length; i++) {
+  if (0 + i < puzzleGrid.length) {
+    puzzleGrid[0 + i][6] = tasks[i]; // Column G is index 6
   }
 }
 
-// HUMAN in column H (index 7) - need to determine start row
-let humanStartRow = 4; // Start at row 5 to intersect with PERISCOPE
-for (let i = 0; i < "HUMAN".length; i++) {
-  if (humanStartRow + i < puzzleGrid.length) {
-    puzzleGrid[humanStartRow + i][7] = "HUMAN"[i];
+// Column H: HUMAN (starting row 5, index 4)
+const human = "HUMAN";
+for (let i = 0; i < human.length; i++) {
+  if (4 + i < puzzleGrid.length) {
+    puzzleGrid[4 + i][7] = human[i]; // Column H is index 7
   }
 }
 
-// ANONYMOUS in column I (index 8) - start at row 2 to intersect with AIRFORCE
-let anonymousStartRow = 1; // Start at row 2 to align with AIRFORCE
-for (let i = 0; i < "ANONYMOUS".length; i++) {
-  if (anonymousStartRow + i < puzzleGrid.length) {
-    puzzleGrid[anonymousStartRow + i][8] = "ANONYMOUS"[i];
+// Column I: ANONYMOUS (starting row 3, index 2)
+const anonymous = "ANONYMOUS";
+for (let i = 0; i < anonymous.length; i++) {
+  if (2 + i < puzzleGrid.length) {
+    puzzleGrid[2 + i][8] = anonymous[i]; // Column I is index 8
   }
 }
 
-// EMOTIONAL in column K (index 10) - start around row 4
-let emotionalStartRow = 3;
-for (let i = 0; i < "EMOTIONAL".length; i++) {
-  if (emotionalStartRow + i < puzzleGrid.length) {
-    puzzleGrid[emotionalStartRow + i][10] = "EMOTIONAL"[i];
+// Column K: EMOTIONAL (starting row 4, index 3)
+const emotional = "EMOTIONAL";
+for (let i = 0; i < emotional.length; i++) {
+  if (3 + i < puzzleGrid.length) {
+    puzzleGrid[3 + i][10] = emotional[i]; // Column K is index 10
   }
 }
 
-// FURIOUS in column N (index 13) - start around row 6
-let furiousStartRow = 5;
-for (let i = 0; i < "FURIOUS".length; i++) {
-  if (furiousStartRow + i < puzzleGrid.length) {
-    puzzleGrid[furiousStartRow + i][13] = "FURIOUS"[i];
+// Column N: FURIOUS (starting row 2, index 1)
+const furious = "FURIOUS";
+for (let i = 0; i < furious.length; i++) {
+  if (1 + i < puzzleGrid.length) {
+    puzzleGrid[1 + i][13] = furious[i]; // Column N is index 13
   }
 }
 
-// SAFETY in column N (index 13) - start after FURIOUS (around row 13)
-let safetyStartRow = 12;
-for (let i = 0; i < "SAFETY".length; i++) {
-  if (safetyStartRow + i < puzzleGrid.length) {
-    puzzleGrid[safetyStartRow + i][13] = "SAFETY"[i];
+// Column N: SAFETY (starting row 14, index 13)
+const safety = "SAFETY";
+for (let i = 0; i < safety.length; i++) {
+  if (13 + i < puzzleGrid.length) {
+    puzzleGrid[13 + i][13] = safety[i]; // Column N is index 13
   }
 }
 
-// CREW in column P (index 15) - start at row 1 (above RESILIENCE)
-let crewStartRow = 0;
-for (let i = 0; i < "CREW".length; i++) {
-  if (crewStartRow + i < puzzleGrid.length) {
-    puzzleGrid[crewStartRow + i][15] = "CREW"[i];
+// Column P: CREW (starting row 1, index 0)
+const crew = "CREW";
+for (let i = 0; i < crew.length; i++) {
+  if (0 + i < puzzleGrid.length) {
+    puzzleGrid[0 + i][15] = crew[i]; // Column P is index 15
   }
 }
 
-// LEAD in column P (index 15) - start after CURIOSITY (around row 9)
-let leadStartRow = 8;
-for (let i = 0; i < "LEAD".length; i++) {
-  if (leadStartRow + i < puzzleGrid.length) {
-    puzzleGrid[leadStartRow + i][15] = "LEAD"[i];
+// Column P: LEAD (starting row 14, index 13)
+const lead = "LEAD";
+for (let i = 0; i < lead.length; i++) {
+  if (13 + i < puzzleGrid.length) {
+    puzzleGrid[13 + i][15] = lead[i]; // Column P is index 15
   }
 }
 
-// INTRUSIVE in column S (index 18) - start around row 6
-let intrusiveStartRow = 5;
-for (let i = 0; i < "INTRUSIVE".length; i++) {
-  if (intrusiveStartRow + i < puzzleGrid.length) {
-    puzzleGrid[intrusiveStartRow + i][18] = "INTRUSIVE"[i];
+// Column S: INTRUSIVE (starting row 2, index 1)
+const intrusive = "INTRUSIVE";
+for (let i = 0; i < intrusive.length; i++) {
+  if (1 + i < puzzleGrid.length) {
+    puzzleGrid[1 + i][18] = intrusive[i]; // Column S is index 18
   }
 }
 
-// PROGRAMS in column U (index 20) - start around row 8
-let programsStartRow = 7;
-for (let i = 0; i < "PROGRAMS".length; i++) {
-  if (programsStartRow + i < puzzleGrid.length) {
-    puzzleGrid[programsStartRow + i][20] = "PROGRAMS"[i];
+// Column U: PROGRAMS (starting row 10, index 9)
+const programs = "PROGRAMS";
+for (let i = 0; i < programs.length; i++) {
+  if (9 + i < puzzleGrid.length) {
+    puzzleGrid[9 + i][20] = programs[i]; // Column U is index 20
   }
 }
 
-// CDAO in column X (index 23) - start around row 2
-let cdaoStartRow = 1;
-for (let i = 0; i < "CDAO".length; i++) {
-  if (cdaoStartRow + i < puzzleGrid.length) {
-    puzzleGrid[cdaoStartRow + i][23] = "CDAO"[i];
+// Column X: CDAO (starting row 2, index 1)
+const cdao = "CDAO";
+for (let i = 0; i < cdao.length; i++) {
+  if (1 + i < puzzleGrid.length) {
+    puzzleGrid[1 + i][23] = cdao[i]; // Column X is index 23
   }
 }
 
-// CIRCUS in column X (index 23) - start at row 14 to intersect with ADAPTIVE at "I"
-let circusStartRow = 13; // Row 14 is index 13
-for (let i = 0; i < "CIRCUS".length; i++) {
-  if (circusStartRow + i < puzzleGrid.length) {
-    puzzleGrid[circusStartRow + i][23] = "CIRCUS"[i];
+// Column X: CIRCUS (starting row 15, index 14)
+const circus = "CIRCUS";
+for (let i = 0; i < circus.length; i++) {
+  if (14 + i < puzzleGrid.length) {
+    puzzleGrid[14 + i][23] = circus[i]; // Column X is index 23
   }
 }
 
-// Corrected clues with exact numbering from the file
+// Clues with exact numbering from your file
 const clueMap = {
   1: "Moore's '3Ts' include trust, tolerance, and this third word", // TASKS
   2: "Naval metaphor for acquisition speed amid resistance", // FURIOUS  
@@ -169,10 +220,8 @@ const clueMap = {
   4: "Carroll's key to program survival amid challenges", // RESILIENCE
   5: "Canady says this type of leadership earns trust", // INTRUSIVE
   6: "Palmieri's group within OSD focused on digital/AI", // CDAO
-  7: "This 'Bond' speaker equated leadership with 007 flair", // BLESSE
-  "7S": "Blesse says this inspires agents to succeed like 007", // SAFETY
-  8: "Military branch where Tidwell serves", // AIRFORCE (across)
-  "8D": "Voice-of-the-force app guarantees this submission status", // ANONYMOUS (down)
+  7: "This 'Bond' speaker equated leadership with 007 flair", // (need to determine)
+  8: "Military branch where Tidwell serves", // AIRFORCE
   9: "Blesse's innovation story started with a letter about this naval device", // PERISCOPE
   10: "Moore's approach for seeing wholes, not parts", // SYSTEMS
   11: "Durham's AI teammate: Acquisition's Collaborative Engine", // ACE
@@ -183,38 +232,35 @@ const clueMap = {
   17: "Durham Coached a Professional _______ Team", // ESPORTS
   18: "Hilger's programs show we deliver more than just products—we deliver ____", // PROGRAMS
   19: "Durham's favorite genre of virtual competition", // GAMING
-  20: "Palmieri compares DoD transformation to building this while designing the road", // CAR
+  20: "Palmieri compares DoD transformation to building this while designing the road", // (need to determine)
   21: "Tidwell's app that empowers innovation from the ground up", // VOICEAPP
   22: "Jones's generation is often described as this", // DIGITAL
   23: "Canady challenges leaders to go beyond just 'managing' to truly ____", // LEAD
   24: "What you do when 'Game Over' becomes a call to grow", // LEVELUP
   25: "Palmieri's approach that pairs tech with real-world ops", // EXPERIMENT
-  26: "The only type of mindset that can wield AI effectively, per Moore", // HUMAN
-  "26A": "Evangelista says these must fly off for change to begin (footwear)", // HEELS
+  26: "Evangelista says these must fly off for change to begin (footwear)", // HEELS
   27: "Jones built one of these with her uncle in high school", // PC
   28: "Carroll compares acquisition's speed to these legendary ocean patterns", // WINDS
   29: "This natural cycle defines organizational growth and rebirth", // ADAPTIVE
   30: "Carroll likened acquisition to a three-ring ____" // CIRCUS
 };
 
-// Crossword functionality
-const clueNumbers = Array.from({ length: puzzleGrid.length }, () => Array(puzzleGrid[0].length).fill(null));
+// Generate clue numbers and organize clues
+const clueNumbers = Array.from({ length: puzzleGrid.length }, () => Array(30).fill(null));
 let clueNumber = 1;
-
 const acrossClues = [];
 const downClues = [];
 
-// Generate clue numbers for the grid and use the correct clues
 for (let row = 0; row < puzzleGrid.length; row++) {
   for (let col = 0; col < puzzleGrid[row].length; col++) {
     if (puzzleGrid[row][col] === null) continue;
     
-    const startsAcross =
+    const startsAcross = 
       (col === 0 || puzzleGrid[row][col - 1] === null) &&
       col + 1 < puzzleGrid[row].length &&
       puzzleGrid[row][col + 1] !== null;
     
-    const startsDown =
+    const startsDown = 
       (row === 0 || puzzleGrid[row - 1][col] === null) &&
       row + 1 < puzzleGrid.length &&
       puzzleGrid[row + 1][col] !== null;
@@ -222,13 +268,12 @@ for (let row = 0; row < puzzleGrid.length; row++) {
     if (startsAcross || startsDown) {
       clueNumbers[row][col] = clueNumber;
       
-      // Use the correct clues from our clueMap
       if (startsAcross) {
-        const clueText = clueMap[clueNumber] || clueMap[`${clueNumber}A`] || "Missing across clue";
+        const clueText = clueMap[clueNumber] || "Missing across clue";
         acrossClues.push(`${clueNumber}. ${clueText}`);
       }
       if (startsDown) {
-        const clueText = clueMap[`${clueNumber}D`] || clueMap[`${clueNumber}S`] || clueMap[clueNumber] || "Missing down clue";
+        const clueText = clueMap[clueNumber] || "Missing down clue";
         downClues.push(`${clueNumber}. ${clueText}`);
       }
       clueNumber++;
@@ -291,7 +336,7 @@ function renderClues() {
   }
 }
 
-// Initialize crossword when DOM is ready
+// Initialize crossword
 function initializeCrossword() {
   console.log('Initializing crossword...');
   renderCrossword();
@@ -299,7 +344,7 @@ function initializeCrossword() {
   console.log('Crossword initialized successfully!');
 }
 
-// Auto-initialize if running in browser
+// Auto-initialize
 if (typeof document !== 'undefined') {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initializeCrossword);
@@ -308,12 +353,11 @@ if (typeof document !== 'undefined') {
   }
 }
 
-// Export for use in other modules
+// Exports
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { puzzleGrid, renderCrossword, renderClues, initializeCrossword };
 }
 
-// For browser usage
 if (typeof window !== 'undefined') {
   window.puzzleGrid = puzzleGrid;
   window.renderCrossword = renderCrossword;
