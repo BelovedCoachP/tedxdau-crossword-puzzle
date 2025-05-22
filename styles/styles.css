@@ -111,6 +111,7 @@ button:hover {
 
 .clue-list ol {
   padding-left: 20px;
+  list-style-type: none; /* ADD THIS LINE - removes automatic numbering */
 }
 
 .clue-list li {
