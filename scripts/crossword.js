@@ -1,7 +1,5 @@
-const revealDate = new Date("2025-06-04T15:00:00-04:00");
-const now = new Date();
-
-c// Puzzle Grid Data - Complete with exact word positions
+// Puzzle Grid Data - Matching your paste.txt layout
+// Puzzle Grid Data - Complete with exact word positions
 const puzzleGrid = [
   // Row 1 (index 0)
   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
@@ -366,7 +364,8 @@ PuzzleGridUtils.validateAllWords();
 console.log('\nDisplaying complete grid:');
 PuzzleGridUtils.displayGrid();
 
-const clueNumbers = Array.from({ length: puzzle.length }, () => Array(puzzle[0].length).fill(null));
+// Crossword functionality - clue numbering and generation
+const clueNumbers = Array.from({ length: puzzleGrid.length }, () => Array(puzzleGrid[0].length).fill(null));
 let clueNumber = 1;
 
 const acrossClues = [];
@@ -409,17 +408,21 @@ const actualDownClues = [
   "16. Palmieri's group within OSD focused on digital/AI"
 ];
 
-for (let row = 0; row < puzzle.length; row++) {
-  for (let col = 0; col < puzzle[row].length; col++) {
-    if (puzzle[row][col] === null) continue;
+// Generate clue numbers for the grid
+for (let row = 0; row < puzzleGrid.length; row++) {
+  for (let col = 0; col < puzzleGrid[row].length; col++) {
+    if (puzzleGrid[row][col] === null) continue;
+    
     const startsAcross =
-      (col === 0 || puzzle[row][col - 1] === null) &&
-      col + 1 < puzzle[row].length &&
-      puzzle[row][col + 1] !== null;
+      (col === 0 || puzzleGrid[row][col - 1] === null) &&
+      col + 1 < puzzleGrid[row].length &&
+      puzzleGrid[row][col + 1] !== null;
+    
     const startsDown =
-      (row === 0 || puzzle[row - 1][col] === null) &&
-      row + 1 < puzzle.length &&
-      puzzle[row + 1][col] !== null;
+      (row === 0 || puzzleGrid[row - 1][col] === null) &&
+      row + 1 < puzzleGrid.length &&
+      puzzleGrid[row + 1][col] !== null;
+    
     if (startsAcross || startsDown) {
       clueNumbers[row][col] = clueNumber;
       if (startsAcross) acrossClues.push(`${clueNumber}. ${actualAcrossClues[acrossClues.length] || "(Missing across clue)"}`);
@@ -429,46 +432,258 @@ for (let row = 0; row < puzzle.length; row++) {
   }
 }
 
-const crosswordContainer = document.getElementById("crossword-container");
-crosswordContainer.innerHTML = "";
+// Crossword rendering function
+function renderCrossword() {
+  const crosswordContainer = document.getElementById("crossword-container");
+  if (!crosswordContainer) return;
+  
+  crosswordContainer.innerHTML = "";
 
-puzzle.forEach((row, rowIndex) => {
-  row.forEach((cell, colIndex) => {
-    const div = document.createElement("div");
-    if (cell === null) {
-      div.className = "cell black-cell";
-    } else {
-      div.className = "cell";
-      const input = document.createElement("input");
-      input.maxLength = 1;
-      input.dataset.answer = cell;
-      div.appendChild(input);
-      const clueNum = clueNumbers[rowIndex][colIndex];
-      if (clueNum) {
-        const number = document.createElement("span");
-        number.className = "cell-number";
-        number.innerText = clueNum;
-        div.appendChild(number);
+  puzzleGrid.forEach((row, rowIndex) => {
+    row.forEach((cell, colIndex) => {
+      const div = document.createElement("div");
+      if (cell === null) {
+        div.className = "cell black-cell";
+      } else {
+        div.className = "cell";
+        const input = document.createElement("input");
+        input.maxLength = 1;
+        input.dataset.answer = cell;
+        div.appendChild(input);
+        
+        const clueNum = clueNumbers[rowIndex][colIndex];
+        if (clueNum) {
+          const number = document.createElement("span");
+          number.className = "cell-number";
+          number.innerText = clueNum;
+          div.appendChild(number);
+        }
       }
-    }
-    crosswordContainer.appendChild(div);
-  });
-});
-
-const acrossList = document.getElementById("across-clues");
-const downList = document.getElementById("down-clues");
-
-if (acrossList && downList) {
-  acrossList.innerHTML = "";
-  downList.innerHTML = "";
-  acrossClues.forEach(clue => {
-    const li = document.createElement("li");
-    li.innerText = clue;
-    acrossList.appendChild(li);
-  });
-  downClues.forEach(clue => {
-    const li = document.createElement("li");
-    li.innerText = clue;
-    downList.appendChild(li);
+      crosswordContainer.appendChild(div);
+    });
   });
 }
+
+// Clue list rendering function
+function renderClues() {
+  const acrossList = document.getElementById("across-clues");
+  const downList = document.getElementById("down-clues");
+
+  if (acrossList && downList) {
+    acrossList.innerHTML = "";
+    downList.innerHTML = "";
+    
+    acrossClues.forEach(clue => {
+      const li = document.createElement("li");
+      li.innerText = clue;
+      acrossList.appendChild(li);
+    });
+    
+    downClues.forEach(clue => {
+      const li = document.createElement("li");
+      li.innerText = clue;
+      downList.appendChild(li);
+    });
+  }
+}
+
+// Initialize crossword when DOM is ready
+function initializeCrossword() {
+  renderCrossword();
+  renderClues();
+}
+
+// Auto-initialize if running in browser
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeCrossword);
+  } else {
+    initializeCrossword();
+  }
+}
+
+// Helper functions for working with the grid
+const PuzzleGridUtils = {
+  // Get grid dimensions
+  getDimensions() {
+    return {
+      rows: puzzleGrid.length,
+      cols: Math.max(...puzzleGrid.map(row => row.length))
+    };
+  },
+
+  // Get cell value at specific position
+  getCell(row, col) {
+    if (row >= 0 && row < puzzleGrid.length && col >= 0 && col < puzzleGrid[row].length) {
+      return puzzleGrid[row][col];
+    }
+    return null;
+  },
+
+  // Set cell value at specific position
+  setCell(row, col, value) {
+    if (row >= 0 && row < puzzleGrid.length && col >= 0 && col < puzzleGrid[row].length) {
+      puzzleGrid[row][col] = value;
+      return true;
+    }
+    return false;
+  },
+
+  // Convert column letter to number (A=0, B=1, etc.)
+  colLetterToNumber(letter) {
+    return letter.charCodeAt(0) - 65;
+  },
+
+  // Convert column number to letter (0=A, 1=B, etc.)
+  colNumberToLetter(num) {
+    return String.fromCharCode(65 + num);
+  },
+
+  // Find all words in the grid (horizontal and vertical)
+  findWords() {
+    const words = [];
+    const { rows, cols } = this.getDimensions();
+
+    // Find horizontal words
+    for (let row = 0; row < rows; row++) {
+      let currentWord = '';
+      let startCol = -1;
+      
+      for (let col = 0; col <= cols; col++) {
+        const cell = this.getCell(row, col);
+        
+        if (cell && cell !== null) {
+          if (currentWord === '') {
+            startCol = col;
+          }
+          currentWord += cell;
+        } else {
+          if (currentWord.length > 1) {
+            words.push({
+              word: currentWord,
+              direction: 'horizontal',
+              row: row,
+              col: startCol,
+              length: currentWord.length
+            });
+          }
+          currentWord = '';
+        }
+      }
+    }
+
+    // Find vertical words
+    for (let col = 0; col < cols; col++) {
+      let currentWord = '';
+      let startRow = -1;
+      
+      for (let row = 0; row <= rows; row++) {
+        const cell = this.getCell(row, col);
+        
+        if (cell && cell !== null) {
+          if (currentWord === '') {
+            startRow = row;
+          }
+          currentWord += cell;
+        } else {
+          if (currentWord.length > 1) {
+            words.push({
+              word: currentWord,
+              direction: 'vertical',
+              row: startRow,
+              col: col,
+              length: currentWord.length
+            });
+          }
+          currentWord = '';
+        }
+      }
+    }
+
+    return words;
+  },
+
+  // Display the grid in console with row/column numbers
+  displayGrid() {
+    console.log('Puzzle Grid:');
+    const { cols } = this.getDimensions();
+    
+    // Display column headers
+    const colHeaders = '   ' + Array.from({length: cols}, (_, i) => this.colNumberToLetter(i)).join(' ');
+    console.log(colHeaders);
+    
+    puzzleGrid.forEach((row, i) => {
+      const displayRow = row.map(cell => cell || '·').join(' ');
+      console.log(`${(i + 1).toString().padStart(2)}: ${displayRow}`);
+    });
+  },
+
+  // Export grid as clean JavaScript array
+  exportGrid() {
+    return JSON.stringify(puzzleGrid, null, 2);
+  },
+
+  // Get all words found in the grid
+  getWordList() {
+    return this.findWords().map(wordObj => wordObj.word);
+  },
+
+  // Get words by direction
+  getHorizontalWords() {
+    return this.findWords().filter(w => w.direction === 'horizontal');
+  },
+
+  getVerticalWords() {
+    return this.findWords().filter(w => w.direction === 'vertical');
+  },
+
+  // Validate all expected words are present
+  validateAllWords() {
+    const expectedHorizontal = [
+      'PERISCOPE', 'ACE', 'GAMING', 'VOICEAPP', 'EXPERIMENT', 'PC', 'WINDS', 
+      'HEELS', 'DIGITAL', 'RULES', 'SYSTEMS', 'AIRFORCE', 'RESILIENCE', 
+      'CURIOSITY', 'ESPORTS', 'ADAPTIVE'
+    ];
+    
+    const expectedVertical = [
+      'LEVELUP', 'BLESSE', 'RINGMASTER', 'TASKS', 'HUMAN', 'ANONYMOUS', 
+      'EMOTIONAL', 'FURIOUS', 'CREW', 'LEAD', 'INTRUSIVE', 'PROGRAMS', 'CDAO'
+    ];
+    
+    const foundHorizontal = this.getHorizontalWords().map(w => w.word);
+    const foundVertical = this.getVerticalWords().map(w => w.word);
+    
+    console.log('Horizontal Words Validation:');
+    expectedHorizontal.forEach(word => {
+      console.log(`  ${word}: ${foundHorizontal.includes(word) ? '✓' : '✗'}`);
+    });
+    
+    console.log('\nVertical Words Validation:');
+    expectedVertical.forEach(word => {
+      console.log(`  ${word}: ${foundVertical.includes(word) ? '✓' : '✗'}`);
+    });
+    
+    return {
+      horizontal: { expected: expectedHorizontal, found: foundHorizontal },
+      vertical: { expected: expectedVertical, found: foundVertical }
+    };
+  }
+};
+
+// Export for use in other modules
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { puzzleGrid, PuzzleGridUtils };
+}
+
+// For browser usage
+if (typeof window !== 'undefined') {
+  window.puzzleGrid = puzzleGrid;
+  window.PuzzleGridUtils = PuzzleGridUtils;
+}
+
+// Initial validation
+console.log('Puzzle Grid Dimensions:', PuzzleGridUtils.getDimensions());
+console.log('\nValidating all words:');
+PuzzleGridUtils.validateAllWords();
+console.log('\nDisplaying complete grid:');
+PuzzleGridUtils.displayGrid();
