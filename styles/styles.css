@@ -173,3 +173,63 @@ button:hover {
 .cell input.incorrect {
   background-color: #f8d7da !important;
 }
+/* ================================== */
+/* Modal Styling (Add to styles/styles.css) */
+/* ================================== */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top of other content */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Dim overlay - slightly darker */
+}
+
+.modal-content {
+    background-color: #fefefe; /* Light background for the modal box */
+    color: #333; /* Dark text color for readability on light background */
+    margin: 10% auto; /* Adjusted margin for potentially better centering */
+    padding: 25px;
+    border: 1px solid #777;
+    width: 90%; 
+    max-width: 450px; /* Slightly smaller max-width */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    text-align: center;
+    position: relative; /* For positioning the close button */
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #e62b1e; /* Match your button red for the heading */
+}
+
+.modal-content p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.close-button {
+    color: #888; /* Slightly darker close button */
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1; /* Ensure consistent vertical alignment */
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000; /* Black on hover/focus */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.reveal-date {
+    font-weight: bold;
+    color: #000; /* Black for emphasis on the date */
+}
