@@ -273,15 +273,16 @@ for (let i = 0; i < human.length; i++) {
   }
 }
 
-// ANONYMOUS (Column I) - assign clue number
+// ANONYMOUS (Column I, assumed 8 Down)
 const anonymous = "ANONYMOUS";
-clueNumbers[2][8] = 16; // Assign number 16 to ANONYMOUS - wait, this conflicts with HUMAN
-// Let me use a different number
-clueNumbers[2][8] = 31; // Use 31 for ANONYMOUS
+// clueNumbers[2][8] is already set to 8 by AIRFORCE (8 Across).
+// This also serves as the number for 8 Down (ANONYMOUS).
+// No need to assign clueNumbers[2][8] again if it's 8 Down.
+// Remove or comment out: clueNumbers[2][8] = 31;
 for (let i = 0; i < anonymous.length; i++) {
-  if (2 + i < puzzleGrid.length) {
-    puzzleGrid[2 + i][8] = anonymous[i];
-  }
+  if (2 + i < puzzleGrid.length) {
+    puzzleGrid[2 + i][8] = anonymous[i];
+  }
 }
 
 // SAFETY (Vertical, starting Row 10 [index 9], Column N [index 13])
