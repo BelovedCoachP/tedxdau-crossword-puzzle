@@ -253,13 +253,12 @@ for (let i = 0; i < circus.length; i++) {
   }
 }
 
-// 20.C CAR - using the "A" of SAFETY
-// SAFETY now starts at row 7, A is at position 2, so A is at row 8
-// CAR should be horizontal at row 8, using SAFETY's A at column 13
+// 20.C CAR - put back to correct position at row 11
+// CAR should be horizontal at row 11, using SAFETY's A 
 const car = "CAR";
-clueNumbers[7][12] = 20; // CAR at row 8 (index 7), starts at column 12 so A uses SAFETY's A
+clueNumbers[10][12] = 20; // CAR at row 11 (index 10), starts at column 12
 for (let i = 0; i < car.length; i++) {
-  puzzleGrid[7][12 + i] = car[i];
+  puzzleGrid[10][12 + i] = car[i];
 }
 
 // HUMAN (Column H) - H connects to HEELS, N connects to WINDS
