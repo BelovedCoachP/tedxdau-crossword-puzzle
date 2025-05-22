@@ -1,38 +1,4 @@
-// Corrected clues with exact numbering from the file
-let clueMap = {
-  1: "Moore's '3Ts' include trust, tolerance, and this third word", // TASKS
-  2: "Naval metaphor for acquisition speed amid resistance", // FURIOUS  
-  3: "Hilger's submarine story highlights leadership's impact on this", // CREW
-  4: "Carroll's key to program survival amid challenges", // RESILIENCE
-  5: "Canady says this type of leadership earns trust", // INTRUSIVE
-  6: "Palmieri's group within OSD focused on digital/AI", // CDAO
-  7: "This 'Bond' speaker equated leadership with 007 flair", // BLESSE
-  8: "Military branch where Tidwell serves", // AIRFORCE (across)
-  "8D": "Voice-of-the-force app guarantees this submission status", // ANONYMOUS (down)
-  9: "Blesse's innovation story started with a letter about this naval device", // PERISCOPE
-  10: "Moore's approach for seeing wholes, not parts", // SYSTEMS
-  11: "Durham's AI teammate: Acquisition's Collaborative Engine", // ACE
-  12: "The figure who keeps lions, vendors, and contracting officers in sync", // RINGMASTER
-  13: "Jones says this quality makes digital natives fearless questioners", // CURIOSITY
-  14: "What Evangelista says we must 'unlearn' to move forward", // RULES
-  15: "The ability to read the room—and the person behind the problem", // EMOTIONAL
-  17: "Durham Coached a Professional _______ Team", // ESPORTS
-  18: "Hilger's programs show we deliver more than just products—we deliver ____", // PROGRAMS
-  19: "Durham's favorite genre of virtual competition", // GAMING
-  20: "Palmieri compares DoD transformation to building this while designing the road", // CAR
-  21: "Tidwell's app that empowers innovation from the ground up", // VOICEAPP
-  22: "Jones's generation is often described as this", // DIGITAL
-  23: "Canady challenges leaders to go beyond just 'managing' to truly ____", // LEAD
-  24: "What you do when 'Game Over' becomes a call to grow", // LEVELUP
-  25: "Palmieri's approach that pairs tech with real-world ops", // EXPERIMENT
-  26: "The only type of mindset that can wield AI effectively, per Moore", // HUMAN
-  "26A": "Evangelista says these must fly off for change to begin (footwear)", // HEELS
-  27: "Jones built one of these with her uncle in high school", // PC
-  28: "Carroll compares acquisition's speed to these legendary ocean patterns", // WINDS
-  29: "This natural cycle defines organizational growth and rebirth", // ADAPTIVE
-  30: "Carroll likened acquisition to a three-ring ____", // CIRCUS
-  "7S": "Blesse says this inspires agents to succeed like 007" // SAFETY
-};// Puzzle Grid Data - Exact positions from Excel file
+// Puzzle Grid Data - Exact positions from Excel file
 const puzzleGrid = [
   // Row 1 (index 0)
   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
@@ -83,6 +49,30 @@ const puzzleGrid = [
 ];
 
 // Add vertical words
+// LEVELUP in column C (index 2) - start at row 15
+let levelupStartRow = 14; // Row 15 is index 14
+for (let i = 0; i < "LEVELUP".length; i++) {
+  if (levelupStartRow + i < puzzleGrid.length) {
+    puzzleGrid[levelupStartRow + i][2] = "LEVELUP"[i];
+  }
+}
+
+// RINGMASTER in column F (index 5) - start at row 8
+let ringmasterStartRow = 7; // Row 8 is index 7
+for (let i = 0; i < "RINGMASTER".length; i++) {
+  if (ringmasterStartRow + i < puzzleGrid.length) {
+    puzzleGrid[ringmasterStartRow + i][5] = "RINGMASTER"[i];
+  }
+}
+
+// TASKS in column G (index 6) - start at row 1
+let tasksStartRow = 0; // Row 1 is index 0
+for (let i = 0; i < "TASKS".length; i++) {
+  if (tasksStartRow + i < puzzleGrid.length) {
+    puzzleGrid[tasksStartRow + i][6] = "TASKS"[i];
+  }
+}
+
 // HUMAN in column H (index 7) - need to determine start row
 let humanStartRow = 4; // Start at row 5 to intersect with PERISCOPE
 for (let i = 0; i < "HUMAN".length; i++) {
@@ -155,30 +145,6 @@ for (let i = 0; i < "PROGRAMS".length; i++) {
   }
 }
 
-// LEVELUP in column C (index 2) - start at row 15
-let levelupStartRow = 14; // Row 15 is index 14
-for (let i = 0; i < "LEVELUP".length; i++) {
-  if (levelupStartRow + i < puzzleGrid.length) {
-    puzzleGrid[levelupStartRow + i][2] = "LEVELUP"[i];
-  }
-}
-
-// RINGMASTER in column F (index 5) - start at row 8
-let ringmasterStartRow = 7; // Row 8 is index 7
-for (let i = 0; i < "RINGMASTER".length; i++) {
-  if (ringmasterStartRow + i < puzzleGrid.length) {
-    puzzleGrid[ringmasterStartRow + i][5] = "RINGMASTER"[i];
-  }
-}
-
-// TASKS in column G (index 6) - start at row 1
-let tasksStartRow = 0; // Row 1 is index 0
-for (let i = 0; i < "TASKS".length; i++) {
-  if (tasksStartRow + i < puzzleGrid.length) {
-    puzzleGrid[tasksStartRow + i][6] = "TASKS"[i];
-  }
-}
-
 // CDAO in column X (index 23) - start around row 2
 let cdaoStartRow = 1;
 for (let i = 0; i < "CDAO".length; i++) {
@@ -195,22 +161,16 @@ for (let i = 0; i < "CIRCUS".length; i++) {
   }
 }
 
-// Crossword functionality
-const clueNumbers = Array.from({ length: puzzleGrid.length }, () => Array(puzzleGrid[0].length).fill(null));
-let clueNumber = 1;
-
-const acrossClues = [];
-const downClues = [];
-
-// Corrected clues with proper numbering
-clueMap = {
+// Corrected clues with exact numbering from the file
+const clueMap = {
   1: "Moore's '3Ts' include trust, tolerance, and this third word", // TASKS
   2: "Naval metaphor for acquisition speed amid resistance", // FURIOUS  
   3: "Hilger's submarine story highlights leadership's impact on this", // CREW
   4: "Carroll's key to program survival amid challenges", // RESILIENCE
   5: "Canady says this type of leadership earns trust", // INTRUSIVE
   6: "Palmieri's group within OSD focused on digital/AI", // CDAO
-  7: "Blesse says this inspires agents to succeed like 007", // SAFETY
+  7: "This 'Bond' speaker equated leadership with 007 flair", // BLESSE
+  "7S": "Blesse says this inspires agents to succeed like 007", // SAFETY
   8: "Military branch where Tidwell serves", // AIRFORCE (across)
   "8D": "Voice-of-the-force app guarantees this submission status", // ANONYMOUS (down)
   9: "Blesse's innovation story started with a letter about this naval device", // PERISCOPE
@@ -229,17 +189,20 @@ clueMap = {
   23: "Canady challenges leaders to go beyond just 'managing' to truly ____", // LEAD
   24: "What you do when 'Game Over' becomes a call to grow", // LEVELUP
   25: "Palmieri's approach that pairs tech with real-world ops", // EXPERIMENT
-  26: "Evangelista says these must fly off for change to begin (footwear)", // HEELS
-  "26D": "The only type of mindset that can wield AI effectively, per Moore", // HUMAN
+  26: "The only type of mindset that can wield AI effectively, per Moore", // HUMAN
+  "26A": "Evangelista says these must fly off for change to begin (footwear)", // HEELS
   27: "Jones built one of these with her uncle in high school", // PC
   28: "Carroll compares acquisition's speed to these legendary ocean patterns", // WINDS
   29: "This natural cycle defines organizational growth and rebirth", // ADAPTIVE
   30: "Carroll likened acquisition to a three-ring ____" // CIRCUS
 };
 
-// We'll populate these arrays during clue number generation
-const actualAcrossClues = [];
-const actualDownClues = [];
+// Crossword functionality
+const clueNumbers = Array.from({ length: puzzleGrid.length }, () => Array(puzzleGrid[0].length).fill(null));
+let clueNumber = 1;
+
+const acrossClues = [];
+const downClues = [];
 
 // Generate clue numbers for the grid and use the correct clues
 for (let row = 0; row < puzzleGrid.length; row++) {
@@ -261,11 +224,11 @@ for (let row = 0; row < puzzleGrid.length; row++) {
       
       // Use the correct clues from our clueMap
       if (startsAcross) {
-        const clueText = clueMap[clueNumber] || clueMap[`${clueNumber}`] || "Missing across clue";
+        const clueText = clueMap[clueNumber] || clueMap[`${clueNumber}A`] || "Missing across clue";
         acrossClues.push(`${clueNumber}. ${clueText}`);
       }
       if (startsDown) {
-        const clueText = clueMap[`${clueNumber}D`] || clueMap[clueNumber] || "Missing down clue";
+        const clueText = clueMap[`${clueNumber}D`] || clueMap[`${clueNumber}S`] || clueMap[clueNumber] || "Missing down clue";
         downClues.push(`${clueNumber}. ${clueText}`);
       }
       clueNumber++;
