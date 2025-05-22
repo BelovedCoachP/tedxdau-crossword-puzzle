@@ -1,156 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Driving Change: TEDxDAU 2025 Crossword</title>
-    <link rel="stylesheet" href="styles/styles.css" /> 
-  <script defer src="scripts/crossword.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Driving Change: TEDxDAU 2025 Crossword</title>
+    <link rel="stylesheet" href="styles/styles.css" />
+    <script defer src="scripts/crossword.js"></script>
 </head>
 <body>
-  <header>
-    <img 
-      src="https://raw.githubusercontent.com/BelovedCoachP/tedxdau-crossword-puzzle/refs/heads/main/DrivingChange_1920x1080_external.png" 
-      alt="Driving Change TEDxDAU 2025" 
-      class="header-image" 
-    />
-  </header>
-  <main>
-    <section id="buttons">
-      <button onclick="checkAnswers()">Check Answers</button>
-            <button id="revealSolutionButton">Reveal Solution</button>
-      <button onclick="resetPuzzle()">Reset Puzzle</button>
-      <a href="printable-crossword.html" target="_blank">
-        <button>Printable Version</button>
-      </a>
-    </section>
-    <section id="crossword-container"></section>
-    <section class="clue-lists">
-      <div class="clue-list">
-        <h2>Across</h2>
-        <ol id="across-clues"></ol>
-      </div>
-      <div class="clue-list">
-        <h2>Down</h2>
-        <ol id="down-clues"></ol>
-      </div>
-    </section>
-    <div id="completion-message" class="hidden">
-      🎉 Congratulations! You've completed the crossword.
-    </div>
-  </main>
+    <header>
+        <img src="https://raw.githubusercontent.com/BelovedCoachP/tedxdau-crossword-puzzle/refs/heads/main/DrivingChange_1920x1080_external.png" alt="Driving Change TEDxDAU 2025" class="header-image" />
+    </header>
+    <main>
+        <section id="buttons">
+            <button onclick="checkAnswers()">Check Answers</button>
+            <button id="revealSolutionButton">Reveal Solution</button> 
+            <button onclick="resetPuzzle()">Reset Puzzle</button>
+            <a href="printable-crossword.html" target="_blank">
+                <button>Printable Version</button>
+            </a>
+        </section>
+        <section id="crossword-container"></section>
+        <section class="clue-lists">
+            <div class="clue-list">
+                <h2>Across</h2>
+                <ol id="across-clues"></ol>
+            </div>
+            <div class="clue-list">
+                <h2>Down</h2>
+                <ol id="down-clues"></ol>
+            </div>
+        </section>
+        <div id="completion-message" class="hidden">
+            🎉 Congratulations! You've completed the crossword.
+        </div>
+    </main>
 
-  <div id="reveal-modal" class="modal">
-    <div class="modal-content">
-        <span class="close-button">&times;</span>
-        <h3>Solution Not Available Yet</h3>
-        <p>The solution will be revealed after <span class="reveal-date">June 4, 2025 at 3:00 PM EDT</span>.</p>
-        <p>Check back after this date to view the complete solution!</p>
+    <div id="reveal-modal" class="modal">
+      <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <h3>Solution Not Available Yet</h3>
+          <p>The solution will be revealed after <span class="reveal-date">June 4, 2025 at 3:00 PM EDT</span>.</p>
+          <p>Check back after this date to view the complete solution!</p>
+      </div>
     </div>
-  </div>
 
-  <script>
-    // Additional functions needed for the buttons (Your existing functions)
-    function checkAnswers() {
-      const inputs = document.querySelectorAll('#crossword-container input');
-      let correctCount = 0;
-      let totalCount = 0;
-      
-      inputs.forEach(input => {
-        totalCount++;
-        const userAnswer = input.value.toUpperCase();
-        const correctAnswer = input.dataset.answer;
-        
-        if (userAnswer === correctAnswer) {
-          correctCount++;
-          input.style.backgroundColor = '#d4edda'; // Light green
-        } else if (userAnswer !== '') {
-          input.style.backgroundColor = '#f8d7da'; // Light red
-        } else {
-          input.style.backgroundColor = ''; // Reset
-        }
-      });
-      
-      if (correctCount === totalCount) {
-        document.getElementById('completion-message').classList.remove('hidden');
-      }
-      
-      alert(`You got ${correctCount} out of ${totalCount} correct!`);
-    }
-    
-    function revealAnswers() {
-      const inputs = document.querySelectorAll('#crossword-container input');
-      inputs.forEach(input => {
-        input.value = input.dataset.answer;
-        input.style.backgroundColor = '#d4edda'; // Light green
-      });
-      document.getElementById('completion-message').classList.remove('hidden');
-    }
-    
-    function resetPuzzle() {
-      const inputs = document.querySelectorAll('#crossword-container input');
-      inputs.forEach(input => {
-        input.value = '';
-        input.style.backgroundColor = '';
-      });
-      document.getElementById('completion-message').classList.add('hidden');
-    }
-
-    // --- NEW: Timed Modal Reveal Logic ---
-    document.addEventListener('DOMContentLoaded', function() {
-        // Define the target reveal moment in UTC
-        const targetYear = 2025;
-        const targetMonth = 5; // JavaScript months are 0-indexed, so June is 5
-        const targetDay = 4;
-        const targetHourUTC = 19; // 3:00 PM EDT on June 4, 2025 = 19:00 UTC
-        const targetMinuteUTC = 0;
-
-        const revealTimestampUTC = Date.UTC(targetYear, targetMonth, targetDay, targetHourUTC, targetMinuteUTC, 0);
-
-        // Get DOM elements
-        const revealButton = document.getElementById('revealSolutionButton');
-        const revealModal = document.getElementById('reveal-modal');
-        const closeModalButton = document.querySelector('#reveal-modal .close-button'); // Targets the <span>
-
-        if (!revealButton) {
-            console.warn('Timed Reveal: Could not find the "Reveal Solution" button. Ensure it has the ID "revealSolutionButton".');
-            return; 
-        }
-        if (!revealModal) {
-            console.warn('Timed Reveal: Could not find the modal element with ID "reveal-modal".');
-            return; 
-        }
-        if (!closeModalButton) {
-            console.warn('Timed Reveal: Could not find the close button within the modal (using selector: #reveal-modal .close-button).');
-            return; 
-        }
-
-        revealButton.addEventListener('click', function() {
-            const currentTimestampUTC = Date.now();
-
-            if (currentTimestampUTC < revealTimestampUTC) {
-                revealModal.style.display = 'block';
-            } else {
-                // Ensure revealAnswers is a function before calling
-                if (typeof revealAnswers === 'function') {
-                    revealAnswers();
+    <script>
+        // Your existing functions (checkAnswers, revealAnswers, resetPuzzle)
+        function checkAnswers() {
+            const inputs = document.querySelectorAll('#crossword-container input');
+            let correctCount = 0;
+            let totalCount = 0;
+            
+            inputs.forEach(input => {
+                totalCount++;
+                const userAnswer = input.value.toUpperCase();
+                const correctAnswer = input.dataset.answer;
+                
+                if (userAnswer === correctAnswer) {
+                    correctCount++;
+                    input.style.backgroundColor = '#d4edda'; // Light green
+                } else if (userAnswer !== '') {
+                    input.style.backgroundColor = '#f8d7da'; // Light red
                 } else {
-                    console.error('Timed Reveal: revealAnswers() function is not defined globally.');
+                    input.style.backgroundColor = ''; // Reset
                 }
+            });
+            
+            if (correctCount === totalCount) {
+                document.getElementById('completion-message').classList.remove('hidden');
             }
-        });
+            
+            alert(`You got ${correctCount} out of ${totalCount} correct!`);
+        }
+        
+        function revealAnswers() {
+            const inputs = document.querySelectorAll('#crossword-container input');
+            inputs.forEach(input => {
+                input.value = input.dataset.answer;
+                input.style.backgroundColor = '#d4edda'; // Light green
+            });
+            document.getElementById('completion-message').classList.remove('hidden');
+        }
+        
+        function resetPuzzle() {
+            const inputs = document.querySelectorAll('#crossword-container input');
+            inputs.forEach(input => {
+                input.value = '';
+                input.style.backgroundColor = '';
+            });
+            document.getElementById('completion-message').classList.add('hidden');
+        }
 
-        closeModalButton.addEventListener('click', function() {
-            revealModal.style.display = 'none';
-        });
+        // --- Timed Modal Reveal Logic ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const targetYear = 2025;
+            const targetMonth = 5; // June (0-indexed)
+            const targetDay = 4;
+            const targetHourUTC = 19; // 3:00 PM EDT on June 4, 2025 = 19:00 UTC
+            const targetMinuteUTC = 0;
 
-        // Optional: Close modal if user clicks on the dim overlay background
-        window.addEventListener('click', function(event) {
-            if (event.target === revealModal) { // Check if the click is on the modal overlay itself
+            const revealTimestampUTC = Date.UTC(targetYear, targetMonth, targetDay, targetHourUTC, targetMinuteUTC, 0);
+
+            const revealButton = document.getElementById('revealSolutionButton');
+            const revealModal = document.getElementById('reveal-modal');
+            const closeModalButton = document.querySelector('#reveal-modal .close-button');
+
+            if (!revealButton) {
+                console.warn('Timed Reveal: Could not find the "Reveal Solution" button. Ensure it has the ID "revealSolutionButton".');
+                return; 
+            }
+            if (!revealModal) {
+                console.warn('Timed Reveal: Could not find the modal element with ID "reveal-modal".');
+                return; 
+            }
+            if (!closeModalButton) {
+                console.warn('Timed Reveal: Could not find the close button within the modal (using selector: #reveal-modal .close-button).');
+                return; 
+            }
+
+            revealButton.addEventListener('click', function() {
+                const currentTimestampUTC = Date.now();
+
+                if (currentTimestampUTC < revealTimestampUTC) {
+                    revealModal.style.display = 'block';
+                } else {
+                    if (typeof revealAnswers === 'function') {
+                        revealAnswers();
+                    } else {
+                        console.error('Timed Reveal: revealAnswers() function is not defined globally.');
+                    }
+                }
+            });
+
+            closeModalButton.addEventListener('click', function() {
                 revealModal.style.display = 'none';
-            }
+            });
+
+            window.addEventListener('click', function(event) {
+                if (event.target === revealModal) {
+                    revealModal.style.display = 'none';
+                }
+            });
         });
-    });
-  </script>
+    </script>
 </body>
 </html>
