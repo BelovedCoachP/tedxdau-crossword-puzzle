@@ -284,13 +284,15 @@ for (let i = 0; i < anonymous.length; i++) {
   }
 }
 
-// SAFETY (Column N, lower part) - assign clue number
-const safety = "SAFETY";
-clueNumbers[13][13] = 32; // Use 32 for SAFETY
+// SAFETY (Vertical, starting Row 10 [index 9], Column N [index 13])
+// Connects with CAR's 'A' at [10][13] and DIGITAL's 'T' at [13][13]
+const safety = "SAFETY"; // Word: S A F E T Y
+clueNumbers[9][13] = 32; // Clue 32 starts at Row 10 (index 9), Column N (index 13)
 for (let i = 0; i < safety.length; i++) {
-  if (13 + i < puzzleGrid.length) {
-    puzzleGrid[13 + i][13] = safety[i];
-  }
+  if (9 + i < puzzleGrid.length) { // Starts at row index 9
+    // This will correctly place 'S' at [9][13], 'A' at [10][13], ..., 'T' at [13][13], etc.
+    puzzleGrid[9 + i][13] = safety[i]; // Place vertically in Column N (index 13)
+  }
 }
 
 // Clues mapped to numbers from your specification
