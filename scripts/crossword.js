@@ -45,15 +45,13 @@ for (let i = 0; i < systems.length; i++) {
   puzzleGrid[6][7 + i] = systems[i];
 }
 
-// 11.A ACE (Row 8, Column B-D) - should connect to last E of BLESSE
-// BLESSE ends at row 6 (starts at row 1, length 6), last E is at row 6
-// ACE should be at row 6 (index 6) to connect with BLESSE's last E
+// 11.A ACE (Horizontal, starting Row 8 [index 7], Column B [index 1])
+// Connects its 'E' with the last 'E' of BLESSE (7 Down) at grid position [7][3]
 const ace = "ACE";
-clueNumbers[6][1] = 11; // Row 7, Column B - but connect at row 6 with BLESSE
+clueNumbers[7][1] = 11; // Row 8, Column B
 for (let i = 0; i < ace.length; i++) {
-  puzzleGrid[6][1 + i] = ace[i]; // Row 6 to connect with BLESSE
+  puzzleGrid[7][1 + i] = ace[i]; // Places A at [7][1], C at [7][2], E at [7][3]
 }
-
 // 13.C CURIOSITY (Row 8, Column P-X)
 const curiosity = "CURIOSITY";
 clueNumbers[7][15] = 13; // Row 8, Column P
@@ -75,18 +73,20 @@ for (let i = 0; i < esports.length; i++) {
   puzzleGrid[9][18 + i] = esports[i];
 }
 
-// 19.G GAMING (Row 11, Column B-G) - though number shows as 19.G
+// 19.G GAMING (Horizontal, starting Row 11 [index 10], Column A [index 0])
 const gaming = "GAMING";
-clueNumbers[10][1] = 19; // Row 11, Column B
+clueNumbers[10][0] = 19; // Row 11, Column A
 for (let i = 0; i < gaming.length; i++) {
-  puzzleGrid[10][1 + i] = gaming[i];
+  puzzleGrid[10][0 + i] = gaming[i];
 }
 
-// 21.V VOICEAPP (Row 13, Column A-H)
-const voiceapp = "VOICEAPP";
-clueNumbers[12][0] = 21; // Row 13, Column A
+// 21.V VOICEAPP (Horizontal, starting Row 12 [index 11], Column A [index 0])
+// Its 6th letter 'A' (voiceapp[5]) intersects RINGMASTER's 6th letter 'A' (ringmaster[5]) at [11][5].
+// Note: This moves VOICEAPP from original Row 13 to Row 12 to achieve the A-A intersection.
+const voiceapp = "VOICEAPP"; // V O I C E A P P
+clueNumbers[11][0] = 21; // Row 12, Column A
 for (let i = 0; i < voiceapp.length; i++) {
-  puzzleGrid[12][0 + i] = voiceapp[i];
+  puzzleGrid[11][0 + i] = voiceapp[i]; // A will be at puzzleGrid[11][5]
 }
 
 // 22.D DIGITAL (Row 14, Column J-O)
