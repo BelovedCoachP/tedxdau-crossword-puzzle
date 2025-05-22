@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Printable Crossword - Driving Change: TEDxDAU 2025</title>
+    <link rel="stylesheet" href="styles/print-styles.css">
+    <script defer src="scripts/crossword.js"></script>
+</head>
+<body>
+    <div class="on-screen-print-button-container">
+        <button onclick="window.print()" style="padding: 10px 20px; font-size: 16px; cursor: pointer; background-color: #e62b1e; color: white; border: none; border-radius: 5px;">Print Both Pages</button>
+    </div>
+
+    <div class="printable-page-content" id="clues-page-content">
+        <h1 class="printable-section-title">Driving Change: TEDxDAU 2025 Crossword - Clues</h1>
+        <div class="printable-clue-lists-container">
+            <div class="printable-clue-list">
+                <h2>Across</h2>
+                <ol id="printable-across-clues">
+                    </ol>
+            </div>
+            <div class="printable-clue-list">
+                <h2>Down</h2>
+                <ol id="printable-down-clues">
+                    </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="printable-page-content" id="grid-page-content">
+        <h1 class="printable-section-title">Driving Change: TEDxDAU 2025 Crossword - Grid</h1>
+        <div id="printable-grid-container">
+            </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if essential data from crossword.js is available
+            if (typeof puzzleGrid === 'undefined' || 
+                typeof clueNumbers === 'undefined' || 
+                typeof acrossClues === 'undefined' || 
+                typeof downClues === 'undefined') {
+                
+                console.error("Crossword data (puzzleGrid, clueNumbers, acrossClues, downClues) not found. Ensure crossword.js is loaded and defines these globally.");
+                const gridContainer = document.getElementById('printable-grid-container');
+                const cluesAcrossContainer = document.getElementById('printable-across-clues');
+                if(gridContainer) gridContainer.innerHTML = "<p style='color:red; text-align:center;'>Error: Could not load puzzle data.</p>";
+                if(cluesAcrossContainer) cluesAcrossContainer.innerHTML = "<li style='color:red;'>Error loading clues.</li>";
+                // You might want to similarly update the down clues container
+                return;
+            }
+
+            // Function to render the grid as an HTML table for printing
+            function renderPrintableGrid() {
+                const container = document.getElementById('printable-grid-container');
+                if (!container) return;
+
+                const table = document.createElement('table');
+                table.className = 'printable-grid';
+
+                puzzleGrid.forEach((row, rowIndex) => {
+                    const tr = document.createElement('tr');
+                    row.forEach((cellLetter, colIndex) => {
+                        const td = document.createElement('td');
+                        if (cellLetter === null) {
+                            td.className = 'black-cell';
+                        } else {
+                            td.className = 'white-cell';
+                            const clueNum = clueNumbers[rowIndex][colIndex];
+                            if (clueNum) {
+                                const numberSpan = document.createElement('span');
+                                numberSpan.className = 'cell-number-print';
+                                numberSpan.textContent = clueNum;
+                                td.appendChild(numberSpan);
+                            }
+                        }
+                        tr.appendChild(td);
+                    });
+                    table.appendChild(tr);
+                });
+                container.innerHTML = '';
+                container.appendChild(table);
+            }
+
+            // Function to render the clues for printing
+            function renderPrintableClues() {
+                const acrossListOl = document.getElementById("printable-across-clues");
+                const downListOl = document.getElementById("printable-down-clues");
+
+                if (!acrossListOl || !downListOl) return;
+
+                acrossListOl.innerHTML = '';
+                acrossClues.forEach(clueText => {
+                    const li = document.createElement("li");
+                    li.textContent = clueText;
+                    acrossListOl.appendChild(li);
+                });
+
+                downListOl.innerHTML = '';
+                downClues.forEach(clueText => {
+                    const li = document.createElement("li");
+                    li.textContent = clueText;
+                    downListOl.appendChild(li);
+                });
+            }
+
+            // Call the rendering functions
+            renderPrintableGrid();
+            renderPrintableClues();
+        });
+    </script>
+</body>
+</html>
