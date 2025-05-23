@@ -137,31 +137,68 @@ button:hover {
 
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
-  body {
-    padding: 10px;
+  body {
+    padding: 10px;
+    overflow-x: hidden; /* Prevent body itself from having horizontal scroll if an element inside overflows unexpectedly */
+  }
+
+  #buttons {
+    text-align: center;
+    margin-bottom: 20px; /* Slightly reduced margin */
+    display: flex;       /* Use flexbox for better control over button alignment */
+    flex-wrap: wrap;     /* Allow buttons to wrap to the next line */
+    justify-content: center; /* Center the buttons when they wrap */
+    gap: 8px 10px;       /* Space between buttons (vertical row gap, horizontal item gap) */
   }
-  
-  #crossword-container {
-    grid-template-columns: repeat(28, 20px); /* Even smaller cells on mobile */
-    grid-auto-rows: 20px;
-  }
-  
-  .cell input {
-    font-size: 10px;
-  }
-  
-  .cell-number {
-    font-size: 6px;
-  }
-  
-  .clue-lists {
-    flex-direction: column;
-    gap: 20px;
-  }
-  
+
+  /* You might not need to change the button rule if the #buttons flex properties handle it well */
   button {
-    padding: 8px 16px;
+    padding: 10px 15px; /* Your original mobile padding was 8px 16px, adjust as you like */
     font-size: 14px;
+    /* flex-grow: 0; 
+       flex-shrink: 1; /* These allow buttons to not grow but shrink if needed in a flex row */
+  }
+  
+  #crossword-container {
+    grid-template-columns: repeat(30, 20px); /* Your existing smaller cells for mobile */
+    grid-auto-rows: 20px;                     /* Your existing smaller cells for mobile */
+    overflow-x: auto;      /* === KEY CHANGE: Makes the grid container scrollable horizontally === */
+    justify-content: flex-start; /* Aligns the grid to the left within its scrollable container */
+    padding-bottom: 10px;  /* Adds a little space if a scrollbar appears inside the container */
+    /* For smoother scrolling on touch devices (iOS primarily) */
+    /* -webkit-overflow-scrolling: touch; */
+    /* Ensure the container itself doesn't get pushed by body padding, or add negative margins if needed */
+    /* E.g., if body has 10px padding, this container might appear indented before scrolling. */
+    /* This might not be necessary depending on overall layout. */
+  }
+  
+  .cell input {
+    font-size: 10px;
+  }
+  
+  .cell-number {
+    font-size: 6px;
+  }
+  
+  .clue-lists {
+    flex-direction: column; /* Stacks clue lists vertically - this was already correct in your CSS! */
+    gap: 25px; /* Increased gap slightly for better separation when stacked */
+  }
+
+  .clue-list {
+    flex-basis: 100%; /* Ensure each clue list takes full width when stacked */
+    min-width: 0; /* Override any desktop min-width */
+  }
+
+  .clue-list h2 {
+    font-size: 1.2em; /* Slightly adjust heading size for clues if needed */
+    margin-bottom: 8px;
+  }
+
+  .clue-list li {
+    font-size: 0.95em; /* Slightly adjust clue text size if needed */
+    margin-bottom: 7px;
+    line-height: 1.45;
   }
 }
 
