@@ -143,7 +143,14 @@ for (let i = 0; i < furious.length; i++) {
     puzzleGrid[0 + i][13] = furious[i]; // Column N is index 13
   }
 }
-
+// 1. RISKS (Vertical, starting Row 1 [index 0], Column G [index 6])
+const risks = "RISKS"; // Changed from TASKS
+clueNumbers[0][6] = 1;   // Row 1, Column G (same position)
+for (let i = 0; i < risks.length; i++) { // Using 'risks' variable here
+  if (0 + i < puzzleGrid.length) {
+    puzzleGrid[0 + i][6] = risks[i]; // Using 'risks' variable here
+  }
+}
 // 3.C CREW (Column P, starting Row 1)
 const crew = "CREW";
 clueNumbers[0][15] = 3; // Row 1, Column P
@@ -289,7 +296,7 @@ for (let i = 0; i < safety.length; i++) {
 // Clues mapped to numbers from your specification
 const clueMap = {
   // Down clues
-  1: "Moore's '3Ts' include trust, tolerance, and this third word", // TASKS
+  1: "In Moore’s “Holy Joe” story, what doesn’t wait for routing chains? — RISKS", // RISKS
   2: "Evangelista said sailors catch this and 'go fast' & ", // FURIOUS  
   3: "Hilger's submarine story highlights leadership's impact on this", // CREW
   5: "Canady says this type of leadership earns trust", // INTRUSIVE
@@ -347,7 +354,7 @@ const acrossClues = [
 ];
 
 const downClues = [
-  "1. Moore's '3Ts' include trust, tolerance, and this third word", // TASKS
+  "1. In Moore’s “Holy Joe” story, what doesn’t wait for routing chains? — RISKS", // RISKS
   "2. Evangelista said sailors catch this and 'go fast' & ", // FURIOUS
   "3. Hilger's submarine story highlights leadership's impact on this", // CREW
   "5. Canady says this type of leadership earns trust", // INTRUSIVE
