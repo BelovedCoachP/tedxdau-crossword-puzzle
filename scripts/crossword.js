@@ -281,7 +281,7 @@ const acrossClues = [
 ];
 
 const downClues = [
-  "1. In Moore's \"Holy Joe\" story, what doesn't wait for routing chains? — RISKS", // RISKS
+  "1. In Moore's \"Holy Joe\" story, what doesn't wait for routing chains?", // RISKS
   "2. Evangelista said sailors catch this and 'go fast' & ", // FURIOUS
   "3. Hilger's submarine story highlights leadership's impact on this", // CREW
   "5. Canady says this type of leadership earns trust", // INTRUSIVE
