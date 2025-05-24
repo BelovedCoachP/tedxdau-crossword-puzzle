@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <title>Driving Change: TEDxDAU 2025 Crossword</title>
-    <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="stylesheet" href="styles/main.css" />
     <script defer src="scripts/crossword.js"></script>
 </head>
 <body>
@@ -16,11 +16,17 @@
             <button onclick="checkAnswers()">Check Answers</button>
             <button id="revealSolutionButton">Reveal Solution</button> 
             <button onclick="resetPuzzle()">Reset Puzzle</button>
-            <a href="printable-crossword.html" target="_blank">
-                <button>Printable Version</button>
-            </a>
+            <button onclick="window.open('printable-crossword.html', '_blank')">Printable Version</button>
         </section>
-        <section id="crossword-container"></section>
+        
+        <div class="scroll-hint">
+            📱 Swipe left/right to scroll through the puzzle
+        </div>
+        
+        <div id="crossword-wrapper">
+            <section id="crossword-container"></section>
+        </div>
+        
         <section class="clue-lists">
             <div class="clue-list">
                 <h2>Across</h2>
@@ -31,22 +37,23 @@
                 <ol id="down-clues"></ol>
             </div>
         </section>
+        
         <div id="completion-message" class="hidden">
             🎉 Congratulations! You've completed the crossword.
         </div>
     </main>
 
     <div id="reveal-modal" class="modal">
-      <div class="modal-content">
-          <span class="close-button">&times;</span>
-          <h3>Solution Not Available Yet</h3>
-          <p>The solution will be revealed after <span class="reveal-date">June 4, 2025 at 3:00 PM EDT</span>.</p>
-          <p>Check back after this date to view the complete solution!</p>
-      </div>
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Solution Not Available Yet</h3>
+            <p>The solution will be revealed after <span class="reveal-date">June 4, 2025 at 3:00 PM EDT</span>.</p>
+            <p>Check back after this date to view the complete solution!</p>
+        </div>
     </div>
 
     <script>
-        // Your existing functions (checkAnswers, revealAnswers, resetPuzzle)
+        // Functions for crossword functionality
         function checkAnswers() {
             const inputs = document.querySelectorAll('#crossword-container input');
             let correctCount = 0;
@@ -57,13 +64,13 @@
                 const userAnswer = input.value.toUpperCase();
                 const correctAnswer = input.dataset.answer;
                 
+                input.classList.remove('correct', 'incorrect');
+                
                 if (userAnswer === correctAnswer) {
                     correctCount++;
-                    input.style.backgroundColor = '#d4edda'; // Light green
+                    input.classList.add('correct');
                 } else if (userAnswer !== '') {
-                    input.style.backgroundColor = '#f8d7da'; // Light red
-                } else {
-                    input.style.backgroundColor = ''; // Reset
+                    input.classList.add('incorrect');
                 }
             });
             
@@ -78,7 +85,8 @@
             const inputs = document.querySelectorAll('#crossword-container input');
             inputs.forEach(input => {
                 input.value = input.dataset.answer;
-                input.style.backgroundColor = '#d4edda'; // Light green
+                input.classList.remove('incorrect');
+                input.classList.add('correct');
             });
             document.getElementById('completion-message').classList.remove('hidden');
         }
@@ -87,17 +95,17 @@
             const inputs = document.querySelectorAll('#crossword-container input');
             inputs.forEach(input => {
                 input.value = '';
-                input.style.backgroundColor = '';
+                input.classList.remove('correct', 'incorrect');
             });
             document.getElementById('completion-message').classList.add('hidden');
         }
 
-        // --- Timed Modal Reveal Logic ---
+        // Timed reveal logic
         document.addEventListener('DOMContentLoaded', function() {
             const targetYear = 2025;
             const targetMonth = 5; // June (0-indexed)
             const targetDay = 4;
-            const targetHourUTC = 19; // 3:00 PM EDT on June 4, 2025 = 19:00 UTC
+            const targetHourUTC = 19; // 3:00 PM EDT = 19:00 UTC
             const targetMinuteUTC = 0;
 
             const revealTimestampUTC = Date.UTC(targetYear, targetMonth, targetDay, targetHourUTC, targetMinuteUTC, 0);
@@ -106,42 +114,27 @@
             const revealModal = document.getElementById('reveal-modal');
             const closeModalButton = document.querySelector('#reveal-modal .close-button');
 
-            if (!revealButton) {
-                console.warn('Timed Reveal: Could not find the "Reveal Solution" button. Ensure it has the ID "revealSolutionButton".');
-                return; 
-            }
-            if (!revealModal) {
-                console.warn('Timed Reveal: Could not find the modal element with ID "reveal-modal".');
-                return; 
-            }
-            if (!closeModalButton) {
-                console.warn('Timed Reveal: Could not find the close button within the modal (using selector: #reveal-modal .close-button).');
-                return; 
-            }
+            if (revealButton && revealModal && closeModalButton) {
+                revealButton.addEventListener('click', function() {
+                    const currentTimestampUTC = Date.now();
 
-            revealButton.addEventListener('click', function() {
-                const currentTimestampUTC = Date.now();
-
-                if (currentTimestampUTC < revealTimestampUTC) {
-                    revealModal.style.display = 'block';
-                } else {
-                    if (typeof revealAnswers === 'function') {
-                        revealAnswers();
+                    if (currentTimestampUTC < revealTimestampUTC) {
+                        revealModal.style.display = 'block';
                     } else {
-                        console.error('Timed Reveal: revealAnswers() function is not defined globally.');
+                        revealAnswers();
                     }
-                }
-            });
+                });
 
-            closeModalButton.addEventListener('click', function() {
-                revealModal.style.display = 'none';
-            });
-
-            window.addEventListener('click', function(event) {
-                if (event.target === revealModal) {
+                closeModalButton.addEventListener('click', function() {
                     revealModal.style.display = 'none';
-                }
-            });
+                });
+
+                window.addEventListener('click', function(event) {
+                    if (event.target === revealModal) {
+                        revealModal.style.display = 'none';
+                    }
+                });
+            }
         });
     </script>
 </body>
