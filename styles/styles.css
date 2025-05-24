@@ -3,21 +3,25 @@ body {
   color: #fff;
   font-family: Arial, sans-serif;
   margin: 0;
-  padding: 20px;
-  max-width: 1200px; /* Increased to accommodate wider grid */
-  margin-inline: auto;
+  padding: 10px;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .header-image {
   width: 100%;
-  max-width: 1200px; /* Increased to match body max-width */
+  max-width: 600px;
   display: block;
-  margin-bottom: 30px;
+  margin: 0 auto 20px auto;
 }
 
 #buttons {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
 }
 
 button {
@@ -25,27 +29,50 @@ button {
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 10px 20px;
-  margin: 5px;
-  font-size: 16px;
+  padding: 12px 16px;
+  font-size: 14px;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  min-height: 44px;
+  min-width: 120px;
 }
 
 button:hover {
   background-color: #c62118;
 }
 
+.scroll-hint {
+  text-align: center;
+  color: #aaa;
+  font-size: 12px;
+  margin-bottom: 10px;
+  padding: 8px;
+  background-color: #1a1a1a;
+  border-radius: 4px;
+}
+
+#crossword-wrapper {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-bottom: 30px;
+  border: 2px solid #444;
+  border-radius: 8px;
+  background-color: #222;
+  padding: 10px;
+}
+
 #crossword-container {
   display: grid;
-  grid-template-columns: repeat(30, 25px); /* Increase from 28 to 30 columns */
-  grid-auto-rows: 25px;
+  grid-template-columns: repeat(30, 32px);
+  grid-auto-rows: 32px;
   gap: 1px;
-  justify-content: center;
-  margin-bottom: 40px;
-  padding: 10px;
+  justify-content: flex-start;
+  min-width: fit-content;
   background-color: #333;
+  padding: 5px;
 }
 
 .cell {
@@ -61,27 +88,33 @@ button:hover {
   width: 100%;
   height: 100%;
   text-align: center;
-  font-size: 12px; /* Smaller font for smaller cells */
+  font-size: 16px;
   font-weight: bold;
   border: none;
   background: transparent;
   color: #000;
   text-transform: uppercase;
-  outline: none; /* Remove focus outline */
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
 }
 
 .cell input:focus {
-  background-color: #e6f3ff; /* Light blue highlight when focused */
+  background-color: #e6f3ff;
+  box-shadow: 0 0 0 2px #007bff;
 }
 
 .cell-number {
   position: absolute;
-  top: 1px;
-  left: 2px;
-  font-size: 8px;
+  top: 2px;
+  left: 3px;
+  font-size: 10px;
   color: #000;
   font-weight: bold;
-  z-index: 2; /* Make sure numbers appear above everything */
+  z-index: 2;
+  pointer-events: none;
 }
 
 .black-cell {
@@ -91,33 +124,49 @@ button:hover {
 
 .clue-lists {
   display: flex;
-  gap: 40px;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 25px;
   margin-top: 30px;
-  flex-wrap: wrap;
 }
 
 .clue-list {
-  flex: 1;
-  min-width: 300px; /* Ensure readability on smaller screens */
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #444;
 }
 
 .clue-list h2 {
   color: #ccc;
   border-bottom: 2px solid #444;
-  padding-bottom: 5px;
+  padding-bottom: 8px;
   margin-top: 0;
+  margin-bottom: 15px;
 }
 
 .clue-list ol {
-  padding-left: 20px;
-  list-style-type: none; /* ADD THIS LINE - removes automatic numbering */
+  padding-left: 0;
+  list-style-type: none;
+  margin: 0;
 }
 
 .clue-list li {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   line-height: 1.5;
   color: #ddd;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.clue-list li:hover {
+  background-color: #333;
+}
+
+.clue-list li.active {
+  background-color: #e62b1e;
+  color: white;
 }
 
 .hidden {
@@ -135,74 +184,6 @@ button:hover {
   margin-top: 20px;
 }
 
-/* Responsive design for smaller screens */
-@media (max-width: 768px) {
-  body {
-    padding: 10px;
-    overflow-x: hidden; /* Prevent body itself from having horizontal scroll if an element inside overflows unexpectedly */
-  }
-
-  #buttons {
-    text-align: center;
-    margin-bottom: 20px; /* Slightly reduced margin */
-    display: flex;       /* Use flexbox for better control over button alignment */
-    flex-wrap: wrap;     /* Allow buttons to wrap to the next line */
-    justify-content: center; /* Center the buttons when they wrap */
-    gap: 8px 10px;       /* Space between buttons (vertical row gap, horizontal item gap) */
-  }
-
-  /* You might not need to change the button rule if the #buttons flex properties handle it well */
-  button {
-    padding: 10px 15px; /* Your original mobile padding was 8px 16px, adjust as you like */
-    font-size: 14px;
-    /* flex-grow: 0; 
-       flex-shrink: 1; /* These allow buttons to not grow but shrink if needed in a flex row */
-  }
-  
-  #crossword-container {
-    grid-template-columns: repeat(30, 20px); /* Your existing smaller cells for mobile */
-    grid-auto-rows: 20px;                     /* Your existing smaller cells for mobile */
-    overflow-x: auto;      /* === KEY CHANGE: Makes the grid container scrollable horizontally === */
-    justify-content: flex-start; /* Aligns the grid to the left within its scrollable container */
-    padding-bottom: 10px;  /* Adds a little space if a scrollbar appears inside the container */
-    /* For smoother scrolling on touch devices (iOS primarily) */
-    /* -webkit-overflow-scrolling: touch; */
-    /* Ensure the container itself doesn't get pushed by body padding, or add negative margins if needed */
-    /* E.g., if body has 10px padding, this container might appear indented before scrolling. */
-    /* This might not be necessary depending on overall layout. */
-  }
-  
-  .cell input {
-    font-size: 10px;
-  }
-  
-  .cell-number {
-    font-size: 6px;
-  }
-  
-  .clue-lists {
-    flex-direction: column; /* Stacks clue lists vertically - this was already correct in your CSS! */
-    gap: 25px; /* Increased gap slightly for better separation when stacked */
-  }
-
-  .clue-list {
-    flex-basis: 100%; /* Ensure each clue list takes full width when stacked */
-    min-width: 0; /* Override any desktop min-width */
-  }
-
-  .clue-list h2 {
-    font-size: 1.2em; /* Slightly adjust heading size for clues if needed */
-    margin-bottom: 8px;
-  }
-
-  .clue-list li {
-    font-size: 0.95em; /* Slightly adjust clue text size if needed */
-    margin-bottom: 7px;
-    line-height: 1.45;
-  }
-}
-
-/* Additional styling for correct/incorrect answers */
 .cell input.correct {
   background-color: #d4edda !important;
 }
@@ -210,63 +191,174 @@ button:hover {
 .cell input.incorrect {
   background-color: #f8d7da !important;
 }
-/* ================================== */
-/* Modal Styling (Add to styles/styles.css) */
-/* ================================== */
+
+/* Modal Styling */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top of other content */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.6); /* Dim overlay - slightly darker */
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.6);
 }
 
 .modal-content {
-    background-color: #fefefe; /* Light background for the modal box */
-    color: #333; /* Dark text color for readability on light background */
-    margin: 10% auto; /* Adjusted margin for potentially better centering */
-    padding: 25px;
-    border: 1px solid #777;
-    width: 90%; 
-    max-width: 450px; /* Slightly smaller max-width */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    border-radius: 10px;
-    text-align: center;
-    position: relative; /* For positioning the close button */
+  background-color: #fefefe;
+  color: #333;
+  margin: 15% auto;
+  padding: 25px;
+  border: 1px solid #777;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
 }
 
 .modal-content h3 {
-    margin-top: 0;
-    color: #e62b1e; /* Match your button red for the heading */
+  margin-top: 0;
+  color: #e62b1e;
 }
 
 .modal-content p {
-    line-height: 1.6;
-    margin-bottom: 15px;
+  line-height: 1.6;
+  margin-bottom: 15px;
 }
 
 .close-button {
-    color: #888; /* Slightly darker close button */
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 32px;
-    font-weight: bold;
-    line-height: 1; /* Ensure consistent vertical alignment */
+  color: #888;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 1;
 }
 
 .close-button:hover,
 .close-button:focus {
-    color: #000; /* Black on hover/focus */
-    text-decoration: none;
-    cursor: pointer;
+  color: #000;
+  text-decoration: none;
 }
 
 .reveal-date {
-    font-weight: bold;
-    color: #000; /* Black for emphasis on the date */
+  font-weight: bold;
+  color: #000;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  body {
+    padding: 5px;
+  }
+
+  #crossword-container {
+    grid-template-columns: repeat(30, 28px);
+    grid-auto-rows: 28px;
+  }
+
+  .cell input {
+    font-size: 14px;
+  }
+
+  .cell-number {
+    font-size: 8px;
+    top: 1px;
+    left: 2px;
+  }
+
+  button {
+    padding: 10px 12px;
+    font-size: 13px;
+    min-width: 100px;
+  }
+
+  .clue-lists {
+    gap: 20px;
+  }
+
+  .clue-list {
+    padding: 15px;
+  }
+
+  .clue-list li {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+    padding: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  #crossword-container {
+    grid-template-columns: repeat(30, 24px);
+    grid-auto-rows: 24px;
+  }
+
+  .cell input {
+    font-size: 12px;
+  }
+
+  .cell-number {
+    font-size: 7px;
+  }
+
+  button {
+    padding: 8px 10px;
+    font-size: 12px;
+    min-width: 90px;
+  }
+
+  .scroll-hint {
+    font-size: 11px;
+    padding: 6px;
+  }
+}
+
+/* Desktop optimizations */
+@media (min-width: 1024px) {
+  body {
+    max-width: 1200px;
+    margin-inline: auto;
+    padding: 20px;
+  }
+
+  .header-image {
+    max-width: 800px;
+    margin-bottom: 30px;
+  }
+
+  #crossword-container {
+    grid-template-columns: repeat(30, 36px);
+    grid-auto-rows: 36px;
+    justify-content: center;
+  }
+
+  .cell input {
+    font-size: 18px;
+  }
+
+  .cell-number {
+    font-size: 12px;
+    top: 3px;
+    left: 4px;
+  }
+
+  .clue-lists {
+    flex-direction: row;
+    gap: 40px;
+  }
+
+  .clue-list {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .scroll-hint {
+    display: none; /* Hide scroll hint on desktop */
+  }
 }
