@@ -1,9 +1,9 @@
 // Puzzle Grid Data - Built from numbered Excel screenshot
 // Creating a 25-row by 30-column grid to match Excel
-const puzzleGrid = Array.from({ length: 25 }, () => Array(30).fill(null));
+const puzzleGrid = Array.from({ length: 23 }, () => Array(27).fill(null));
 
 // Manually set clue numbers based on Excel layout
-const clueNumbers = Array.from({ length: 25 }, () => Array(30).fill(null));
+const clueNumbers = Array.from({ length: 23 }, () => Array(27).fill(null));
 
 // Add horizontal words with their clue numbers from Excel
 // 4.R RESILIENCE (Row 2, Column P-X)
